@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="系统," />
 
 
 
@@ -80,9 +80,10 @@
 
 
 <meta name="description" content="早该总结一次了，之前都是自己编译，现在用yum直接装，还快。">
+<meta name="keywords" content="系统">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TEST">
-<meta property="og:url" content="http://nbma.info/2018/03/05/TEST/index.html">
+<meta property="og:title" content="CentOS7部署zabbix3.4">
+<meta property="og:url" content="http://nbma.info/2018/03/05/Centos7-deploy-zabbix3/index.html">
 <meta property="og:site_name" content="NBMA">
 <meta property="og:description" content="早该总结一次了，之前都是自己编译，现在用yum直接装，还快。">
 <meta property="og:locale" content="zh-Hans">
@@ -93,9 +94,9 @@
 <meta property="og:image" content="http://i9ps.qiniudn.com/18-2-24/13138199.jpg">
 <meta property="og:image" content="http://i9ps.qiniudn.com/18-2-24/12140303.jpg">
 <meta property="og:image" content="http://i9ps.qiniudn.com/18-2-24/50154017.jpg">
-<meta property="og:updated_time" content="2018-03-08T13:24:37.793Z">
+<meta property="og:updated_time" content="2018-03-08T13:58:38.610Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TEST">
+<meta name="twitter:title" content="CentOS7部署zabbix3.4">
 <meta name="twitter:description" content="早该总结一次了，之前都是自己编译，现在用yum直接装，还快。">
 <meta name="twitter:image" content="http://i9ps.qiniudn.com/18-2-24/92166698.jpg">
 
@@ -105,7 +106,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -127,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://nbma.info/2018/03/05/TEST/"/>
+  <link rel="canonical" href="http://nbma.info/2018/03/05/Centos7-deploy-zabbix3/"/>
 
 
 
 
 
-  <title>TEST | NBMA</title>
+  <title>CentOS7部署zabbix3.4 | NBMA</title>
   
 
 
@@ -240,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://nbma.info/2018/03/05/TEST/">
+    <link itemprop="mainEntityOfPage" href="http://nbma.info/2018/03/05/Centos7-deploy-zabbix3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mansur">
@@ -257,7 +258,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">TEST</h1>
+          <h1 class="post-title" itemprop="name headline">CentOS7部署zabbix3.4</h1>
         
 
         <div class="post-meta">
@@ -393,6 +394,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/系统/" rel="tag"># 系统</a>
+          
+        </div>
+      
 
       
       
@@ -408,7 +415,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/08/asa-tcp-traffic-back-md/" rel="prev" title="tcp回流经过ASA防火墙问题">
+              <a href="/2018/03/08/asa-tcp-traffic-back/" rel="prev" title="tcp回流经过ASA防火墙问题">
                 tcp回流经过ASA防火墙问题 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -500,7 +507,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -555,7 +562,7 @@
       <div class="footer-inner">
         <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Mansur</span>
 
@@ -571,7 +578,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -670,6 +677,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>

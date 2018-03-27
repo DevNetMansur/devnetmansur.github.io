@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon32x32.ico?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon16x16.ico?v=6.0.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.6" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="## 传统的登录框在之前的文章流量劫持危害详细讲解了 HTTP 的高危性，以至于重要的操作都使用 HTTPS 协议，来保障流量在途中的安全。">
+<meta name="keywords" content="网络,安全">
+<meta property="og:type" content="article">
+<meta property="og:title" content="流量劫持 —— 浮层登录框的隐患">
+<meta property="og:url" content="nbma.info/danger-behind-popup-login-dialog/index.html">
+<meta property="og:site_name" content="NBMA">
+<meta property="og:description" content="## 传统的登录框在之前的文章流量劫持危害详细讲解了 HTTP 的高危性，以至于重要的操作都使用 HTTPS 协议，来保障流量在途中的安全。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://fex.baidu.com/img/danger-behind-popup-login-dialog/traditional-login.png">
+<meta property="og:image" content="http://fex.baidu.com/img/danger-behind-popup-login-dialog/traditional-danger.png">
+<meta property="og:image" content="http://fex.baidu.com/img/danger-behind-popup-login-dialog/hehe.png">
+<meta property="og:image" content="http://fex.baidu.com/img/danger-behind-popup-login-dialog/modern-login.png">
+<meta property="og:image" content="http://fex.baidu.com/img/danger-behind-popup-login-dialog/modern-login-inject.png">
+<meta property="og:image" content="http://fex.baidu.com/img/danger-behind-popup-login-dialog/cache-sniffer.png">
+<meta property="og:image" content="http://fex.baidu.com/img/danger-behind-popup-login-dialog/phishing-wifi.jpg">
+<meta property="og:image" content="http://fex.baidu.com/img/danger-behind-popup-login-dialog/connect-wifi.jpg">
+<meta property="og:image" content="http://fex.baidu.com/img/danger-behind-popup-login-dialog/tieba.jpg">
+<meta property="og:image" content="http://fex.baidu.com/img/danger-behind-popup-login-dialog/tieba-poisoning.jpg">
+<meta property="og:updated_time" content="2018-03-27T15:18:46.440Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="流量劫持 —— 浮层登录框的隐患">
+<meta name="twitter:description" content="## 传统的登录框在之前的文章流量劫持危害详细讲解了 HTTP 的高危性，以至于重要的操作都使用 HTTPS 协议，来保障流量在途中的安全。">
+<meta name="twitter:image" content="http://fex.baidu.com/img/danger-behind-popup-login-dialog/traditional-login.png">
+
+
+
+
+
+
+  <link rel="canonical" href="nbma.info/danger-behind-popup-login-dialog/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>流量劫持 —— 浮层登录框的隐患 | NBMA</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NBMA</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习 记录 分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-target">
+    <a href="/2018-target/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />目标</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="nbma.info/danger-behind-popup-login-dialog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mansur">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NBMA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">流量劫持 —— 浮层登录框的隐患</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2014-06-30T09:52:46+08:00">2014-06-30</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+         <div class="content"><br><br>## 传统的登录框<br><br>在之前的文章<a href="http://i.nbma.info/traffic-hijack-2.html" target="_blank" rel="noopener">流量劫持危害</a>详细讲解了 HTTP 的高危性，以至于重要的操作都使用 HTTPS 协议，来保障流量在途中的安全。<br><br><a id="more"></a><br><div class="post-img"><img src="http://fex.baidu.com/img/danger-behind-popup-login-dialog/traditional-login.png" alt=""></div>
+
+<p>这是最经典的登录模式。尽管主页面并没有开启 HTTPS，但登录时会跳转到一个安全页面来进行，所以整个过程仍是比较安全的 —— 至少在登录页面是安全的。</p>
+<p>对于这种安全页面的登录模式，黑客硬要下手仍是有办法的。在之前的文章里也列举了几种最常用的方法：拦截 HTTPS 向下转型、伪造证书、跳转钓鱼网站。</p>
+<div class="post-img"><img src="http://fex.baidu.com/img/danger-behind-popup-login-dialog/traditional-danger.png" alt=""></div>
+
+<p>其中转型 HTTPS 的手段最为先进，甚至一些安全意识较强的用户也时有疏忽。</p>
+<p>然而，用户的意识和知识总是在不断提升的。尤其在如今各种网上交易的时代，安全常识广泛普及，用户在账号登录时会格外留心，就像过马路时那样变得小心翼翼。</p>
+<p>久而久之，用户的火眼金睛一扫地址栏即可识别破绽。</p>
+<div class="post-img"><img src="http://fex.baidu.com/img/danger-behind-popup-login-dialog/hehe.png" alt=""></div>
+
+<p>因此，这种传统的登录模式，仍具备一定的安全性，至少能给用户提供识别真假的机会。</p>
+<h2 id="华丽的登录框"><a href="#华丽的登录框" class="headerlink" title="华丽的登录框"></a>华丽的登录框</h2><p>不知从何时起，人们开始热衷在网页里模仿传统应用程序的界面。无论控件、窗口还是交互体验，纷纷向着本地程序靠拢，效果越做越绚。</p>
+<p>然而华丽的背后，其本质仍是一个网页，自然掩盖不了网页的安全缺陷。</p>
+<p>当网页特效蔓延到一些重要数据的交互 —— 例如账号登录时，风险也随之产生。因为它改变了用户的使用习惯，同时也彻底颠覆了传统的意识。</p>
+<div class="post-img"><img src="http://fex.baidu.com/img/danger-behind-popup-login-dialog/modern-login.png" alt=""></div>
+
+<p>乍一看，似乎也没什么问题。虽然未使用登录页跳转，但数据仍通过 HTTPS 传输，途中还是无法被截获。</p>
+<h2 id="HTTP-页面用-HTTPS-有意义吗？"><a href="#HTTP-页面用-HTTPS-有意义吗？" class="headerlink" title="HTTP 页面用 HTTPS 有意义吗？"></a>HTTP 页面用 HTTPS 有意义吗？</h2><p>如果认为这类登录框没什么大问题，显然还没领悟到『流量劫持』的精髓 —— 流量不是单向的，而是有进也有出。</p>
+<p>能捕获你『出流量』的黑客，大多也有办法控制你的『入流量』。这在流量劫持<a href="http://i.nbma.info/traffic-hijack.html" target="_blank" rel="noopener">第一篇</a>里也详细列举了。</p>
+<p>使用 HTTPS 确实能保障通信的安全。但在这个场合里，它只能保障『发送』的数据，对于『接收』的流量，则完全不在其保护范围内。</p>
+<p>因为整个登录框都当作『虚拟窗口』嵌套在主页面里的，因此其中的一切都在同个页面环境里。而主页面使用的仍是不安全的 HTTP 协议，所以注入的 XSS 代码能轻而易举的控制登录框。</p>
+<div class="post-img"><img src="http://fex.baidu.com/img/danger-behind-popup-login-dialog/modern-login-inject.png" alt=""></div>
+
+<p>当然，或许你会说这只是设计缺陷。若是直接嵌入 HTTPS 登录页的 iframe 框架，那就会因同源策略而无法被 XSS 控制了。</p>
+<p>这样的改进确实能提高一些安全性，但也只是略微的。既然我们能控制主页面，里面显示什么内容完全可以由 XSS 说了算。不论什么登录框、框架页，甚至安全插件，我们都可以将其删除，用看起来完全相同的文本框代替。得到账号后，通过后台反向代理实现登录，然后通知前端脚本伪造一个登录成功的界面。</p>
+<p>所以，HTTPS 被用在 HTTP 页面里，意义就大幅下降了。</p>
+<h2 id="和『缓存投毒』配合出击"><a href="#和『缓存投毒』配合出击" class="headerlink" title="和『缓存投毒』配合出击"></a>和『缓存投毒』配合出击</h2><p>在流量劫持<a href="http://i.nbma.info/traffic-hijack-2.html" target="_blank" rel="noopener">第二篇</a>里提到『HTTP 缓存投毒』这一概念，只要流量暂时性的被劫持，都可导致缓存长期感染。但这种攻击有个前提，必须事先找到站点下较稳定的脚本资源，做投毒的对象。</p>
+<h3 id="传统登录"><a href="#传统登录" class="headerlink" title="传统登录"></a>传统登录</h3><p>在传统的登录模式里，缓存投毒非常难以利用：</p>
+<p>HTTPS 资源显然无法被感染。</p>
+<p>而使用 HTTPS 向下转型的方案，也会因为离开劫持环境，而无法访问中间人的 HTTP 版登陆页面，导致缓存失效；或者这个真实的 HTTP 版的登录页面根本就不接受你的本地缓存，直接重定向到正常的 HTTPS 页面。</p>
+<p>因此只有在主页面上，修改链接地址，让用户跳转到钓鱼网站去登录，才能勉强利用。</p>
+<h3 id="浮层登录"><a href="#浮层登录" class="headerlink" title="浮层登录"></a>浮层登录</h3><p>制作一个精良的浮层登录框，需要不少的界面代码，所以经常引用 jQuery 这类通用脚本库。而这些脚本往往是长久不会修改的，因此是缓存投毒的绝好原料。</p>
+<p>所以，浮层登录框的存在，让『缓存投毒』有了绝佳的用武之地。</p>
+<p>在之前的文章 <a href="http://www.cnblogs.com/index-html/p/wifi_hijack_3.html" target="_blank" rel="noopener">WiFi流量劫持 —— JS脚本缓存投毒</a>，演示了如何利用 <a href="http://www.163.com" target="_blank" rel="noopener">www.163.com</a> 下的某个长缓存脚本进行投毒，最终利用网易的浮层登录框获取账号。尽管网易也使用 HTTPS 传输账号数据，但在流量攻击面前不堪一击。</p>
+<p>尽管这种登录模式风险重重，但最近百度也升级成浮层登录框，并且还是所有产品。所以，我们再次尝试那套的古老方法，看看在如今是否仍能发起攻击。</p>
+<p>我们选几个最常用的产品线，进行一次缓存扫描：</p>
+<div class="post-img"><img src="http://fex.baidu.com/img/danger-behind-popup-login-dialog/cache-sniffer.png" alt=""></div>
+
+<p>果然，每个产品线里都有长期未修改、并且缓存很久的脚本库。</p>
+<p>接着开启我们的钓鱼热点，让前来连接的用户，访问任何一个页面都能中毒。</p>
+<p>为了让钓鱼热点更隐蔽，这次我们不再使用路由器，而是利用报废的安卓手机（下一篇文章详细讲解如何实现）。</p>
+<div class="post-img"><img src="http://fex.baidu.com/img/danger-behind-popup-login-dialog/phishing-wifi.jpg" alt=""></div>
+
+<p>为了不影响附近办公，本文就不演示同名热点钓鱼了，所以随便取了个名字。</p>
+<p>接着让『受害者』来连一下我们的热点：</p>
+<div class="post-img"><img src="http://fex.baidu.com/img/danger-behind-popup-login-dialog/connect-wifi.jpg" alt=""></div>
+
+<p>之前正好开着网页，所以很快收到了 HTTP 请求。我们在任何网页里注入 XSS，进行缓存投毒。</p>
+<p>（由于原理和之前讲一样，所以这里就省略步骤了）</p>
+<p>然后重启电脑，连上正常的 WiFi（模拟用户回到安全的场合）。</p>
+<p>打开 tiebai.baidu.com，一切正常。</p>
+<div class="post-img"><img src="http://fex.baidu.com/img/danger-behind-popup-login-dialog/tieba.jpg" alt=""></div>
+
+<p>开始登录了。。。</p>
+<p>看看这种浮层登录框，能否躲避我们的从沉睡中唤起的 XSS 脚本：</p>
+<div class="post-img"><img src="http://fex.baidu.com/img/danger-behind-popup-login-dialog/tieba-poisoning.jpg" alt=""></div>
+
+<p>奇迹依然发生！</p>
+<p>由于之前有过详细的原理讲解，因此这里就不再累述了。不过在实战中，缓存投毒+非安全页面登录框，是批量获取明文账号的最理想手段。</p>
+<h2 id="不可逆的记忆"><a href="#不可逆的记忆" class="headerlink" title="不可逆的记忆"></a>不可逆的记忆</h2><p>如果现在再将登录模式换回传统的，还来得及吗？显然，为时已晚。</p>
+<p>当网站第一次从传统登录，升级到浮层登录时，用户大多不会立即输入，而是『欣赏』下这个新版本的创意。确认不是病毒广告弹出的窗口，而是真的官方设计的，才开始登录。</p>
+<p>当用户多次使用浮层登录框之后，慢慢也就接受了这种新模式。</p>
+<p>即使未来，网站取消了浮层登录，黑客使用 XSS 创建一个类似的浮层，用户仍会毫不犹豫的输入账号。因为在他们的记忆里，官方就曾使用过，仍然保留着对其信任度。</p>
+<h2 id="安全性升级"><a href="#安全性升级" class="headerlink" title="安全性升级"></a>安全性升级</h2><p>既然这个过程是不可逆的，撤回传统模式意义也不大。事实上，使用浮层的用户体验还是不错的，对于不了解安全性的用户来说，还是喜欢华丽的界面。</p>
+<p>要保留体验，又得考虑安全性，最好的解决方案就是将所有的页面都使用 HTTPS，将站点武装到牙齿，不留一丝安全缝隙。这也是未来网站的趋势。</p>
+<pre><code>&lt;/div&gt;
+</code></pre></div>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+            <a href="/tags/安全/" rel="tag"># 安全</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/traffic-hijack-2/" rel="next" title="流量劫持能有多大危害？">
+                <i class="fa fa-chevron-left"></i> 流量劫持能有多大危害？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/wenchangbeijiederizi-trashed/" rel="prev" title="文昌北街的日子">
+                文昌北街的日子 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mansur</p>
+              <p class="site-description motion-element" itemprop="description">重建了很多次的blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#华丽的登录框"><span class="nav-number">1.</span> <span class="nav-text">华丽的登录框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-页面用-HTTPS-有意义吗？"><span class="nav-number">2.</span> <span class="nav-text">HTTP 页面用 HTTPS 有意义吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#和『缓存投毒』配合出击"><span class="nav-number">3.</span> <span class="nav-text">和『缓存投毒』配合出击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传统登录"><span class="nav-number">3.1.</span> <span class="nav-text">传统登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浮层登录"><span class="nav-number">3.2.</span> <span class="nav-text">浮层登录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不可逆的记忆"><span class="nav-number">4.</span> <span class="nav-text">不可逆的记忆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全性升级"><span class="nav-number">5.</span> <span class="nav-text">安全性升级</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mansur</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.6"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.6"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.6"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

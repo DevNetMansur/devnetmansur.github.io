@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon32x32.ico?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon16x16.ico?v=6.0.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.6" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="不同于用于匹配流量的IP访问列表，IP前缀列表主要是用来指定具体的网络可达的。前缀列表用来匹配前缀（网段）和前缀长度（子网掩码）。前缀列表有两个参数很难理解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前缀列表(prefix-list)讲解">
+<meta property="og:url" content="nbma.info/ip-prefix-list/index.html">
+<meta property="og:site_name" content="NBMA">
+<meta property="og:description" content="不同于用于匹配流量的IP访问列表，IP前缀列表主要是用来指定具体的网络可达的。前缀列表用来匹配前缀（网段）和前缀长度（子网掩码）。前缀列表有两个参数很难理解。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-27T15:18:46.446Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前缀列表(prefix-list)讲解">
+<meta name="twitter:description" content="不同于用于匹配流量的IP访问列表，IP前缀列表主要是用来指定具体的网络可达的。前缀列表用来匹配前缀（网段）和前缀长度（子网掩码）。前缀列表有两个参数很难理解。">
+
+
+
+
+
+
+  <link rel="canonical" href="nbma.info/ip-prefix-list/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>前缀列表(prefix-list)讲解 | NBMA</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NBMA</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习 记录 分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-target">
+    <a href="/2018-target/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />目标</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="nbma.info/ip-prefix-list/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mansur">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NBMA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前缀列表(prefix-list)讲解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-09T15:11:44+08:00">2016-12-09</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>不同于用于匹配流量的IP访问列表，IP前缀列表主要是用来指定具体的网络可达的。前缀列表用来匹配前缀（网段）和前缀长度（子网掩码）。前缀列表有两个参数很难理解。</p>
+<a id="more"></a>
+<p>下面是普通的前缀列表的参数：</p>
+<p>ip prefix-list [name] [permit | deny] [prefix]/[len]<br>name为任意的名字或者数字，prefix是指定的路由前缀（网段），len是指定的前缀长度（子网掩码）。例子如下：</p>
+<p>ip prefix-list LIST permit 1.2.3.0/24</p>
+<p>上面的例子中指定匹配网段1.2.3.0，并且指定子网掩码为255.255.255.0，这个列表不匹配1.2.0.0/24，也不匹配1.2.3.4/32</p>
+<p>ip prefix-list LIST permit 0.0.0.0/0</p>
+<p>上面的例子指定匹配网段0.0.0.0和子网掩码0.0.0.0。这个列表用来匹配默认路由。</p>
+<p>通常情况下，在使用前缀列表的时候加上“GE”（大于或等于）和“LE”（小于或等于）时比较容易发生混淆。这是因为当使用“GE”和“LE”时，列表的长度(len)发生了改变。</p>
+<p>另外一种前缀列表的参数：</p>
+<p>ip prefix-list [name] [permit | deny] [prefix]/[len] ge [min_length] le [max_length]</p>
+<p>name为任意的名字或者数字，prefix是将要进行比较的路由前缀（网段），len是指从最左边开始的比特位，min_length为最小的子网掩码的值，max_length为最大的子网掩码的值</p>
+<p>使用GE和LE，必须满足下面的条件：</p>
+<p>len &lt; GE &lt;= LE</p>
+<p>上面的参数很容易混淆，简单的说就是一个匹配前缀或子网的地址的范围。</p>
+<p>看下面的例子：</p>
+<p>ip prefix-list LIST permit 1.2.3.0/24 le 32</p>
+<p>上面的例子表示前缀1.2.3.0前面的24位必须匹配。此外，子网掩码必须小于或等于32位</p>
+<p>ip prefix-list LIST permit 0.0.0.0/0 le 32</p>
+<p>上面的例子意味着0位需要匹配，此外子网掩码必须小于或等于32位。一位所有的网段的掩码都小于或等于32位，并且一位都不用匹配，所以这句话等于permit any</p>
+<p>ip prefix-list LIST permit 10.0.0.0/8 ge 21 le 29</p>
+<p>上面的例子说明网段10.0.0.0的前8位必须匹配，此外子网掩码必须在21位和29位之间。</p>
+<p>注意：</p>
+<p>使用前缀列表不能像访问列表那样匹配具体的应用流。<br>前缀列表也不能用来具体匹配奇数或偶数的前缀，或什么可以被15整除的前缀<br>在前缀列表中，比特位必须是连续的，并且从左边开始<br>ip prefix-list fuck permit 0.0.0.0/0 ge 1 表示除了默认路由外的所有路由<br>ip prefix-list test16 seq 5 permit 0.0.0.0/1 ge 8 le 8 配置A类地址<br>ip prefix-list test16 seq 10 permit 128.0.0.0/2 ge 16 le 16 配置B类地址<br>ip prefix-list test16 seq 15 permit 192.0.0.0/3 ge 24 le 24 配置C类地址</p>
+<p>Exercises:</p>
+<p>1. Construct a prefix list that permits only the 192.168.1.0/24 network.</p>
+<p>ip prefix-list test1 seq 5 permit 192.168.1.0/24</p>
+<p>2. Construct a prefix list that denies network 119.0.0.0, and permits all<br>other prefixes (including all subnets of 119.0.0.0).</p>
+<p>ip prefix-list test2 seq 5 deny 119.0.0.0/8<br>ip prefix-list test2 seq 10 permit 0.0.0.0/0 le 32</p>
+<p>3. Construct a prefix list that permits only the default route.</p>
+<p>ip prefix-list test3 seq 5 permit 0.0.0.0/0</p>
+<p>4. Construct a prefix list the permits everything except the default route.</p>
+<p>ip prefix-list test4 seq 5 deny 0.0.0.0/0<br>ip prefix-list test4 seq 10 permit 0.0.0.0/0 le 32</p>
+<p>5. Construct a prefix list that permits network 172.16.0.0 and any of its<br>subnets, and denies all other prefixes.</p>
+<p>ip prefix-list test5 seq 5 permit 172.16.0.0/16 le 32</p>
+<p>6. Construct a prefix list that permits only the following prefixes:<br>10.2.8.32/27<br>10.2.8.32/28<br>10.2.8.32/29<br>10.2.8.32/30</p>
+<p>ip prefix-list test6 seq 5 permit 10.2.8.32/27 le 30</p>
+<p>7. Construct a prefix list that:</p>
+<p>Permits 197.25.94.128/25<br>Denies 197.25.94.192/26<br>Permits 197.25.94.224/27<br>Denies 197.25.94.240/28<br>Permits 197.25.94.248/29<br>Denies 197.25.94.252/30<br>Permits all other prefixes, except for 198.82.0.0/16</p>
+<p>ip prefix-list test7 seq 5 deny 197.25.94.192/26<br>ip prefix-list test7 seq 10 deny 197.25.94.240/28<br>ip prefix-list test7 seq 15 deny 197.25.94.252/30<br>ip prefix-list test7 seq 20 deny 198.82.0.0/16<br>ip prefix-list test7 seq 25 permit 0.0.0.0/0 le 32</p>
+<p>8. Construct a prefix list that permits any prefix matching the first 20<br>bits of 175.29.64.0 which has a mask of at least /26 but not exceeding /29,<br>and denies all other prefixes.</p>
+<p>ip prefix-list test8 seq 5 permit 175.29.64.0/20 ge 26 le 29</p>
+<p>9. Construct a prefix list that denies any prefix matching the first 19<br>bits of 15.26.96.0 with any mask up to and including /32, and permits any<br>other prefix.</p>
+<p>ip prefix-list test9 seq 5 deny 15.26.96.0/19 le 32<br>ip prefix-list test9 seq 10 permit 0.0.0.0/0 le 32</p>
+<p>10. Construct a prefix list that denies the RFC 1918 private networks and<br>any of their subnets, and permits everything else.</p>
+<p>ip prefix-list test10 seq 5 deny 10.0.0.0/8 le 32<br>ip prefix-list test10 seq 10 deny 172.16.0.0/12 le 32<br>ip prefix-list test10 seq 15 deny 192.168.0.0/16 le 32<br>ip prefix-list test10 seq 20 permit 0.0.0.0/0 le 32</p>
+<p>11. Construct a prefix list that permits any subnet of network 15.0.0.0<br>(but not the network), and denies everything else. Your router lies within<br>AS 65011. Place the prefix list in service in the inbound direction with<br>BGP neighbor 1.2.3.4.</p>
+<p>ip prefix-list test11 seq 5 permit 15.0.0.0/8 ge 9</p>
+<p>To place it in service:<br>router bgp 65011<br>neighbor 1.2.3.4 prefix-list test11 in</p>
+<p>12. Construct a prefix list that denies 162.56.0.0/16 and all of its<br>subnets (with the exception of 162.56.209.208/29, which is permitted), and<br>permits all other prefixes. Your router lies within AS 65012. Place the<br>prefix list in service in the outbound direction with its BGP neighbor<br>having address 5.6.7.8.</p>
+<p>ip prefix-list test12 seq 5 permit 162.56.209.208/29<br>ip prefix-list test12 seq 10 deny 162.56.0.0/16 le 32<br>ip prefix-list test12 seq 15 permit 0.0.0.0/0 le 32</p>
+<p>To place it in service:</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/cisco-switch-reconvery-factory/" rel="next" title="Cisco交换机恢复出厂设置方法">
+                <i class="fa fa-chevron-left"></i> Cisco交换机恢复出厂设置方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/snmp-max-value-notify/" rel="prev" title="snmp的最大值导致报警问题">
+                snmp的最大值导致报警问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mansur</p>
+              <p class="site-description motion-element" itemprop="description">重建了很多次的blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mansur</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.6"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.6"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.6"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

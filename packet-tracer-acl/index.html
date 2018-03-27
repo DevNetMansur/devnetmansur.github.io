@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon32x32.ico?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon16x16.ico?v=6.0.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.6" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="keywords" content="cisco">
+<meta property="og:type" content="article">
+<meta property="og:title" content="练习 5.6.1:Packet Tracer 综合技能练习（访问控制列表）">
+<meta property="og:url" content="nbma.info/packet-tracer-acl/index.html">
+<meta property="og:site_name" content="NBMA">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/68e0aeafjw1e6k27jsh99j20lw0f4408.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/68e0aeafjw1e6k27kb93oj20cz0aegn8.jpg">
+<meta property="og:updated_time" content="2018-03-27T15:18:46.450Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="练习 5.6.1:Packet Tracer 综合技能练习（访问控制列表）">
+<meta name="twitter:image" content="http://ww4.sinaimg.cn/mw690/68e0aeafjw1e6k27jsh99j20lw0f4408.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="nbma.info/packet-tracer-acl/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>练习 5.6.1:Packet Tracer 综合技能练习（访问控制列表） | NBMA</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NBMA</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习 记录 分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-target">
+    <a href="/2018-target/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />目标</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="nbma.info/packet-tracer-acl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mansur">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NBMA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">练习 5.6.1:Packet Tracer 综合技能练习（访问控制列表）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-07-12T15:10:14+08:00">2013-07-12</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://ww4.sinaimg.cn/mw690/68e0aeafjw1e6k27jsh99j20lw0f4408.jpg" alt=""></p>
+<a id="more"></a>
+<p><span style="font-family: Georgia, 'Times New Roman', 'Bitstream Charter', Times, serif;">地址表</span></p>
+<p><img src="http://ww1.sinaimg.cn/mw690/68e0aeafjw1e6k27kb93oj20cz0aegn8.jpg" alt=""></p>
+<p>简介</p>
+<p>在本练习中，您需要演练配置实施五项安全策略的 ACL 的技能。此外，您还要配置 PPP 和 OSPF 路由。设备已配置了 IP 地址。用户执行口令是 <strong>cisco</strong>，特权执行口令是 <strong>class</strong>。</p>
+<p>任务 1：配置带有 CHAP 身份验证的 PPP步骤 1. 将 HQ 和 B1 之间的链路配置为使用带有 CHAP 身份验证的 PPP 封装。</p>
+<p>CHAP 身份验证的口令是 <strong>cisco123</strong>。</p>
+<p>B1:</p>
+<p>username HQ password cisco123</p>
+<p>interface Serial0/0/0<br>encapsulation ppp<br>ppp authentication chap</p>
+<p>HQ:</p>
+<p>username B1 password 0 cisco123</p>
+<p>interface Serial0/0/0<br>encapsulation ppp<br>ppp authentication chap</p>
+<p>步骤 2. 将 HQ 和 B2 之间的链路配置为使用带有 CHAP 身份验证的 PPP 封装。</p>
+<p>CHAP 身份验证的口令是 <strong>cisco123</strong>。</p>
+<p>B2:</p>
+<p>username HQ password 0 cisco123</p>
+<p>interface Serial0/0/0<br>encapsulation ppp<br>ppp authentication chap</p>
+<p>HQ:</p>
+<p>username B2 password 0 cisco123</p>
+<p>interface Serial0/0/1<br>encapsulation ppp<br>ppp authentication chap</p>
+<p>步骤 3. 检查路由器之间是否已恢复连通性。</p>
+<p>HQ 应能 ping 通 B1 和 B2。接口恢复可能需要几分钟。在 Realtime（实时）模式和 Simulation（模拟）模式之间来回切换可加快此过程。要让 Packet Tracer 加快此过程，另一种可行的方法是对接口使用 <strong>shutdown</strong> 和 <strong>no shutdown</strong> 命令。</p>
+<p><strong>注：由于 Packet Tracer 程序缺陷，接口可能会在练习期间的任何时候随机关闭。请等待几秒钟，通常接口会自行重新打开。</strong></p>
+<p>步骤 4. 检查结果。</p>
+<p>完成比例应为 29%。如果并非如此，请单击 <strong>Check Results（检查结果）</strong>查看尚未完成哪些必要部分。</p>
+<p>任务 2：配置默认路由步骤 1. 配置从 HQ 到 ISP 的默认路由。</p>
+<p>在 HQ 上使用<em>送出接口</em>参数配置默认路由，将所有默认流量发送到 ISP。</p>
+<p>ip route 0.0.0.0 0.0.0.0 Serial0/1/0</p>
+<p>步骤 2. 测试与 Web Server 的连通性。</p>
+<p>从 HQ 的 Serial0/1/0 接口发出 ping。HQ 应该能成功 ping 通 Web Server (209.165.202.130)。</p>
+<p>步骤 3. 检查结果。</p>
+<p>完成比例应为 32%。如果并非如此，请单击 <strong>Check Results（检查结果）</strong>查看尚未完成哪些必要部分。</p>
+<p>任务 3：配置 OSPF 路由步骤 1. 在 HQ 上配置 OSPF。</p>
+<ul>
+<li>使用进程 ID 1 配置 OSPF。</li>
+<li>通告除 209.165.201.0 网络外的所有子网。</li>
+<li>向 OSPF 相邻设备传播默认路由。</li>
+<li>在接入 ISP 和接入 HQ LAN 的接口上禁用 OSPF 更新。<br>HQ:</li>
+</ul>
+<p>router ospf 1<br>passive-interface FastEthernet0/0<br>passive-interface FastEthernet0/1<br>passive-interface Serial0/1/0<br>network 10.1.50.0 0.0.0.255 area 0<br>network 10.1.40.0 0.0.0.255 area 0<br>network 10.1.1.0 0.0.0.3 area 0<br>network 10.1.1.4 0.0.0.3 area 0<br>default-information originate</p>
+<p>步骤 2. 在 B1 和 B2 上配置 OSPF。</p>
+<ul>
+<li>使用进程 ID 1 配置 OSPF。</li>
+<li>在每台路由器上配置适当的子网。</li>
+<li>在接入 LAN 的接口上禁用 OSPF 更新。<br>B1:</li>
+</ul>
+<p>router ospf 1<br>passive-interface FastEthernet0/0<br>passive-interface FastEthernet0/1<br>network 10.1.1.0 0.0.0.3 area 0<br>network 10.1.10.0 0.0.0.255 area 0<br>network 10.1.20.0 0.0.0.255 area 0</p>
+<p>B2:</p>
+<p>router ospf 1<br>passive-interface FastEthernet0/0<br>passive-interface FastEthernet0/1<br>network 10.1.1.4 0.0.0.3 area 0<br>network 10.1.70.0 0.0.0.255 area 0<br>network 10.1.80.0 0.0.0.255 area 0</p>
+<p>步骤 3. 测试整个网络的连通性。</p>
+<p>现在，网络应该实现了完全的端到端连通性。所有设备均应能够成功 ping 通所有其它设备，包括地址为 209.165.202.130 的 Web Server。</p>
+<p>步骤 4. 检查结果。</p>
+<p>完成比例应为 76%。如果并非如此，请单击 <strong>Check Results（检查结果）</strong>查看尚未完成哪些必要部分。</p>
+<p>任务 4：实施多项 ACL 安全策略步骤 1. 实施第一项安全策略。</p>
+<p>阻止 10.1.10.0 网络访问 10.1.40.0 网络。允许对 10.1.40.0 的所有其它访问。在 HQ 上使用 ACL 编号 10 配置 ACL。</p>
+<p>HQ:<br>access-list 10 deny 10.1.10.0 0.0.0.255<br>access-list 10 permit any</p>
+<p>interface FastEthernet0/1<br>ip access-group 10 out</p>
+<p>步骤 2. 检查第一项安全策略是否已实现。</p>
+<p>从 PC5 ping PC1 应该失败。</p>
+<p>步骤 3. 检查结果。</p>
+<p>完成比例应为 80%。如果并非如此，请单击 <strong>Check Results（检查结果）</strong>查看尚未完成哪些必要部分。</p>
+<p>步骤 4. 实施第二项安全策略。</p>
+<p>拒绝主机 10.1.10.5 访问主机 10.1.50.7。允许所有其它主机访问 10.1.50.7。在 B1 上使用 ACL 编号 115 配置 ACL。</p>
+<p>B1:</p>
+<p>access-list 115 deny ip host 10.1.10.5 host 10.1.50.7<br>access-list 115 permit ip any any</p>
+<p>interface FastEthernet0/0<br>ip access-group 115 in</p>
+<p>步骤 5. 检查第二项安全策略是否已实现。</p>
+<p>从 PC5 ping PC3 应该失败。</p>
+<p>步骤 6. 检查结果。</p>
+<p>完成比例应为 85%。如果并非如此，请单击 <strong>Check Results（检查结果）</strong>查看尚未完成哪些必要部分。</p>
+<p>步骤 7. 实施第三项安全策略。</p>
+<p>拒绝从 10.1.50.1 到 10.1.50.63 的主机通过 Web 访问地址为 10.1.80.16 的内部网服务器。允许所有其它访问。在适当的路由器上使用 ACL 编号 101 配置 ACL。</p>
+<p>HQ:</p>
+<p>access-list 101 deny tcp 10.1.50.0 0.0.0.63 host 10.1.80.16 eq www<br>access-list 101 permit ip any any</p>
+<p>interface FastEthernet0/0<br>ip access-group 101 in</p>
+<p>步骤 8. 检查第三项安全策略是否已实现。</p>
+<p>要测试此策略，请单击 PC3，然后单击 <strong>Desktop（桌面）</strong>选项卡，再单击<strong>Web Browser（Web 浏览器）</strong>。URL 应键入内部网服务器的 IP 地址 10.1.80.16，然后按 <strong>Enter</strong>。几秒后应收到 Request Timeout（请求超时）消息。PC2 和该网络中的所有其它 PC 都应该能够访问内部网服务器。</p>
+<p>步骤 9. 检查结果。</p>
+<p>完成比例应为 90%。如果并非如此，请单击 <strong>Check Results（检查结果）</strong>查看尚未完成哪些必要部分。</p>
+<p>步骤 10. 实施第四项安全策略。</p>
+<p>使用名称 <strong>NO_FTP</strong> 配置命名 ACL，阻止 10.1.70.0/24 网络访问文件服务器 (10.1.10.2) 上的 FTP 服务（端口 21）。所有其它访问都应允许。</p>
+<p>注意：名称区分大小写。</p>
+<p>B2:</p>
+<p>ip access-list extended NO_FTP<br>deny tcp 10.1.70.0 0.0.0.255 host 10.1.10.2 eq ftp<br>permit ip any any</p>
+<p>interface FastEthernet0/1<br>ip access-group NO_FTP in</p>
+<p>步骤 11. 检查结果。</p>
+<p>Packet Tracer 不支持测试 FTP 访问，因此您无法检验此策略。不过，完成比例应为 95%。如果并非如此，请单击 <strong>Check Results（检查结果）</strong>查看尚未完成哪些必要部分。</p>
+<p>步骤 12. 实施第五项安全策略。</p>
+<p>由于 ISP 代表与 Internet 之间的连通性，因此请按照下列顺序配置名为<strong>FIREWALL</strong> 的命名 ACL：</p>
+<div id="content"><br><br><em>   仅允许来自 ISP 和来自 ISP 之外任何源地址的入站 ping 应答。
+</em>   仅允许来自 ISP 和来自 ISP 之外任何源地址的已建立 TCP 会话。<br>*   明确阻止来自 ISP 和来自 ISP 之外任何源地址的所有其它入站访问HQ:ip access-list extended FIREWALL<br>permit icmp any any echo-reply<br>permit tcp any any established<br>deny ip any any<br><br>    interface Serial0/1/0<br>description Link to ISP<br>ip access-group FIREWALL in<br>步骤 13. 检查第五项安全策略是否已实现。此策略的测试结果应该是任何 PC 都能 ping 通 ISP 或 Web Server。但 ISP 和 Web Server 应该都无法 ping 通 HQ 或 <strong>FIREWALL</strong> ACL 后的任何其它设备。</div><br><div></div>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cisco/" rel="tag"># cisco</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/packet-tracer-hsrp/" rel="next" title="网关冗余（HSRP）">
+                <i class="fa fa-chevron-left"></i> 网关冗余（HSRP）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/centos-dns-unresolution/" rel="prev" title="CentOS系统DNS不能解析问题">
+                CentOS系统DNS不能解析问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mansur</p>
+              <p class="site-description motion-element" itemprop="description">重建了很多次的blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mansur</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.6"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.6"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.6"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

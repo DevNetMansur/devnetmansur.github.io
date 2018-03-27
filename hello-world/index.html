@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon32x32.ico?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon16x16.ico?v=6.0.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.6" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="上次的博客终结于2106年底，现在是2018 年初，这个博客又复活了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="博客又一次重建！！！！(2017总结)">
+<meta property="og:url" content="nbma.info/hello-world/index.html">
+<meta property="og:site_name" content="NBMA">
+<meta property="og:description" content="上次的博客终结于2106年底，现在是2018 年初，这个博客又复活了。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-27T15:18:46.444Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="博客又一次重建！！！！(2017总结)">
+<meta name="twitter:description" content="上次的博客终结于2106年底，现在是2018 年初，这个博客又复活了。">
+
+
+
+
+
+
+  <link rel="canonical" href="nbma.info/hello-world/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>博客又一次重建！！！！(2017总结) | NBMA</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NBMA</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习 记录 分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-target">
+    <a href="/2018-target/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />目标</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="nbma.info/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mansur">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NBMA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">博客又一次重建！！！！(2017总结)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-25T15:35:06+08:00">2018-01-25</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <!--markdown-->上次的博客终结于2106年底，现在是2018 年初，这个博客又复活了。<br><br><a id="more"></a>
+<p>正好，看看一年前的我会什么，一年后，我又学会了什么。</p>
+<h2 id="一"><a href="#一" class="headerlink" title="一"></a>一</h2><p>一年前的我，这个时候应该是刚学完CCIE理论课，正在备考RS lab，偶然间发现乾颐堂服务器上，自动获取所有设备配置的脚本是一段python，也就几十行。每次敲完lab至少节省下来半个多小时，而且不用做重复的工作。<br>直到3月份，第一次考完lab，正好也有时间，就从这段代码开始，敲开了学习python的大门。<br>这就是这半年，才知道了devops的威力，希望自己入局的还不算晚。</p>
+<h2 id="二"><a href="#二" class="headerlink" title="二"></a>二</h2><p>17年初的时候，我给自己定了8个小目标：</p>
+<blockquote>
+<p>我的2017<br>1.3月之前完成CCIE考试。<br>2.备考CCIE的同时学习python，跟宝贝一起在GitHub打卡。<br>3.尝试学会围棋。<br>4.找一份稳定的工作，攒下超过8万块钱。<br>5.熟练使用英语口语，最好能找到固定交流的人一起学<br>6.看看北京的博物馆<br>7.跟宝贝学会乒乓球<br>8.跟宝贝一起一次旅行，看海</p>
+</blockquote>
+<h3 id="1，考IE"><a href="#1，考IE" class="headerlink" title="1，考IE"></a>1，考IE</h3><p>虽然CCIE证书现在的含金量确实不高了，但是反而似乎慢慢变成了行业的基本要求。<br>从2016年6月份考试培训到2017年4月10号第一次lab失败，休息了几个月，再到8月17号终于拿号；</p>
+<h3 id="2，Coding"><a href="#2，Coding" class="headerlink" title="2，Coding"></a>2，Coding</h3><p>大学的时候,第一门是C语言，后来C++、Java、C#、VB、易语言、JSP、ASP.NET、html、xml全都学了一遍，全都无爱。<br>反而像python、json、php这些大学没学过都成了我现在的自学并且能坚持下来的兴趣点。不知道是大学老师的讲解真的让人提不起兴趣还是我自己悟性不行。</p>
+<h3 id="3，围棋"><a href="#3，围棋" class="headerlink" title="3，围棋"></a>3，围棋</h3><p>最早的兴趣起源于一部网剧《毛骗》，邵半仙装逼的时候它是围棋，冬冬玩的时候就是五子棋:)<br>之所以在去年定下这个目标，还是因为AlphaGo那段时间的热点，人工智能是大势所趋，围棋应该是这些AI的第一站，<br>学围棋没什么特别伟大的想法，就是想在别人讨论的时候插上话。<br>但是不知道为什么，我定下这个目标后。。。。。。就忘了！</p>
+<h3 id="4，工作"><a href="#4，工作" class="headerlink" title="4，工作"></a>4，工作</h3><p>这一年，从待了两年的公司离职，从一家小互联网公司跳到另一家相对大一些公司公司，从研发运维部的netdevops变成了IT部的网络监控运维工程师；网络规模上来了，工作内容却退回了传统网络，一个5人的网络团队，就我一个人懂点自动化的东西，有点挑战……</p>
+<h3 id="5，英语"><a href="#5，英语" class="headerlink" title="5，英语"></a>5，英语</h3><p>这两年英语的提升更多的还是读写吧，中文的网络知识已经满足不要日常自学和查资料的需求，考CCIE的过程也是。<br>至于听说，至今也没找到固定交流学习的伙伴……</p>
+<h3 id="6，博物馆"><a href="#6，博物馆" class="headerlink" title="6，博物馆"></a>6，博物馆</h3><p>之前在微博上看到了北京有40十多个大大小小的博物馆，我还立了flag，要多长时间去看一座。<br>目前进度，17年1月1日跟爸妈哥嫂子一起去了国博，17年11月跟宝贝一起去又去了国博，完……</p>
+<h3 id="7，乒乓球"><a href="#7，乒乓球" class="headerlink" title="7，乒乓球"></a>7，乒乓球</h3><p>在北京站附近学过一次，被某人骂惨了。从此坐板凳……</p>
+<h3 id="8，旅行"><a href="#8，旅行" class="headerlink" title="8，旅行"></a>8，旅行</h3><p>五一去过一次天津，更难忘的是回程的那个电话。诶……<br>期待今年能看海</p>
+<p>2017就这么过完了，写这篇文章的时候，就连2018也过完了7%<br>从考IE开始，到后来学python，再到后来面试找工作，这一年最大的感受就是，学不够，time is not enough，要学的太多；第二个感叹就是，大学四年大把的时间我都干了什么。。。</p>
+<h2 id="三"><a href="#三" class="headerlink" title="三"></a>三</h2><p>写完2017，说说2018 吧：<br>因为年底的面试，也暴露自己什么问题，所以，新年的第一个计划就是提升自己：<br>总结了美团、联想、陌陌、便利蜂公司的招聘需求，基本上也覆盖所有的网络知识点，试试今年能总结出来多少：</p>
+<h3 id="二层"><a href="#二层" class="headerlink" title="二层:"></a>二层:</h3><p>STP/RSTP/MSTP<br>802.1X<br>链路聚合</p>
+<h3 id="三层"><a href="#三层" class="headerlink" title="三层:"></a>三层:</h3><p>静态路由<br>PBR<br>ECMP<br>OSPF<br>ISIS<br>BGP</p>
+<h3 id="VPN"><a href="#VPN" class="headerlink" title="VPN:"></a>VPN:</h3><p>PPTP<br>L2TP<br>GRE<br>SSL VPN<br>IPSec VPN</p>
+<h3 id="ip-Service"><a href="#ip-Service" class="headerlink" title="ip Service:"></a>ip Service:</h3><p>QoS<br>HSRP/VRRP<br>NQA<br>BFD<br>dhcp、snooping、arp检测</p>
+<h3 id="网络监控"><a href="#网络监控" class="headerlink" title="网络监控:"></a>网络监控:</h3><p>snmp<br>netflow<br>Zabbix</p>
+<h3 id="无线："><a href="#无线：" class="headerlink" title="无线："></a>无线：</h3><p>802.11a/b/g/n/ac wava2协议<br>802.11原理和调优<br>EAP/PEAP/TSL认证原理<br>EAP+TSL企业级wifi证书部署原理<br>mac认证/portal认证/802.1X认证<br>radius</p>
+<h3 id="传输："><a href="#传输：" class="headerlink" title="传输："></a>传输：</h3><p>SDH<br>MSTP<br>PTN<br>OTN<br>WDM</p>
+<h3 id="售前："><a href="#售前：" class="headerlink" title="售前："></a>售前：</h3><p>企业级多协议多出口多业务设计规划部署<br>负载均衡<br>出口自动切换<br>流量调度</p>
+<h3 id="光："><a href="#光：" class="headerlink" title="光："></a>光：</h3><p>单模多模<br>波分传输，线路开通</p>
+<h3 id="DC："><a href="#DC：" class="headerlink" title="DC："></a>DC：</h3><p>leaf-spine架构<br>Vxlan<br>SDN<br>NFV</p>
+<h3 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h3><p>RouterOS<br>F5/A10等LB<br>Ansible<br>DNS服务器<br>IPv6<br>了解厂商特点，对标产品</p>
+<p>待续</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ping-switch-svi-delay/" rel="next" title="ping交换机的SVI地址出现延迟并且很不稳定">
+                <i class="fa fa-chevron-left"></i> ping交换机的SVI地址出现延迟并且很不稳定
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/dog-eat-moon/" rel="prev" title="月全食">
+                月全食 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mansur</p>
+              <p class="site-description motion-element" itemprop="description">重建了很多次的blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一"><span class="nav-number">1.</span> <span class="nav-text">一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二"><span class="nav-number">2.</span> <span class="nav-text">二</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1，考IE"><span class="nav-number">2.1.</span> <span class="nav-text">1，考IE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2，Coding"><span class="nav-number">2.2.</span> <span class="nav-text">2，Coding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3，围棋"><span class="nav-number">2.3.</span> <span class="nav-text">3，围棋</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4，工作"><span class="nav-number">2.4.</span> <span class="nav-text">4，工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5，英语"><span class="nav-number">2.5.</span> <span class="nav-text">5，英语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6，博物馆"><span class="nav-number">2.6.</span> <span class="nav-text">6，博物馆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7，乒乓球"><span class="nav-number">2.7.</span> <span class="nav-text">7，乒乓球</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8，旅行"><span class="nav-number">2.8.</span> <span class="nav-text">8，旅行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三"><span class="nav-number">3.</span> <span class="nav-text">三</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二层"><span class="nav-number">3.1.</span> <span class="nav-text">二层:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三层"><span class="nav-number">3.2.</span> <span class="nav-text">三层:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VPN"><span class="nav-number">3.3.</span> <span class="nav-text">VPN:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ip-Service"><span class="nav-number">3.4.</span> <span class="nav-text">ip Service:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络监控"><span class="nav-number">3.5.</span> <span class="nav-text">网络监控:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无线："><span class="nav-number">3.6.</span> <span class="nav-text">无线：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传输："><span class="nav-number">3.7.</span> <span class="nav-text">传输：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#售前："><span class="nav-number">3.8.</span> <span class="nav-text">售前：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#光："><span class="nav-number">3.9.</span> <span class="nav-text">光：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DC："><span class="nav-number">3.10.</span> <span class="nav-text">DC：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他："><span class="nav-number">3.11.</span> <span class="nav-text">其他：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mansur</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.6"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.6"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.6"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

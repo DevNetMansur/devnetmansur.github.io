@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon32x32.ico?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon16x16.ico?v=6.0.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.6" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.0.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="配置静态路由的下一跳使用出站接口和下一跳IP的差别 在配置静态路由时，下一跳可以使用下一路由器的IP地址，也可以使用本路由器的出站接口。在点对点的网络中，两者可能没有什么差别，但在以太网中，两者有很大差别。">
+<meta name="keywords" content="网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="配置静态路由的下一跳使用出站接口和下一跳IP的差别">
+<meta property="og:url" content="nbma.info/compare-next-hop/index.html">
+<meta property="og:site_name" content="NBMA">
+<meta property="og:description" content="配置静态路由的下一跳使用出站接口和下一跳IP的差别 在配置静态路由时，下一跳可以使用下一路由器的IP地址，也可以使用本路由器的出站接口。在点对点的网络中，两者可能没有什么差别，但在以太网中，两者有很大差别。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-27T15:18:46.439Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="配置静态路由的下一跳使用出站接口和下一跳IP的差别">
+<meta name="twitter:description" content="配置静态路由的下一跳使用出站接口和下一跳IP的差别 在配置静态路由时，下一跳可以使用下一路由器的IP地址，也可以使用本路由器的出站接口。在点对点的网络中，两者可能没有什么差别，但在以太网中，两者有很大差别。">
+
+
+
+
+
+
+  <link rel="canonical" href="nbma.info/compare-next-hop/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>配置静态路由的下一跳使用出站接口和下一跳IP的差别 | NBMA</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NBMA</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学习 记录 分享</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-target">
+    <a href="/2018-target/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-heart"></i> <br />目标</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="nbma.info/compare-next-hop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mansur">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NBMA">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">配置静态路由的下一跳使用出站接口和下一跳IP的差别</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2013-06-26T14:22:50+08:00">2013-06-26</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>配置静态路由的下一跳使用出站接口和下一跳IP的差别</p>
+<p>在配置静态路由时，下一跳可以使用下一路由器的IP地址，也可以使用本路由器的出站接口。在点对点的网络中，两者可能没有什么差别，但在以太网中，两者有很大差别。<a id="more"></a></p>
+<p>在以太网中，两个相邻接口之间的通信是依靠MAC地址。相邻接口通信时，需要知道对方的MAC地址，根据MAC地址，将通信数据转换成数据帧后交付给网络，进而到对方。而对方MAC地址的获得，是通过第二层数据帧广播，由ARP协议完成的。</p>
+<p>当静态路由中使用出站接口做为下一跳时，路由器会认为目标网络和接口处在“直连网络”中。看下图的拓扑：</p>
+<p>&nbsp;</p>
+<p>在路由器R1中的静态路由为 ip route 192.168.2.0 255.255.255.0 fastethernet0/1 时，R1就认为192.168.2.0/24网络和自己直连。可以在R1中使用 show ip route 命令看出，如下图示：</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>在以太网中，直连网络中主机间的通信是通过ARP协议广播来获取到要交付的目标主机的MAC地址的。也就是说，当R1左侧网络中的PC1要和R2右侧网络的PC2和PC3通信时，数据传递到R1时，R1看到目标网络是自己的直连网络（由于静态路由中指定下一跳为自身接口所致），于是R1就要在F0/1所处网络发出ARP请求广播，来寻找192.168.2.11/12对应的MAC地址。</p>
+<p>这时，如果R2启用了ARP代理，那么R2将代替PC2和PC3应答此ARP请求，也就是说返回给R1：192.168.2.11和12对应的MAC地址是R2的F0/1接口MAC。这样，R1中将产生两条ARP缓存记录，分别为：</p>
+<p>192.168.2.11 R2的F0/1的MAC</p>
+<p>192.168.2.12 R2的F0/1的MAC</p>
+<p>在PC1上分别PING 192.168.11和12，然后在R1上使用show arp命令查看到的结果如下图示：</p>
+<p>&nbsp;</p>
+<p>c803.0f8c.0001正是R2的F0/1接口的MAC。</p>
+<p>当R2中没有启用ARP代理时，PC1和PC2、PC3将不能正常通信。</p>
+<p>从上述实验中我们知道，当R1中使用F0/1接口做为到达目标网络192.168.2.0/24的下一跳时，R1左侧网络中的PC，如果要和R2右侧的192.168.2.0/24网络中的所有PC通信，那么在R1上均会产生ARP缓存记录。可以想象：当双方通信的PC很多时，R1中势必会产生大量的ARP缓存，从而可能会导致R1的内存被耗尽。</p>
+<p>如果R1中到192.168.2.0/24网络的静态路由设置为 ip route 192.168.2.0 255.255.255.0 10.0.0.2，这样的话，R1中到192.168.2.0/24网络的数据包，都只会交付给10.0.0.2。R1通过ARP协议来获取10.0.0.2对应的MAC地址，然后将数据包以第二层数据帧方式交付出去。也就是说，R1上只会保留一条ARP缓存信息，即：10.0.0.2    R2的F0/1的MAC。这样可以避免R1中产生大量ARP缓存而导致内存耗尽。</p>
+<p>&nbsp;</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/packet-tracer-hsrp/" rel="prev" title="网关冗余（HSRP）">
+                网关冗余（HSRP） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Mansur</p>
+              <p class="site-description motion-element" itemprop="description">重建了很多次的blog</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mansur</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.6"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.6"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.6"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

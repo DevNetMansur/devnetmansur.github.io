@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="SSLVPN基于安全组（角色）下发不同路由"/>
+
+
+
+
+  <meta name="keywords" content="网络, asa, SSLVPN, cisco, NBMA" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NBMA">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+
+
+
+<link rel="canonical" href="nbma.info/cisco-asa-ssl-vpn-policy-base-security-group/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> SSLVPN基于安全组（角色）下发不同路由 - NBMA </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">NBMA</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/2018-target">
+        <li class="mobile-menu-item">
+          
+          
+            Target
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">NBMA</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/2018-target">
+            
+            
+              Target
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          SSLVPN基于安全组（角色）下发不同路由
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-04-09
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关闭客户端的tunnel-group-list显示"><span class="toc-text">关闭客户端的tunnel group list显示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#针对SSLVPN-DBA角色配置策略"><span class="toc-text">针对SSLVPN-DBA角色配置策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下发路由列表TECH-SPL"><span class="toc-text">下发路由列表TECH-SPL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL"><span class="toc-text">配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置tunnel-group，关联认证radius服务器SSL和group策略SSLVPN-DBA"><span class="toc-text">配置tunnel-group，关联认证radius服务器SSL和group策略SSLVPN-DBA</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>之前已经说过了ssl VPN的<a href="cisco-asa-ssl-vpn-configure/">基本配置</a>，再此基础上，实现不同角色的用户使用不同的策略。</p>
+<a id="more"></a>
+<p>针对radius段角色为<code>SSLVPN-DBA</code>的用户</p>
+<h2 id="关闭客户端的tunnel-group-list显示"><a href="#关闭客户端的tunnel-group-list显示" class="headerlink" title="关闭客户端的tunnel group list显示"></a>关闭客户端的tunnel group list显示</h2><p>不关闭的话，所有策略将以下拉菜单列表的方式展现在在anyconnect端，且用户可自由选择<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ciscoasa(config)# webvpn </span><br><span class="line">ciscoasa(config-webvpn)# no tunnel-group-list enable</span><br></pre></td></tr></table></figure></p>
+<h2 id="针对SSLVPN-DBA角色配置策略"><a href="#针对SSLVPN-DBA角色配置策略" class="headerlink" title="针对SSLVPN-DBA角色配置策略"></a>针对SSLVPN-DBA角色配置策略</h2><h3 id="下发路由列表TECH-SPL"><a href="#下发路由列表TECH-SPL" class="headerlink" title="下发路由列表TECH-SPL"></a>下发路由列表<code>TECH-SPL</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">access-list TECH-SPL extended permit ip 172.17.0.0 255.255.0.0 any</span><br></pre></td></tr></table></figure>
+<h3 id="配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL"><a href="#配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL" class="headerlink" title="配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL"></a>配置group-policy，关联需要下发的路由<code>TECH-SPL</code>、访问控制<code>SSL-ACL</code>、地址池<code>SSL-POOL</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">group-policy SSLVPN-DBA internal</span><br><span class="line">group-policy SSLVPN-DBA attributes</span><br><span class="line"> dns-server value 192.168.115.11 192.168.115.12</span><br><span class="line"> vpn-simultaneous-logins 30</span><br><span class="line"> vpn-idle-timeout 120</span><br><span class="line"> vpn-filter value SSL-ACL</span><br><span class="line"> vpn-tunnel-protocol ssl-client </span><br><span class="line"> split-tunnel-policy tunnelspecified</span><br><span class="line"> split-tunnel-network-list value TECH-SPL</span><br><span class="line"> address-pools value SSL-POOL</span><br><span class="line"> webvpn</span><br><span class="line">  anyconnect ssl dtls enable</span><br><span class="line">  anyconnect mtu 1200</span><br><span class="line">  anyconnect keep-installer installed</span><br><span class="line">  anyconnect dtls compression lzs</span><br><span class="line">  anyconnect ask none default anyconnect</span><br></pre></td></tr></table></figure>
+<h3 id="配置tunnel-group，关联认证radius服务器SSL和group策略SSLVPN-DBA"><a href="#配置tunnel-group，关联认证radius服务器SSL和group策略SSLVPN-DBA" class="headerlink" title="配置tunnel-group，关联认证radius服务器SSL和group策略SSLVPN-DBA"></a>配置<code>tunnel-group</code>，关联认证radius服务器<code>SSL</code>和group策略<code>SSLVPN-DBA</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tunnel-group SSLVPN-DBA type remote-access</span><br><span class="line">tunnel-group SSLVPN-DBA general-attributes</span><br><span class="line"> default-group-policy SSLVPN-DBA</span><br><span class="line"> authentication-server-group SSL</span><br><span class="line"> accounting-server-group SSL</span><br><span class="line">tunnel-group SSLVPN-DBA webvpn-attributes</span><br><span class="line"> group-alias SSLVPN-DBA enable</span><br></pre></td></tr></table></figure>
+<p>此时输入该角色的用户在拨入时将获得与default不通的权限。</p>
+<p>参考文档:<a href="https://www.fir3net.com/Firewalls/Cisco/cisco-asa-displaying-webvpn-bookmarks-based-on-ldap-ou.html" target="_blank" rel="noopener">Cisco ASA - Group-policy assignment based on OU</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="nbma.info">Mansur</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="nbma.info/cisco-asa-ssl-vpn-policy-base-security-group/">nbma.info/cisco-asa-ssl-vpn-policy-base-security-group/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/网络/">网络</a>
+            
+              <a href="/tags/asa/">asa</a>
+            
+              <a href="/tags/SSLVPN/">SSLVPN</a>
+            
+              <a href="/tags/cisco/">cisco</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/8021X-auth-progression/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">802.1X认证过程(翻译)</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/cisco-asa-ssl-vpn-configure/">
+        <span class="next-text nav-default">思科ASA配置SSLVPN</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:i@nbma.info" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+        
+          <a href="https://twitter.com/iam_mansur" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2013 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Mansur</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

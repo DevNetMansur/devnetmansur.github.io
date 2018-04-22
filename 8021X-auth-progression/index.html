@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="802.1X认证过程(翻译)"/>
+
+
+
+
+  <meta name="keywords" content="网络, NBMA" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NBMA">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+
+
+
+<link rel="canonical" href="nbma.info/8021X-auth-progression/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> 802.1X认证过程(翻译) - NBMA </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">NBMA</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/2018-target">
+        <li class="mobile-menu-item">
+          
+          
+            Target
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">NBMA</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/2018-target">
+            
+            
+              Target
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          802.1X认证过程(翻译)
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-04-10
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、初始化"><span class="toc-text">1、初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、启动"><span class="toc-text">2、启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、EAP协商"><span class="toc-text">3、EAP协商</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、认证"><span class="toc-text">4、认证</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <h3 id="1、初始化"><a href="#1、初始化" class="headerlink" title="1、初始化"></a>1、初始化</h3><p>当交换机检测到有新的请求者时，端口被启用，切状态是未授权。这种状态下，只允许802.1X的流量，其他流量（如TCP/UDP）将被丢弃。<br><a id="more"></a></p>
+<h3 id="2、启动"><a href="#2、启动" class="headerlink" title="2、启动"></a>2、启动</h3><p>为了启动认证，交换机将周期性的发送<code>EAP-Request Identity</code>帧到本地LAN中的特殊mac地址<code>01:80:C2:00:00:03</code>。<br>请求者将侦听这个地址，并且在收到<code>EAP-Request Identity</code>时，使用包含<strong>请求者标识符（如用户ID）</strong>的<code>EAP-Response Identity</code>帧进行响应。<br>交换机左右认证者，将此身份响应封装到<code>Radius Access-Request</code>数据包中，并转发到认证服务器。<br>另外，请求者也可以通过向认证者发送<code>EAPOL-Start</code>帧来启动或重新启动认证，认证者使用<code>EAP-Request Identity</code>进行回复。</p>
+<h3 id="3、EAP协商"><a href="#3、EAP协商" class="headerlink" title="3、EAP协商"></a>3、EAP协商</h3><p>身份认证服务器给交换机发送一个<code>RADIUS Access-Challenge</code>的回复报文，报文中包含了一个<code>EAP Request</code>，指定了EAP方法（认证服务器希望请求者使用的基于EAP的认证类型）。<br>认证者将这个EAP Request封装到EAPOL帧中，转发给请求者。<br>此时，请求者可以开始使用这个请求的EAP方法，或者执行NAK否认消息并响应一个自己希望执行的EAP方法。</p>
+<h3 id="4、认证"><a href="#4、认证" class="headerlink" title="4、认证"></a>4、认证</h3><p>如果请求和认证服务器同意之前的EAP方法，那么他们将会发送EAP Request和Responses给对方，通过认证者转发，直到认证服务器响应一个封装在<code>RADIUS Access-Accept</code>报文中的EAP-Success，或者封装在<code>RADIUS Access-Reject</code>报文中的EAP-Failure。<br>如果认证成功，那么交换机端口将变为”授权”状态，允许所有正常流量。<br>如果认证失败，交换机端口保持”未授权”状态。<br>当申请者注销的时候，它会发送一个<code>EAPOL-logoff</code>信息给认证者，认证者改变端口状态到”未授权”，并阻止非EAP流量通过</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/1/17/802-1X.png" alt=""></p>
+<p>原文：<a href="https://en.wikipedia.org/wiki/IEEE_802.1X" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/IEEE_802.1X</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="nbma.info">Mansur</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="nbma.info/8021X-auth-progression/">nbma.info/8021X-auth-progression/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/网络/">网络</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/nginx-deploy-https/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">在nginx部署https</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/cisco-asa-ssl-vpn-policy-base-security-group/">
+        <span class="next-text nav-default">SSLVPN基于安全组（角色）下发不同路由</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:i@nbma.info" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+        
+          <a href="https://twitter.com/iam_mansur" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2013 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Mansur</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

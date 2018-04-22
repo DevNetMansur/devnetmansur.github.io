@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="ipsec协商过程分析"/>
+
+
+
+
+  <meta name="keywords" content="网络, cisco, ipsec, NBMA" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NBMA">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+
+
+
+<link rel="canonical" href="nbma.info/ipsec-theory/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> ipsec协商过程分析 - NBMA </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">NBMA</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/2018-target">
+        <li class="mobile-menu-item">
+          
+          
+            Target
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">NBMA</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/2018-target">
+            
+            
+              Target
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          ipsec协商过程分析
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-04-21
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#协商过程"><span class="toc-text">协商过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一阶段第1-2包"><span class="toc-text">第一阶段第1-2包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第一阶段第3-4包"><span class="toc-text">第一阶段第3-4包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第一阶段第5-6包"><span class="toc-text">第一阶段第5-6包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二阶段第1-2包"><span class="toc-text">第二阶段第1-2包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二阶段第3个包"><span class="toc-text">第二阶段第3个包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据包结构"><span class="toc-text">数据包结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#esp的加密位置"><span class="toc-text">esp的加密位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GRE头部的位置"><span class="toc-text">GRE头部的位置</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>ipsec vpn，刚学完的时候以为自己掌握的还挺好的，各种排错无压力。去年到电信面试，连基本过程都说不清楚了，就记得是非对称加密协商对称加密的算法和密钥。说了一句跟HTTPS原理差不多……欸。趁着周末闲了赶紧再补补。<br><a id="more"></a></p>
+<p>ipsec协商总共9个包，在没有nat穿越的情况下，这9个包的源目端口都是<code>UDP 500</code>，使用<code>isakmp</code>封装。<br>9个包之后加密<code>ESP</code>封装。</p>
+<h2 id="协商过程"><a href="#协商过程" class="headerlink" title="协商过程"></a>协商过程</h2><p><img src="http://ww1.sinaimg.cn/large/68e0aeafly1fqkfo6qgkej20o90bg0t8.jpg" alt=""></p>
+<h3 id="第一阶段第1-2包"><a href="#第一阶段第1-2包" class="headerlink" title="第一阶段第1-2包"></a>第一阶段第1-2包</h3><p>A发送自己的sa(ipsec组成部分以及协商对预共享密钥的加密策略），B发送自己的sa</p>
+<h3 id="第一阶段第3-4包"><a href="#第一阶段第3-4包" class="headerlink" title="第一阶段第3-4包"></a>第一阶段第3-4包</h3><p>交互DH。这个阶段用于生成非对称加密算法（由1-2阶段协商）的三对密钥</p>
+<h3 id="第一阶段第5-6包"><a href="#第一阶段第5-6包" class="headerlink" title="第一阶段第5-6包"></a>第一阶段第5-6包</h3><p>使用3-4形成的第一把密钥，加密内容是预共享密钥，用于验证双方身份</p>
+<h3 id="第二阶段第1-2包"><a href="#第二阶段第1-2包" class="headerlink" title="第二阶段第1-2包"></a>第二阶段第1-2包</h3><p>使用第二把密钥，协商对数据（感兴趣流）的加密策略</p>
+<h3 id="第二阶段第3个包"><a href="#第二阶段第3个包" class="headerlink" title="第二阶段第3个包"></a>第二阶段第3个包</h3><p>确认，形成SPI代表控制层结束<br><img src="http://ww1.sinaimg.cn/large/68e0aeafly1fqkmt3p5n0j20g306qdgj.jpg" alt=""><br>最终，对感兴趣流<br>使用第三把密钥对数据进行加密，使用第二阶段1-2协商的加密策略 </p>
+<h2 id="数据包结构"><a href="#数据包结构" class="headerlink" title="数据包结构"></a>数据包结构</h2><h3 id="esp的加密位置"><a href="#esp的加密位置" class="headerlink" title="esp的加密位置"></a>esp的加密位置</h3><pre><code>1、传输模式：通讯点和加密点一致
+这种模式下ESP报头在ip 头部之内，对四层以内的报头和数据进行加密
+2、隧道模式：通讯点和加密点不一致
+ESP直接将原来三层以内的报文全部加密，重新生成新的ip头部
+</code></pre><p>这两种模式相比，transform模式数据比原数据包只多了一个esp头部，包长度有优势，传输效率高；tunnel模式在处理数据的时候不要拆开IP头部，直接加密，更快。</p>
+<p>这部分由于ESP之后的部分全是加密的，所以只能通过数据包大小来对比，需要真机实现，等有机会了再做，<del>模拟器只能为transport，设置tunnel无效</del></p>
+<h3 id="GRE头部的位置"><a href="#GRE头部的位置" class="headerlink" title="GRE头部的位置"></a>GRE头部的位置</h3><p>我是按照这个拓扑做的测试对比，主要看包接口和后续ESP数据包的大小<br><img src="http://ww1.sinaimg.cn/large/68e0aeafly1fqlbwebtrgj20mq04tt93.jpg" alt=""><br>从思科设备发起的ping默认大小是14+28+72=<code>114</code>Bytes.<br>GRE头部大小是<code>24</code>Bytes</p>
+<p><strong>基于感兴趣流的IPSEC</strong><br><img src="http://ww1.sinaimg.cn/large/68e0aeafly1fqlc2kpwkjj20my09ggm5.jpg" alt=""></p>
+<p><strong>思科的SVTI技术</strong><br>tunnel模式设置为<code>tunnel mode ipsec ipv4</code>，其他配置和GRE over IPSec完全一样<br><img src="http://ww1.sinaimg.cn/large/68e0aeafly1fqlc2rs3fsj20mp09ejrx.jpg" alt=""></p>
+<p><strong>GRE over IPSec</strong><br><img src="http://ww1.sinaimg.cn/large/68e0aeafly1fqlc30h42pj20mq09cmxp.jpg" alt=""></p>
+<p><strong>思科的IPSec over GRE</strong><br>至于为什么会有这个，我看能百度搜到的华为设备全是按照这种方式配置的，蛋疼。<br><img src="http://ww1.sinaimg.cn/large/68e0aeafly1fqlc37bsqcj20mo0afmxr.jpg" alt=""></p>
+<p><strong>华为的IPSec over GRE</strong><br>待验证</p>
+<p>思科的SVTI技术确实厉害~</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="nbma.info">Mansur</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="nbma.info/ipsec-theory/">nbma.info/ipsec-theory/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/网络/">网络</a>
+            
+              <a href="/tags/cisco/">cisco</a>
+            
+              <a href="/tags/ipsec/">ipsec</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/nginx-deploy-https/">
+        <span class="next-text nav-default">在nginx部署https</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:i@nbma.info" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+        
+          <a href="https://twitter.com/iam_mansur" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2013 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Mansur</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="cisco路由器nat回流解决办法--NVI"/>
+
+
+
+
+  <meta name="keywords" content="网络, cisco, nat, NBMA" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NBMA">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+
+
+
+<link rel="canonical" href="nbma.info/cisco-nat-nvi-back/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+
+
+
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+    <title> cisco路由器nat回流解决办法--NVI - NBMA </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">NBMA</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+      <a href="/2018-target">
+        <li class="mobile-menu-item">
+          
+          
+            Target
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">NBMA</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/2018-target">
+            
+            
+              Target
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          cisco路由器nat回流解决办法--NVI
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-03-31
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Cisco的domainless-NAT"><span class="toc-text">Cisco的domainless NAT</span></a></li></ol>
+    </div>
+  </div>
+
+
+    <div class="post-content">
+      
+        <p>困扰已久的路由器映射的回流问题终于解决了。</p>
+<a id="more"></a>
+<p>回流，简单的说就是内网终端通过映射后的公网地址访问内网服务。<br>通常配置的inside-outside模式的nat是无法实现回流的，<br><img src="http://i9ps.qiniudn.com/18-3-31/10062644.jpg" alt=""></p>
+<h2 id="Cisco的domainless-NAT"><a href="#Cisco的domainless-NAT" class="headerlink" title="Cisco的domainless NAT"></a>Cisco的domainless NAT</h2><p>Domainless就是说不再区分inside和outside，只是单纯地做NAT，用一个叫做NAT Virtual Interface的虚拟接口来实现，这样有什么好处呢？说实话，从界面上看不出来，但是从其实现角度，就可以通过路由的方式将带有ip nat enable配置的接口进来的包全部导入这个虚拟接口NVI0中。然后用数据包的源地址和目标地址分别查询SNAT表和DNAT表，根据结果进行NAT操作，随后进入真正的路由查询。</p>
+<p>不管方向，不管路由，只要数据包进入了一块带有ip nat enable配置的物理网卡，就会进行NAT匹配以及匹配成功后的操作，不管是SNAT和DNAT都在这里进行。这个实现虽然很豪放，但是却解决了所有问题。</p>
+<p>数据包在进入真正的路由查询前，NAT就已经完成了，在路由器看来，NAT操作被藏起来了，就好像数据包本来就是那个样子一样。当然Domainless的NAT也不再和任何其它操作关联，ACL，VPN感兴趣流匹配，policy routing等都和NAT无关。</p>
+<p><img src="http://i9ps.qiniudn.com/18-3-31/83311476.jpg" alt=""></p>
+<p>如以上拓扑，<br>将R3的80端口映射到外网，那么R2将无法使用公网地址访问R3<br>该方式的传统的端口映射为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ip nat inside source static tcp 10.1.12.2 80 61.128.1.1 8000</span><br><span class="line">ip nat inside source static tcp 10.1.12.2 80 61.128.1.3 80</span><br><span class="line">ip nat inside source list NAT interface e0/0 overload</span><br><span class="line">interface e0/0</span><br><span class="line">ip nat outside</span><br><span class="line">interface e0/1</span><br><span class="line">ip nat inside</span><br></pre></td></tr></table></figure></p>
+<p>更改为NVI NAT：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ip nat source static tcp 10.1.12.2 80 61.128.1.1 8000</span><br><span class="line">ip nat source static tcp 10.1.12.2 80 61.128.1.3 80</span><br><span class="line">ip nat source list NAT interface e0/0 overload</span><br><span class="line">interface e0/0</span><br><span class="line">ip nat enable</span><br><span class="line">interface e0/1</span><br><span class="line">ip nat enable</span><br></pre></td></tr></table></figure></p>
+<p>更改为NVI NAT可能内网还是无法通过公网地址访问内网服务器，此时有个重要的一点是要关闭端口的重定向功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">interface e0/0</span><br><span class="line">no ip redirects</span><br><span class="line">interface e0/1</span><br><span class="line">no ip redirects</span><br></pre></td></tr></table></figure></p>
+<p>这样配置即可完成，检查状态命令为：<code>show ip nat nvi translations</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sh ip nat nvi translations </span><br><span class="line">Pro Source global      Source local       Destin  local      Destin  global</span><br><span class="line">tcp 61.128.1.1:28909   10.1.11.2:28909    61.128.1.3:80      10.1.12.2:80</span><br><span class="line">tcp 61.128.1.1:8000    10.1.12.2:80       ---                ---</span><br></pre></td></tr></table></figure></p>
+<p>访问测试OK。同时也能看到，现在内部终端R2通过公网地址访问R3的时候，源地址也被nat为出口路由器的公网地址。</p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="nbma.info">Mansur</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="nbma.info/cisco-nat-nvi-back/">nbma.info/cisco-nat-nvi-back/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/网络/">网络</a>
+            
+              <a href="/tags/cisco/">cisco</a>
+            
+              <a href="/tags/nat/">nat</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/cisco-asa-ssl-vpn-configure/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">思科ASA配置SSLVPN</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/grafana-zabbix-prometheus/">
+        <span class="next-text nav-default">grafana添加zabbix源和prometheus源</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:i@nbma.info" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+        
+          <a href="https://twitter.com/iam_mansur" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2013 - 
+    
+    2018
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Mansur</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+
+  </body>
+</html>

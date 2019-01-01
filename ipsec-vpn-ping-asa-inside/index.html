@@ -22,6 +22,8 @@
 
 
 
+  <meta name="keywords" content="asa, cisco, ipsec, NBMA" />
+
 
 
 
@@ -36,22 +38,39 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
 
 
 
-<link rel="canonical" href="nbma.info/ipsec-vpn-ping-asa-inside/"/>
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+<link rel="canonical" href="http://nbma.info/ipsec-vpn-ping-asa-inside/"/>
 
 
 
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
 
 
 
   
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126503503-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126503503-1');
+</script>
 
 
   <script id="baidu_push">
@@ -76,6 +95,9 @@
 
 
 
+<script>
+  window.config = {"title":"NBMA","subtitle":"学习 记录 分享","description":"重建了很多次的blog","author":"Mansur","language":"zh-CN","timezone":"Asia/Shanghai","url":"http://nbma.info","root":"/","permalink":":title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":0,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repository":"git@github.com:MansurX/mansurx.github.io.git","branch":"master"},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"jsonContent":{"meta":true,"keywords":false,"dateFormat":"undefined","pages":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false},"posts":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false,"categories":true,"tags":true}},"category_generator":{"per_page":0},"archive_generator":{"per_page":0,"yearly":true,"monthly":true,"daily":false},"feed":{"type":"atom","limit":20,"hub":"","content":true,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"tag_generator":{"per_page":0},"sitemap":{"path":"sitemap.xml"},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2013,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags"},"color":"Mint Green","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.zh\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":true,"qrCode":{"wechat":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg","alipay":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg"}},"social":{"email":"i@nbma.info","stack-overflow":null,"twitter":"https://twitter.com/iam__Peter","facebook":null,"linkedin":null,"google":null,"github":null,"weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-126503503-1","google_verification":null,"disqus_shortname":"nbma","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
 
     <title> 通过站对站的ipsec vpn无法ping通ASA的inside口 - NBMA </title>
   </head>
@@ -121,15 +143,6 @@
         </li>
       </a>
     
-      <a href="/2018-target">
-        <li class="mobile-menu-item">
-          
-          
-            Target
-          
-        </li>
-      </a>
-    
   </ul>
 </nav>
 
@@ -165,15 +178,6 @@
             
             
               标签
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/2018-target">
-            
-            
-              Target
             
           </a>
         </li>
@@ -216,6 +220,7 @@
   </div>
 
 
+
     <div class="post-content">
       
         <p>正常情况下，ASA只允许相应方向的地址ping对应的接口，公网地址能ping通ouside口，内部直连inside网段可以ping通inside口.</p>
@@ -223,13 +228,16 @@
 <p>在配置B机房的ASA监控时，从zabbix服务器无法ping到B机房的ASA inside口，查询思科文档发现如下文字：</p>
 <blockquote>
 <h4 id="Ping-其他接口"><a href="#Ping-其他接口" class="headerlink" title="Ping 其他接口"></a>Ping 其他接口</h4><p><strong><a href="http://www.cisco.com/en/US/docs/security/asa/asa80/command/reference/m.html#wp1987122" target="_blank" rel="noopener">management-access</a></strong> 命令使用户只有在使用全通道 IPSec VPN 或 SSL VPN 客户端（AnyConnect 2.x 客户端 SVC 1.x）或通过站点到站点 IPSec 通道连接到 PIX/ASA 时，才可以从外部连接到 management-access 接口。</p>
-<p>除非已在全局配置模式下配置了 management-access，否则无法从外部访问 PIX 的内部接口，反之亦然。启用了 management-access 之后，必须为所需的主机配置 Telnet、SSH 或 HTTP 访问。</p>
+<p>除非已在全局配置模式下配置了 management-access，否则无法从外部访问 PIX 的内部接口。</p>
 <blockquote>
-<p><pre>pix(config)#<strong>management-access inside</strong><br>pix(config)#<strong>show running-config management-access</strong><br>management-access inside</pre><br><strong>注意： </strong>对于ASA， ICMP类型的127以下硬编码不可能被关闭的检查。当开/关时， <strong>icmp命令的Inspect没</strong>有在此检查的影响。</p>
+<pre>asa(config)#**management-access inside**
+asa(config)#**show running-config management-access**
+management-access inside</pre>
 </blockquote>
-<p><strong>注意： </strong>发送在参考已经未横断ASA的数据包的ASA间的一种方式的目的地不可达消息将被标记并且被终止。此防护能力不可能被关闭。<br>按上面叙述，在B机房ASA全局模式下，配置对应命令保存。</p>
 </blockquote>
-<p>zabbix监控生效！</p>
+<p>在B机房ASA配置模式下，配置对应命令保存。</p>
+<p>在9.2以前的版本，只需要配置<code>management-access inside</code>即可，但是在9.4之后，思科对ASA上配置ipsec的nat赦免规则做了调整，默认解密之后不再查找路由表，而是直接按照nat规则放到出接口，所以，在这个版本之后，nat赦免需要添加一个feature：route-lookup<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nat (inside,outside) source static INISIDE-NET INISIDE-NET destination static REMOTE-NET REMOTE-NET route-lookup</span><br></pre></td></tr></table></figure></p>
+<p>指定route-lookup命令会告诉ASA查看条目的路由表，然后相应地转发数据包。<br>在比较早的ASA版本是默认查询路由表的。新版需要手动指定。</p>
 <p>9ps@C</p>
 
       
@@ -242,16 +250,16 @@
   <div class="post-copyright">
     <p class="copyright-item">
       <span>原文作者: </span>
-      <a href="nbma.info">Mansur</a>
+      <a href="http://nbma.info">Mansur</a>
     </p>
     <p class="copyright-item">
       <span>原文链接: </span>
-      <a href="nbma.info/ipsec-vpn-ping-asa-inside/">nbma.info/ipsec-vpn-ping-asa-inside/</a>
+      <a href="http://nbma.info/ipsec-vpn-ping-asa-inside/">http://nbma.info/ipsec-vpn-ping-asa-inside/</a>
     </p>
     <p class="copyright-item">
       <span>许可协议: </span>
       
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
 
@@ -259,10 +267,38 @@
 
       
       
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">赞赏支持</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
     
 
     
       <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/asa/">asa</a>
+            
+              <a href="/tags/cisco/">cisco</a>
+            
+              <a href="/tags/ipsec/">ipsec</a>
+            
+          </div>
         
         
         
@@ -283,6 +319,7 @@
     
   </nav>
 
+
       </footer>
     
 
@@ -292,6 +329,13 @@
           </div>
           
   <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     
   </div>
 
@@ -313,7 +357,7 @@
     
       
         
-          <a href="https://twitter.com/iam_mansur" class="iconfont icon-twitter" title="twitter"></a>
+          <a href="https://twitter.com/iam__Peter" class="iconfont icon-twitter" title="twitter"></a>
         
       
     
@@ -337,11 +381,12 @@
     
       
     
-    
+
     
       <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
     
   </div>
+
 
 
 <div class="copyright">
@@ -360,7 +405,7 @@
      
       2013 - 
     
-    2018
+    2019
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -378,6 +423,22 @@
 
     
   
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://nbma.info/ipsec-vpn-ping-asa-inside/';
+        this.page.identifier = 'ipsec-vpn-ping-asa-inside/';
+        this.page.title = '通过站对站的ipsec vpn无法ping通ASA的inside口';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//nbma.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
   
 
   
@@ -385,12 +446,19 @@
 
 
     
+  
+
+
+
+  
+  
+
 
 
 
 
   
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   
 
   
@@ -398,10 +466,19 @@
   
 
   
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
 
 
-    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
 
   </body>
 </html>

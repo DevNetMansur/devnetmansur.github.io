@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="GETVPN介绍及配置"/>
+
+
+
+
+  <meta name="keywords" content="网络, cisco, GETVPN, NBMA" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NBMA">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
+
+
+
+<link rel="canonical" href="http://nbma.info/getvpn/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126503503-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126503503-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"NBMA","subtitle":"学习 记录 分享","description":"重建了很多次的blog","author":"Mansur","language":"zh-CN","timezone":"Asia/Shanghai","url":"http://nbma.info","root":"/","permalink":":title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":0,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repository":"git@github.com:MansurX/mansurx.github.io.git","branch":"master"},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"jsonContent":{"meta":true,"keywords":false,"dateFormat":"undefined","pages":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false},"posts":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false,"categories":true,"tags":true}},"category_generator":{"per_page":0},"archive_generator":{"per_page":0,"yearly":true,"monthly":true,"daily":false},"feed":{"type":"atom","limit":20,"hub":"","content":true,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"tag_generator":{"per_page":0},"sitemap":{"path":"sitemap.xml"},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2013,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags"},"color":"Mint Green","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.zh\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":true,"qrCode":{"wechat":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg","alipay":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg"}},"social":{"email":"i@nbma.info","stack-overflow":null,"twitter":"https://twitter.com/iam__Peter","facebook":null,"linkedin":null,"google":null,"github":null,"weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-126503503-1","google_verification":null,"disqus_shortname":"nbma","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
+
+    <title> GETVPN介绍及配置 - NBMA </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">NBMA</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">NBMA</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          GETVPN介绍及配置
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-09
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#封装格式"><span class="toc-text">封装格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#协商过程"><span class="toc-text">协商过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#KS配置"><span class="toc-text">KS配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GM配置"><span class="toc-text">GM配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他命令"><span class="toc-text">其他命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主备KS配置"><span class="toc-text">主备KS配置</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>Group Encrypted Transport VPN，<br>用于内网（全局可路由）加密的VPN，不是互联网VPN（peer无法直接路由）<br>目前的场景是用于加密MPLS VPN，因为MPLS本身只是加标签，并没有加密</p>
+<a id="more"></a>
+<h2 id="封装格式"><a href="#封装格式" class="headerlink" title="封装格式"></a>封装格式</h2><p>copy原始IP头部，然后内部用ESP加密IP数据报文，不影响QoS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+----------—+—-------+--------------+</span><br><span class="line">| 原始IP头部 | esp头部 | 加密原始IP报文 |</span><br><span class="line">+-----------+--------+--------------+</span><br></pre></td></tr></table></figure>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>组成员Group Member向密钥服务器Key Server注册，KS上配置策略，产生一个ipsec sa，向同一组的GM推送sa和感兴趣流。<br>组内成员可以实现any-to-any通讯，支持单播和组播</p>
+<p><strong>KS</strong>：验证组成员，管理安全策略，产生组密钥，分发策略和密钥，并不能加解密数据<br><strong>GM</strong>：加密设备，组播参与者，在安全和不安全区域执行路由。<br><em>GETVPN最好有组播环境，这样KS只向一个组播地址分发即可。</em><br><strong>GDOI</strong>: Group Domain of Interpretation 公有协议，用于KS和GM之间通讯，和其他厂商兼容，UDP848</p>
+<p><strong>KSCP</strong>: Cooperative Protocol 协作协议，思科私有，用于主KS和备份KS通讯</p>
+<h3 id="协商过程"><a href="#协商过程" class="headerlink" title="协商过程"></a>协商过程</h3><p><strong>GM  <---->  KS</----></strong>：ike第一阶段协商，验证GM，6个包工作在UDP848，不是UDP500，生成IKE SA<br><strong>GM  ——&gt;  KS</strong>：使用ike sa加密，提供group ID<br><strong>GM  &lt;——  KS</strong>：使用ike sa加密，发送安全策略 .<br><strong>GM  ——&gt;  KS</strong>：使用ike sa加密，确认<br><strong>GM  &lt;——  KS</strong>：使用ike sa加密，发送TEK,KEK<br><strong>…..</strong><br><strong>GM  &lt;——  KS</strong>：使用KEK加密，周期更新密钥,rekey sa的密钥<br><strong>…..</strong></p>
+<p>TKE 用于GM之间加密,ipsec sa的密钥</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="KS配置"><a href="#KS配置" class="headerlink" title="KS配置"></a>KS配置</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#生成rsa密钥，用于前面rekey,</span></span><br><span class="line">ip domain name nbma.info</span><br><span class="line">crypto key gemerate ras label GETVPN_KEY modulus <span class="number">1024</span> exportable</span><br><span class="line"></span><br><span class="line"><span class="comment">#ike第一阶段，所有ks和gm的预共享密钥</span></span><br><span class="line">crypto isakmp policy <span class="number">10</span></span><br><span class="line"> authentication pre-share</span><br><span class="line">crypto isakmp key PRE-KEY address <span class="number">10.1</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">crypto isakmp key PRE-KEY address <span class="number">10.1</span><span class="number">.1</span><span class="number">.2</span></span><br><span class="line">crypto isakmp key PRE-KEY address <span class="number">10.1</span><span class="number">.1</span><span class="number">.254</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#感兴趣流</span></span><br><span class="line">ip access-list ex GETVPN_traffic</span><br><span class="line"> primit ip <span class="number">10.1</span><span class="number">.0</span><span class="number">.0</span> <span class="number">0.0</span><span class="number">.255</span><span class="number">.255</span> <span class="number">10.1</span><span class="number">.0</span><span class="number">.0</span> <span class="number">0.0</span><span class="number">.255</span><span class="number">.255</span></span><br><span class="line"><span class="comment">#rekey更新流量</span></span><br><span class="line">ip access-list ex GETVPN_muiltucast</span><br><span class="line"> primit udp host <span class="number">10.1</span><span class="number">.1</span><span class="number">.1</span> eq <span class="number">848</span> host <span class="number">239.1</span><span class="number">.1</span><span class="number">.1</span> eq <span class="number">848</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#定义转换集和profile</span></span><br><span class="line">crypto ipsec transform-set TRANS esp-3des esp-md5-hmac</span><br><span class="line">crypto ipsec profile IPSPROF</span><br><span class="line"> set transform-set TRANS</span><br><span class="line"></span><br><span class="line"><span class="comment">#GDOI组，组名本地有效</span></span><br><span class="line">crypto gdoi group GDOI_GROUP</span><br><span class="line"> <span class="comment">#所有的KS,GM的id要一致</span></span><br><span class="line"> identity number <span class="number">66666</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">#指定本地作为KS服务器</span></span><br><span class="line"> server local</span><br><span class="line">  address ipv4 <span class="number">10.1</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#指定rsa用于签名</span></span><br><span class="line">  rekey authentication mypubkey rsa GETVPN_KEY</span><br><span class="line"></span><br><span class="line"><span class="comment">#如果用单播rekey还需要敲：rekey transport unicast</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#对rekey的加密算法（可选，默认3des）</span></span><br><span class="line">  rekey algorithm aes <span class="number">256</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#rekey更新流量</span></span><br><span class="line">  rekey address ipv4 GETVPN_muiltucast</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置ipsec sa </span></span><br><span class="line">  sa ipsec <span class="number">1</span></span><br><span class="line">   match address ipv4 GETVPN_traffic</span><br><span class="line">   profile IPSPROF</span><br><span class="line">   reply time windows-size <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<h3 id="GM配置"><a href="#GM配置" class="headerlink" title="GM配置"></a>GM配置</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">crypto isakmp policy <span class="number">10</span></span><br><span class="line"> authentication pre-share</span><br><span class="line"></span><br><span class="line"><span class="comment">#只需要配置主备ks的预共享密钥</span></span><br><span class="line">crypto isakmp key PRE-KEY address <span class="number">10.1</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">crypto isakmp key PRE-KEY address <span class="number">10.1</span><span class="number">.1</span><span class="number">.2</span></span><br><span class="line"></span><br><span class="line">crypto gdoi group GDOI-GROUP</span><br><span class="line"> identity number <span class="number">66666</span></span><br><span class="line"> server address ipv4 <span class="number">10.1</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line"> server address ipv4 <span class="number">10.1</span><span class="number">.1</span><span class="number">.2</span></span><br><span class="line"></span><br><span class="line">crypto map GDOI-MAP <span class="number">10</span> gdoi</span><br><span class="line"> set group GDOI-GROUP</span><br><span class="line"></span><br><span class="line">inerface e0/<span class="number">0</span></span><br><span class="line"> crypto map GDOI-MAP</span><br></pre></td></tr></table></figure>
+<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在ks上查看GM注册信息</span></span><br><span class="line">show crypto gdoi ks member </span><br><span class="line"></span><br><span class="line"><span class="comment">#在gm上查看gdoi</span></span><br><span class="line">show crypto gdoi</span><br><span class="line"></span><br><span class="line"><span class="comment">#在GM上设置bypass流量，只能deny</span></span><br><span class="line">ip access-list external GM-ACL</span><br><span class="line"> deny ip <span class="number">10.1</span><span class="number">.0</span><span class="number">.0</span> <span class="number">0.0</span><span class="number">.255</span><span class="number">.255</span> <span class="number">10.1</span><span class="number">.2</span><span class="number">.0</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.255</span></span><br><span class="line">crypto map GDOI-MAP <span class="number">10</span> gdoi</span><br><span class="line"> match address GM-ACL</span><br></pre></td></tr></table></figure>
+<h3 id="主备KS配置"><a href="#主备KS配置" class="headerlink" title="主备KS配置"></a>主备KS配置</h3><p>手动同步。手敲相同的配置，包括rsa密钥对，感兴趣流，转换及，ipsec sa的lifetime</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在KS1上</span></span><br><span class="line">crypto gdoi group GDOI_GROUP</span><br><span class="line"> server local</span><br><span class="line">  redundancy</span><br><span class="line">   peer address ipv4 <span class="number">10.1</span><span class="number">.1</span><span class="number">.2</span></span><br><span class="line">   local priority <span class="number">100</span>(越大越优先)</span><br><span class="line"></span><br><span class="line"><span class="comment">#导出KS1的key </span></span><br><span class="line">crypto key export rsa GETVPN_KEY pem terminal 3des csico123</span><br><span class="line"></span><br><span class="line"><span class="comment">#在KS2上导入密钥</span></span><br><span class="line">crypto key import rsa GETVPN_KEY pem terminal 3des csico123</span><br><span class="line">复制公钥</span><br><span class="line">复制私钥</span><br><span class="line">quit </span><br><span class="line"></span><br><span class="line"><span class="comment">#（策略-略）</span></span><br><span class="line"></span><br><span class="line">crypto gdoi group GDOI_GROUP</span><br><span class="line"> server local</span><br><span class="line">  redundancy</span><br><span class="line">   peer address ipv4 <span class="number">10.1</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">   local priority <span class="number">75</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://nbma.info">Mansur</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://nbma.info/getvpn/">http://nbma.info/getvpn/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">赞赏支持</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/网络/">网络</a>
+            
+              <a href="/tags/cisco/">cisco</a>
+            
+              <a href="/tags/GETVPN/">GETVPN</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/ezvpn-base/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">ezvpn原理基本介绍</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/ipsec-pptp-l2tp/">
+        <span class="next-text nav-default">ipsec&pptp&l2tp简单概念</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:i@nbma.info" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+        
+          <a href="https://twitter.com/iam__Peter" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2013 - 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Mansur</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://nbma.info/getvpn/';
+        this.page.identifier = 'getvpn/';
+        this.page.title = 'GETVPN介绍及配置';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//nbma.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
+
+  </body>
+</html>

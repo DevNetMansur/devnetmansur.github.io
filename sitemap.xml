@@ -2,322 +2,462 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>nbma.info/ipsec-theory/</loc>
+    <loc>http://nbma.info/last-day-of-2018/</loc>
     
-    <lastmod>2018-04-22T05:09:46.180Z</lastmod>
+    <lastmod>2019-01-01T02:39:35.050Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/tags/index.html</loc>
+    <loc>http://nbma.info/some-words-for-life/</loc>
+    
+    <lastmod>2018-12-31T12:50:45.110Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/ip-range-of-some-corp/</loc>
+    
+    <lastmod>2018-12-31T12:50:45.109Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/qos-base/</loc>
+    
+    <lastmod>2018-12-17T13:14:19.797Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/is-is-protocol/</loc>
+    
+    <lastmod>2018-12-17T13:14:19.796Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/ip-sla-pbr-track/</loc>
+    
+    <lastmod>2018-12-17T13:14:19.796Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/docker-basic/</loc>
+    
+    <lastmod>2018-12-17T13:14:19.795Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/Centos7-deploy-zabbix3/</loc>
+    
+    <lastmod>2018-12-17T13:14:19.794Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/ospf-question/</loc>
+    
+    <lastmod>2018-11-26T13:40:35.162Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/oxidized-update/</loc>
+    
+    <lastmod>2018-11-26T13:40:35.162Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/elk-setup/</loc>
+    
+    <lastmod>2018-11-26T13:40:35.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/is-ospf-a-pure-link-status-protocol/</loc>
+    
+    <lastmod>2018-11-26T13:40:35.161Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/elk-conf/</loc>
+    
+    <lastmod>2018-11-26T13:40:35.160Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/cisco-asa-ssl-vpn-policy-base-security-group/</loc>
+    
+    <lastmod>2018-11-26T13:40:35.159Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/maybe-the-best-conf-backup-tool-oxidized/</loc>
+    
+    <lastmod>2018-10-10T14:49:15.630Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/snmp-url/</loc>
+    
+    <lastmod>2018-09-29T12:19:28.897Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/nginx-deploy-https/</loc>
+    
+    <lastmod>2018-09-29T12:19:28.896Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/ezvpn-base/</loc>
+    
+    <lastmod>2018-09-29T12:19:28.893Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/8021X-auth-progression/</loc>
+    
+    <lastmod>2018-09-29T12:19:28.889Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/mysql-xtrabackup/</loc>
+    
+    <lastmod>2018-08-25T01:52:51.067Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/cisco-nat-nvi-back/</loc>
+    
+    <lastmod>2018-08-25T01:52:51.065Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/cisco-asa-ssl-vpn-configure/</loc>
+    
+    <lastmod>2018-08-25T01:52:51.062Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/centos-mount-nfs/</loc>
+    
+    <lastmod>2018-08-25T01:52:51.060Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/bgp-best-path-selection-algorithm/</loc>
+    
+    <lastmod>2018-08-25T01:52:51.059Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/asa-tcp-traffic-back/</loc>
+    
+    <lastmod>2018-08-25T01:52:51.057Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/ipsec-vpn-ping-asa-inside/</loc>
+    
+    <lastmod>2018-05-26T05:12:13.446Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/ipsec-theory/</loc>
+    
+    <lastmod>2018-05-26T05:12:13.444Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/ipsec-pptp-l2tp/</loc>
+    
+    <lastmod>2018-05-26T05:12:13.442Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/ipsec-ikev2-config/</loc>
+    
+    <lastmod>2018-05-26T05:12:13.441Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/getvpn/</loc>
+    
+    <lastmod>2018-05-26T05:12:13.439Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/asa-vpn-policy-proc/</loc>
+    
+    <lastmod>2018-05-26T05:12:13.433Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/2018-target/index.html</loc>
+    
+    <lastmod>2018-05-26T05:12:13.432Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/tags/index.html</loc>
     
     <lastmod>2018-04-21T09:14:32.597Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/vim-tutor/</loc>
+    <loc>http://nbma.info/vim-tutor/</loc>
     
     <lastmod>2018-04-21T09:14:32.593Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/ospf-question/</loc>
-    
-    <lastmod>2018-04-21T09:14:32.591Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>nbma.info/nginx-deploy-https/</loc>
-    
-    <lastmod>2018-04-21T09:14:32.589Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>nbma.info/learn-nginx/</loc>
+    <loc>http://nbma.info/learn-nginx/</loc>
     
     <lastmod>2018-04-21T09:14:32.588Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/https-theory/</loc>
+    <loc>http://nbma.info/https-theory/</loc>
     
     <lastmod>2018-04-21T09:14:32.585Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/cisco-nat-nvi-back/</loc>
-    
-    <lastmod>2018-04-21T09:14:32.583Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>nbma.info/cisco-asa-ssl-vpn-policy-base-security-group/</loc>
-    
-    <lastmod>2018-04-21T09:14:32.581Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>nbma.info/cisco-asa-ssl-vpn-configure/</loc>
-    
-    <lastmod>2018-04-21T09:14:32.580Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>nbma.info/Centos7-deploy-zabbix3/</loc>
-    
-    <lastmod>2018-04-21T09:14:32.579Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>nbma.info/8021X-auth-progression/</loc>
-    
-    <lastmod>2018-04-21T09:14:32.577Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>nbma.info/2018-target/index.html</loc>
-    
-    <lastmod>2018-04-21T09:14:32.576Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>nbma.info/wenchangbeijiederizi-trashed/</loc>
+    <loc>http://nbma.info/wenchangbeijiederizi-trashed/</loc>
     
     <lastmod>2018-03-27T15:18:46.457Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/usg6000-l2tp-over-ipsec/</loc>
+    <loc>http://nbma.info/usg6000-l2tp-over-ipsec/</loc>
     
     <lastmod>2018-03-27T15:18:46.456Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/traffic-hijack/</loc>
+    <loc>http://nbma.info/traffic-hijack/</loc>
     
     <lastmod>2018-03-27T15:18:46.455Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/traffic-hijack-2/</loc>
+    <loc>http://nbma.info/traffic-hijack-2/</loc>
     
     <lastmod>2018-03-27T15:18:46.454Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/switch-redundancy/</loc>
+    <loc>http://nbma.info/switch-redundancy/</loc>
     
     <lastmod>2018-03-27T15:18:46.453Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/qos-mqc-bandwidth-police/</loc>
+    <loc>http://nbma.info/snmp-max-value-notify/</loc>
     
     <lastmod>2018-03-27T15:18:46.452Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/snmp-max-value-notify/</loc>
+    <loc>http://nbma.info/qos-mqc-bandwidth-police/</loc>
     
     <lastmod>2018-03-27T15:18:46.452Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/ping-switch-svi-delay/</loc>
+    <loc>http://nbma.info/ping-switch-svi-delay/</loc>
     
     <lastmod>2018-03-27T15:18:46.451Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/packet-tracer-acl/</loc>
+    <loc>http://nbma.info/packet-tracer-acl/</loc>
     
     <lastmod>2018-03-27T15:18:46.450Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/packet-tracer-hsrp/</loc>
+    <loc>http://nbma.info/packet-tracer-hsrp/</loc>
     
     <lastmod>2018-03-27T15:18:46.450Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/ipsec-vpn-ping-asa-inside/</loc>
-    
-    <lastmod>2018-03-27T15:18:46.447Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>nbma.info/interview-question/</loc>
+    <loc>http://nbma.info/interview-question/</loc>
     
     <lastmod>2018-03-27T15:18:46.446Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/ip-prefix-list/</loc>
+    <loc>http://nbma.info/ip-prefix-list/</loc>
     
     <lastmod>2018-03-27T15:18:46.446Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/html-merge-cells/</loc>
+    <loc>http://nbma.info/hello-world/</loc>
     
     <lastmod>2018-03-27T15:18:46.444Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/hello-world/</loc>
+    <loc>http://nbma.info/html-merge-cells/</loc>
     
     <lastmod>2018-03-27T15:18:46.444Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/hehe/</loc>
+    <loc>http://nbma.info/hehe/</loc>
     
     <lastmod>2018-03-27T15:18:46.443Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/grafana-zabbix-prometheus/</loc>
+    <loc>http://nbma.info/grafana-zabbix-prometheus/</loc>
     
     <lastmod>2018-03-27T15:18:46.442Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/dog-eat-moon/</loc>
+    <loc>http://nbma.info/gns3-asa842-license/</loc>
     
     <lastmod>2018-03-27T15:18:46.441Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/gns3-asa842-license/</loc>
+    <loc>http://nbma.info/dog-eat-moon/</loc>
     
     <lastmod>2018-03-27T15:18:46.441Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/danger-behind-popup-login-dialog/</loc>
+    <loc>http://nbma.info/danger-behind-popup-login-dialog/</loc>
     
     <lastmod>2018-03-27T15:18:46.440Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/csico2911k-securityk9-license/</loc>
+    <loc>http://nbma.info/csico2911k-securityk9-license/</loc>
     
     <lastmod>2018-03-27T15:18:46.439Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/compare-next-hop/</loc>
+    <loc>http://nbma.info/compare-next-hop/</loc>
     
     <lastmod>2018-03-27T15:18:46.439Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/cisco-switch-reconvery-factory/</loc>
+    <loc>http://nbma.info/cisco-switch-reconvery-factory/</loc>
     
     <lastmod>2018-03-27T15:18:46.438Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/centos-dns-unresolution/</loc>
+    <loc>http://nbma.info/chrome-idrac6-fail-error/</loc>
     
     <lastmod>2018-03-27T15:18:46.437Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/chrome-idrac6-fail-error/</loc>
+    <loc>http://nbma.info/centos-dns-unresolution/</loc>
     
     <lastmod>2018-03-27T15:18:46.437Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/bi-ye-she-ji-vote/</loc>
+    <loc>http://nbma.info/bi-ye-she-ji-vote/</loc>
     
     <lastmod>2018-03-27T15:18:46.436Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/asa-tcp-traffic-back/</loc>
-    
-    <lastmod>2018-03-27T15:18:46.435Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>nbma.info/bgp-best-path-selection-algorithm/</loc>
-    
-    <lastmod>2018-03-27T15:18:46.435Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>nbma.info/Prometheus-base/</loc>
+    <loc>http://nbma.info/Prometheus-base/</loc>
     
     <lastmod>2018-03-27T15:18:46.433Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/asa-cpu98/</loc>
+    <loc>http://nbma.info/asa-cpu98/</loc>
     
     <lastmod>2018-03-27T15:18:46.433Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/2015-last-day/</loc>
+    <loc>http://nbma.info/2015-last-day/</loc>
     
     <lastmod>2018-03-27T15:18:46.431Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/2013-lastday/</loc>
+    <loc>http://nbma.info/2013-lastday/</loc>
     
     <lastmod>2018-03-27T15:18:46.430Z</lastmod>
     
   </url>
   
   <url>
-    <loc>nbma.info/wireless-base/</loc>
+    <loc>http://nbma.info/wireless-base/</loc>
     
     <lastmod>2018-03-10T11:39:23.725Z</lastmod>
     

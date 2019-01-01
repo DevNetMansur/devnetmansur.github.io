@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="单出口设备的多WAN接入的冗余设置"/>
+
+
+
+
+  <meta name="keywords" content="网络, cisco, nat, SLA, NBMA" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NBMA">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
+
+
+
+<link rel="canonical" href="http://nbma.info/ip-sla-pbr-track/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126503503-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126503503-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"NBMA","subtitle":"学习 记录 分享","description":"重建了很多次的blog","author":"Mansur","language":"zh-CN","timezone":"Asia/Shanghai","url":"http://nbma.info","root":"/","permalink":":title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":0,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repository":"git@github.com:MansurX/mansurx.github.io.git","branch":"master"},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"jsonContent":{"meta":true,"keywords":false,"dateFormat":"undefined","pages":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false},"posts":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false,"categories":true,"tags":true}},"category_generator":{"per_page":0},"archive_generator":{"per_page":0,"yearly":true,"monthly":true,"daily":false},"feed":{"type":"atom","limit":20,"hub":"","content":true,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"tag_generator":{"per_page":0},"sitemap":{"path":"sitemap.xml"},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2013,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags"},"color":"Mint Green","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.zh\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":true,"qrCode":{"wechat":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg","alipay":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg"}},"social":{"email":"i@nbma.info","stack-overflow":null,"twitter":"https://twitter.com/iam__Peter","facebook":null,"linkedin":null,"google":null,"github":null,"weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-126503503-1","google_verification":null,"disqus_shortname":"nbma","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
+
+    <title> 单出口设备的多WAN接入的冗余设置 - NBMA </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">NBMA</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">NBMA</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          单出口设备的多WAN接入的冗余设置
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-12-15
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SLA配置"><span class="toc-text">SLA配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PBR配置"><span class="toc-text">PBR配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PAT配置"><span class="toc-text">PAT配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认路由问题"><span class="toc-text">* 默认路由问题</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <p>目前的网络情况，无论是LAN还是WAN，冗余越来越多，SLA也变的越来越重要。自己不熟悉的部分就一点一点消灭掉。</p>
+<p>以思科设备为例，多WAN冗余接入最佳实践方案：使用策略路由PBR，将内部不同网段出向流量的下一跳修改成不同的WAN出口，使用SLA和track配合PBR进行链路检测和冗余切换。<br><a id="more"></a><br>策略路由，Policy-based Routing，当一个流量到达路由器设备时，会优先被策略路由处理，然后才是查询路由表。基于此来实现多出口冗余。</p>
+<p>以这个拓扑为例：</p>
+<p><img src="https://ws1.sinaimg.cn/mw690/68e0aeafly1fy7h7736ppj211g0eedj8.jpg" alt=""></p>
+<p>路由器Border作为出口，连接了ISP1和ISP2两个ISP的WAN出口；R1内部有终端PC用户（192.168.1.x）和一些Server集群(10.0.0.x)，使用策略路由实现PC通过ISP1访问互联网，Server通过ISP2访问互联网。<br>基本ip配置，内网路由，外网路由等基本配置略</p>
+<h2 id="SLA配置"><a href="#SLA配置" class="headerlink" title="SLA配置"></a>SLA配置</h2><p>首先在Border路由器上配置SLA检测到ISP1,ISP2链路的可达性。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">ip sla <span class="number">1</span></span><br><span class="line"> icmp-echo <span class="number">1.1</span><span class="number">.1</span><span class="number">.2</span> <span class="keyword">source</span>-ip <span class="number">1.1</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line"> threshold <span class="number">100</span></span><br><span class="line"> timeout <span class="number">100</span></span><br><span class="line"> frequency <span class="number">3</span></span><br><span class="line">ip sla schedule <span class="number">1</span> life forever start-time now</span><br><span class="line"></span><br><span class="line"><span class="comment">#track 100检测ISP1的可达性</span></span><br><span class="line">track <span class="number">100</span> ip sla <span class="number">1</span> reachability</span><br><span class="line"></span><br><span class="line">ip sla <span class="number">2</span></span><br><span class="line"> icmp-echo <span class="number">2.2</span><span class="number">.2</span><span class="number">.2</span> <span class="keyword">source</span>-interface Ethernet0/<span class="number">1</span></span><br><span class="line"> threshold <span class="number">100</span></span><br><span class="line"> timeout <span class="number">100</span></span><br><span class="line"> frequency <span class="number">3</span></span><br><span class="line">ip sla schedule <span class="number">2</span> life forever start-time now</span><br><span class="line"></span><br><span class="line"><span class="comment">#track 200检测ISP2的可达性</span></span><br><span class="line">track <span class="number">200</span> ip sla <span class="number">2</span> reachability</span><br></pre></td></tr></table></figure>
+<p>路由器将没隔3秒发送一次icmp的ping来来检测目标ip的可达性，超时时间是100ms。</p>
+<h2 id="PBR配置"><a href="#PBR配置" class="headerlink" title="PBR配置"></a>PBR配置</h2><p>然后配置策略路由，先用acl匹配流量，然后route-map设置策略，再接口下调用</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#抓取流量</span></span><br><span class="line">access-list <span class="number">100</span> permit ip <span class="number">192.168</span><span class="number">.1</span><span class="number">.0</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.255</span> any</span><br><span class="line">access-list <span class="number">199</span> permit ip <span class="number">10.1</span><span class="number">.1</span><span class="number">.0</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.255</span> any</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置route-map</span></span><br><span class="line">route-map PBR permit <span class="number">10</span></span><br><span class="line"> match ip address <span class="number">100</span></span><br><span class="line"> set ip <span class="keyword">next</span>-hop verify-availability <span class="number">1.1</span><span class="number">.1</span><span class="number">.2</span> <span class="number">1</span> track <span class="number">100</span></span><br><span class="line"> set ip <span class="keyword">next</span>-hop verify-availability <span class="number">2.2</span><span class="number">.2</span><span class="number">.2</span> <span class="number">2</span> track <span class="number">200</span></span><br><span class="line"></span><br><span class="line">route-map PBR permit <span class="number">20</span></span><br><span class="line"> match ip address <span class="number">199</span></span><br><span class="line"> set ip <span class="keyword">next</span>-hop verify-availability <span class="number">2.2</span><span class="number">.2</span><span class="number">.2</span> <span class="number">1</span> track <span class="number">200</span></span><br><span class="line"> set ip <span class="keyword">next</span>-hop verify-availability <span class="number">1.1</span><span class="number">.1</span><span class="number">.2</span> <span class="number">2</span> track <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#接口下调用</span></span><br><span class="line">interface Ethernet0/<span class="number">2</span></span><br><span class="line"> ip policy route-map PBR</span><br></pre></td></tr></table></figure>
+<p>说明：track100状态up的时候，默认pc使用1.1.1.2这个下一跳。track变为down时，这一行设置自动失效，将使用next-hop序号2的作为下一跳。track200同理。</p>
+<h2 id="PAT配置"><a href="#PAT配置" class="headerlink" title="PAT配置"></a>PAT配置</h2><p>原有的ip nat inside source list xx只能为一个outside出口做地址转换，所以要同时修改源nat设置：把源地址列表nat改为根据出接口nat。<br>在Border路由器上使用route-map匹配出接口：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">route-map ISP2 permit <span class="number">10</span></span><br><span class="line"> match interface Ethernet0/<span class="number">1</span></span><br><span class="line">route-map ISP1 permit <span class="number">10</span></span><br><span class="line"> match interface Ethernet0/<span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#出接口为e0/0的内部流量，转换为1.1.1.1出去</span></span><br><span class="line"><span class="comment">#出接口为e0/1的内部流量，转换为2.2.2.1出去</span></span><br><span class="line">ip nat inside <span class="keyword">source</span> route-map ISP1 interface Ethernet0/<span class="number">0</span> overload</span><br><span class="line">ip nat inside <span class="keyword">source</span> route-map ISP2 interface Ethernet0/<span class="number">1</span> overload</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">PC#traceroute 8.8.8.8 numeric </span><br><span class="line">Type escape sequence to abort.</span><br><span class="line">Tracing the route to 8.8.8.8</span><br><span class="line">VRF info: (vrf in name/id, vrf out name/id)</span><br><span class="line">  1 192.168.1.1 0 msec 1 msec 0 msec</span><br><span class="line">  2 172.16.1.2 1 msec 0 msec 1 msec</span><br><span class="line">  3 1.1.1.2 5 msec 1 msec 1 msec</span><br><span class="line">  4 100.100.100.101 1 msec *  2 msec</span><br><span class="line">PC#</span><br><span class="line"></span><br><span class="line">Server#traceroute 8.8.8.8 numeric </span><br><span class="line">Type escape sequence to abort.</span><br><span class="line">Tracing the route to 8.8.8.8</span><br><span class="line">VRF info: (vrf in name/id, vrf out name/id)</span><br><span class="line">  1 10.1.1.1 0 msec 1 msec 0 msec</span><br><span class="line">  2 172.16.1.2 1 msec 0 msec 1 msec</span><br><span class="line">  3 2.2.2.2 1 msec 1 msec 0 msec</span><br><span class="line">  4 200.200.200.202 1 msec *  2 msec</span><br><span class="line">Server#</span><br></pre></td></tr></table></figure>
+<p>在Border或者ISP1上模拟故障</p>
+<p>Border上弹出log<br><code>*Dec 15 07:26:06.798: %TRACK-6-STATE: 100 ip sla 1 reachability Up -&gt; Down</code></p>
+<p>PC已经切换冗余:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PC<span class="comment">#traceroute 8.8.8.8 numeric </span></span><br><span class="line">Type escape sequence to abort.</span><br><span class="line">Tracing the route to <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span></span><br><span class="line">VRF info: (vrf <span class="keyword">in</span> name/id, vrf out name/id)</span><br><span class="line">  <span class="number">1</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span> <span class="number">0</span> msec <span class="number">0</span> msec <span class="number">0</span> msec</span><br><span class="line">  <span class="number">2</span> <span class="number">172.16</span><span class="number">.1</span><span class="number">.2</span> <span class="number">1</span> msec <span class="number">1</span> msec <span class="number">0</span> msec</span><br><span class="line">  <span class="number">3</span> <span class="number">2.2</span><span class="number">.2</span><span class="number">.2</span> <span class="number">1</span> msec <span class="number">1</span> msec <span class="number">1</span> msec</span><br><span class="line">  <span class="number">4</span> <span class="number">200.200</span><span class="number">.200</span><span class="number">.202</span> <span class="number">1</span> msec *  <span class="number">2</span> msec</span><br><span class="line">PC<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+<h2 id="默认路由问题"><a href="#默认路由问题" class="headerlink" title="* 默认路由问题"></a>* 默认路由问题</h2><p>首先内到外的流量，由于PBR优于路由表，所以不走路由表。<br>为了外部发起的流量到路由器能够正确的回包，设置默认路由加track，只有当track时up的时候，这条路由才被加入路由表。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip route <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> <span class="number">1.1</span><span class="number">.1</span><span class="number">.1</span> track <span class="number">100</span></span><br><span class="line">ip route <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> <span class="number">2.2</span><span class="number">.2</span><span class="number">.2</span> track <span class="number">200</span></span><br></pre></td></tr></table></figure>
+<p>参考文档：<br><a href="bbs.spoto.net/thread-50227-1-1.html">PBR+双出口NAT_CCNP学习资料</a><br><a href="www.firewall.cx/cisco-technical-knowledgebase/cisco-routers/813-cisco-router-ipsla-basic.html">Configuring Static Route Tracking using IP SLA (Basic)</a></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://nbma.info">Mansur</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://nbma.info/ip-sla-pbr-track/">http://nbma.info/ip-sla-pbr-track/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">赞赏支持</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/网络/">网络</a>
+            
+              <a href="/tags/cisco/">cisco</a>
+            
+              <a href="/tags/nat/">nat</a>
+            
+              <a href="/tags/SLA/">SLA</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/some-words-for-life/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">最近看到的一些很有道理的话</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/qos-base/">
+        <span class="next-text nav-default">QoS学习笔记</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:i@nbma.info" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+        
+          <a href="https://twitter.com/iam__Peter" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2013 - 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Mansur</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://nbma.info/ip-sla-pbr-track/';
+        this.page.identifier = 'ip-sla-pbr-track/';
+        this.page.title = '单出口设备的多WAN接入的冗余设置';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//nbma.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
+
+  </body>
+</html>

@@ -17,12 +17,12 @@
 
 
 
-  <meta name="description" content="SSLVPN基于安全组（角色）下发不同路由"/>
+  <meta name="description" content="SSLVPN基于角色（OU）的组策略分配"/>
 
 
 
 
-  <meta name="keywords" content="网络, asa, SSLVPN, cisco, NBMA" />
+  <meta name="keywords" content="网络, asa, cisco, SSLVPN, NBMA" />
 
 
 
@@ -38,22 +38,39 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
 
 
 
-<link rel="canonical" href="nbma.info/cisco-asa-ssl-vpn-policy-base-security-group/"/>
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+<link rel="canonical" href="http://nbma.info/cisco-asa-ssl-vpn-policy-base-security-group/"/>
 
 
 
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
 
 
 
   
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126503503-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126503503-1');
+</script>
 
 
   <script id="baidu_push">
@@ -78,8 +95,11 @@
 
 
 
+<script>
+  window.config = {"title":"NBMA","subtitle":"学习 记录 分享","description":"重建了很多次的blog","author":"Mansur","language":"zh-CN","timezone":"Asia/Shanghai","url":"http://nbma.info","root":"/","permalink":":title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":0,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repository":"git@github.com:MansurX/mansurx.github.io.git","branch":"master"},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"jsonContent":{"meta":true,"keywords":false,"dateFormat":"undefined","pages":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false},"posts":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false,"categories":true,"tags":true}},"category_generator":{"per_page":0},"archive_generator":{"per_page":0,"yearly":true,"monthly":true,"daily":false},"feed":{"type":"atom","limit":20,"hub":"","content":true,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"tag_generator":{"per_page":0},"sitemap":{"path":"sitemap.xml"},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2013,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags"},"color":"Mint Green","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.zh\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":true,"qrCode":{"wechat":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg","alipay":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg"}},"social":{"email":"i@nbma.info","stack-overflow":null,"twitter":"https://twitter.com/iam__Peter","facebook":null,"linkedin":null,"google":null,"github":null,"weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-126503503-1","google_verification":null,"disqus_shortname":"nbma","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
 
-    <title> SSLVPN基于安全组（角色）下发不同路由 - NBMA </title>
+    <title> SSLVPN基于角色（OU）的组策略分配 - NBMA </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -123,15 +143,6 @@
         </li>
       </a>
     
-      <a href="/2018-target">
-        <li class="mobile-menu-item">
-          
-          
-            Target
-          
-        </li>
-      </a>
-    
   </ul>
 </nav>
 
@@ -171,15 +182,6 @@
           </a>
         </li>
       
-        <li class="menu-item">
-          <a class="menu-item-link" href="/2018-target">
-            
-            
-              Target
-            
-          </a>
-        </li>
-      
     </ul>
   
 </nav>
@@ -195,7 +197,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          SSLVPN基于安全组（角色）下发不同路由
+          SSLVPN基于角色（OU）的组策略分配
         
       </h1>
 
@@ -213,21 +215,30 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关闭客户端的tunnel-group-list显示"><span class="toc-text">关闭客户端的tunnel group list显示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#针对SSLVPN-DBA角色配置策略"><span class="toc-text">针对SSLVPN-DBA角色配置策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下发路由列表TECH-SPL"><span class="toc-text">下发路由列表TECH-SPL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL"><span class="toc-text">配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置tunnel-group，关联认证radius服务器SSL和group策略SSLVPN-DBA"><span class="toc-text">配置tunnel-group，关联认证radius服务器SSL和group策略SSLVPN-DBA</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Radius"><span class="toc-text">Radius</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASA针对SSLVPN-DBA角色配置策略"><span class="toc-text">ASA针对SSLVPN-DBA角色配置策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下发不同路由列表TECH-SPL"><span class="toc-text">下发不同路由列表TECH-SPL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL"><span class="toc-text">配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Debugging"><span class="toc-text">Debugging</span></a></li></ol>
     </div>
   </div>
 
 
+
     <div class="post-content">
       
-        <p>之前已经说过了ssl VPN的<a href="cisco-asa-ssl-vpn-configure/">基本配置</a>，再此基础上，实现不同角色的用户使用不同的策略。</p>
+        <p>之前已经说过了SSL VPN的<a href="/cisco-asa-ssl-vpn-configure">基本配置</a>，在此基础上，实现不同角色的用户使用不同的策略。</p>
 <a id="more"></a>
-<p>针对radius段角色为<code>SSLVPN-DBA</code>的用户</p>
-<h2 id="关闭客户端的tunnel-group-list显示"><a href="#关闭客户端的tunnel-group-list显示" class="headerlink" title="关闭客户端的tunnel group list显示"></a>关闭客户端的tunnel group list显示</h2><p>不关闭的话，所有策略将以下拉菜单列表的方式展现在在anyconnect端，且用户可自由选择<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ciscoasa(config)# webvpn </span><br><span class="line">ciscoasa(config-webvpn)# no tunnel-group-list enable</span><br></pre></td></tr></table></figure></p>
-<h2 id="针对SSLVPN-DBA角色配置策略"><a href="#针对SSLVPN-DBA角色配置策略" class="headerlink" title="针对SSLVPN-DBA角色配置策略"></a>针对SSLVPN-DBA角色配置策略</h2><h3 id="下发路由列表TECH-SPL"><a href="#下发路由列表TECH-SPL" class="headerlink" title="下发路由列表TECH-SPL"></a>下发路由列表<code>TECH-SPL</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">access-list TECH-SPL extended permit ip 172.17.0.0 255.255.0.0 any</span><br></pre></td></tr></table></figure>
-<h3 id="配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL"><a href="#配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL" class="headerlink" title="配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL"></a>配置group-policy，关联需要下发的路由<code>TECH-SPL</code>、访问控制<code>SSL-ACL</code>、地址池<code>SSL-POOL</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">group-policy SSLVPN-DBA internal</span><br><span class="line">group-policy SSLVPN-DBA attributes</span><br><span class="line"> dns-server value 192.168.115.11 192.168.115.12</span><br><span class="line"> vpn-simultaneous-logins 30</span><br><span class="line"> vpn-idle-timeout 120</span><br><span class="line"> vpn-filter value SSL-ACL</span><br><span class="line"> vpn-tunnel-protocol ssl-client </span><br><span class="line"> split-tunnel-policy tunnelspecified</span><br><span class="line"> split-tunnel-network-list value TECH-SPL</span><br><span class="line"> address-pools value SSL-POOL</span><br><span class="line"> webvpn</span><br><span class="line">  anyconnect ssl dtls enable</span><br><span class="line">  anyconnect mtu 1200</span><br><span class="line">  anyconnect keep-installer installed</span><br><span class="line">  anyconnect dtls compression lzs</span><br><span class="line">  anyconnect ask none default anyconnect</span><br></pre></td></tr></table></figure>
-<h3 id="配置tunnel-group，关联认证radius服务器SSL和group策略SSLVPN-DBA"><a href="#配置tunnel-group，关联认证radius服务器SSL和group策略SSLVPN-DBA" class="headerlink" title="配置tunnel-group，关联认证radius服务器SSL和group策略SSLVPN-DBA"></a>配置<code>tunnel-group</code>，关联认证radius服务器<code>SSL</code>和group策略<code>SSLVPN-DBA</code></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tunnel-group SSLVPN-DBA type remote-access</span><br><span class="line">tunnel-group SSLVPN-DBA general-attributes</span><br><span class="line"> default-group-policy SSLVPN-DBA</span><br><span class="line"> authentication-server-group SSL</span><br><span class="line"> accounting-server-group SSL</span><br><span class="line">tunnel-group SSLVPN-DBA webvpn-attributes</span><br><span class="line"> group-alias SSLVPN-DBA enable</span><br></pre></td></tr></table></figure>
-<p>此时输入该角色的用户在拨入时将获得与default不通的权限。</p>
+<p>ASA防火墙根据用户的OU分配组策略的功能，是根据IETF的radius属性中的option 25实现的。radius服务器在进行身份验证和授权的过程中可以将包含用户OU的该属性值发送给ASA</p>
+<p><em>注：IETF RADIUS option 25:<a href="http://www.ietf.org/rfc/rfc2865.txt" target="_blank" rel="noopener">RFC 2865</a></em></p>
+<p>下面的配置案例，针对角色为<code>SSLVPN-DBA</code>的用户，ASA读取到这个属性时，将自动查询与该属性值一致的group-policy。</p>
+<blockquote>
+<p>当一个用户存在多个OU时，ASA将按照ascii码表的顺序逐个查找角色对应的策略，一旦找到匹配，就不再查询其他角色。</p>
+</blockquote>
+<h2 id="Radius"><a href="#Radius" class="headerlink" title="Radius"></a>Radius</h2><p>在防火墙配置组策略之前，需要在radius上对需要的用户分配相应的OU。</p>
+<h2 id="ASA针对SSLVPN-DBA角色配置策略"><a href="#ASA针对SSLVPN-DBA角色配置策略" class="headerlink" title="ASA针对SSLVPN-DBA角色配置策略"></a>ASA针对SSLVPN-DBA角色配置策略</h2><p>aaa-server，tunnel-group配置在前一篇已写过</p>
+<h3 id="下发不同路由列表TECH-SPL"><a href="#下发不同路由列表TECH-SPL" class="headerlink" title="下发不同路由列表TECH-SPL"></a>下发不同路由列表<code>TECH-SPL</code></h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">access-list TECH-SPL extended permit ip <span class="number">172.17</span><span class="number">.0</span><span class="number">.0</span> <span class="number">255.255</span><span class="number">.0</span><span class="number">.0</span> any</span><br></pre></td></tr></table></figure>
+<h3 id="配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL"><a href="#配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL" class="headerlink" title="配置group-policy，关联需要下发的路由TECH-SPL、访问控制SSL-ACL、地址池SSL-POOL"></a>配置group-policy，关联需要下发的路由<code>TECH-SPL</code>、访问控制<code>SSL-ACL</code>、地址池<code>SSL-POOL</code></h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">group-policy SSLVPN-DBA internal</span><br><span class="line">group-policy SSLVPN-DBA attributes</span><br><span class="line"> dns-server value <span class="number">192.168</span><span class="number">.115</span><span class="number">.11</span> <span class="number">192.168</span><span class="number">.115</span><span class="number">.12</span></span><br><span class="line"> vpn-simultaneous-logins <span class="number">30</span></span><br><span class="line"> vpn-idle-timeout <span class="number">120</span></span><br><span class="line"> vpn-filter value SSL-ACL</span><br><span class="line"> vpn-tunnel-protocol ssl-client </span><br><span class="line"> split-tunnel-policy tunnelspecified</span><br><span class="line"> split-tunnel-network-list value TECH-SPL</span><br><span class="line"> address-pools value SSL-POOL</span><br><span class="line"> webvpn</span><br><span class="line">  anyconnect ssl dtls enable</span><br><span class="line">  anyconnect mtu <span class="number">1200</span></span><br><span class="line">  anyconnect keep-installer installed</span><br><span class="line">  anyconnect dtls compression lzs</span><br><span class="line">  anyconnect ask none default anyconnect</span><br></pre></td></tr></table></figure>
+<h2 id="Debugging"><a href="#Debugging" class="headerlink" title="Debugging"></a>Debugging</h2><p>在ASA上使用这两个命令查看debug</p>
+<p><code>debug radius all</code> - 查看radius服务器的响应以及用户属性<br><code>show vpn-sessiondb anyconncet</code> - 查看anyconnect用户分配的组策略和隧道组</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#debug radius all</span></span><br><span class="line">Radius: Type = 25 (0x19) Class</span><br><span class="line">Radius: Length = 17 (0x11)</span><br><span class="line">Radius: Value (String) = </span><br><span class="line">4d 6f 62 69 6b 65 2d 45 76 65 72 79 6f 6e 65       |  SSLVPN-DBA</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#show vpn-sessiondb anyconncet</span></span><br><span class="line">Username     : v-KarlAndroRivera      Index        : 95</span><br><span class="line">Assigned IP  : 1.2.3.4          Public IP    : 5.6.7.8</span><br><span class="line">Protocol     : AnyConnect-Parent SSL-Tunnel</span><br><span class="line">License      : AnyConnect Premium</span><br><span class="line">Encryption   : AnyConnect-Parent: (1)none  SSL-Tunnel: (1)AES-GCM-256</span><br><span class="line">Hashing      : AnyConnect-Parent: (1)none  SSL-Tunnel: (1)SHA384</span><br><span class="line">Bytes Tx     : 793552                 Bytes Rx     : 604215</span><br><span class="line">Group Policy : SSLVPN-DBA             Tunnel Group : DefaultWEBVPNGroup</span><br><span class="line">Login Time   : 13:02:57 beijing Mon Oct 29 2017</span><br><span class="line">Duration     : 1h:23m:09s</span><br><span class="line">Inactivity   : 0h:00m:00s</span><br><span class="line">VLAN Mapping : N/A                    VLAN         : none</span><br><span class="line">Audt Sess ID : ac11003d0005f0005bd69481</span><br><span class="line">Security Grp : none</span><br></pre></td></tr></table></figure>
 <p>参考文档:<a href="https://www.fir3net.com/Firewalls/Cisco/cisco-asa-displaying-webvpn-bookmarks-based-on-ldap-ou.html" target="_blank" rel="noopener">Cisco ASA - Group-policy assignment based on OU</a></p>
 
       
@@ -240,16 +251,16 @@
   <div class="post-copyright">
     <p class="copyright-item">
       <span>原文作者: </span>
-      <a href="nbma.info">Mansur</a>
+      <a href="http://nbma.info">Mansur</a>
     </p>
     <p class="copyright-item">
       <span>原文链接: </span>
-      <a href="nbma.info/cisco-asa-ssl-vpn-policy-base-security-group/">nbma.info/cisco-asa-ssl-vpn-policy-base-security-group/</a>
+      <a href="http://nbma.info/cisco-asa-ssl-vpn-policy-base-security-group/">http://nbma.info/cisco-asa-ssl-vpn-policy-base-security-group/</a>
     </p>
     <p class="copyright-item">
       <span>许可协议: </span>
       
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
 
@@ -257,6 +268,24 @@
 
       
       
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">赞赏支持</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
     
 
     
@@ -268,9 +297,9 @@
             
               <a href="/tags/asa/">asa</a>
             
-              <a href="/tags/SSLVPN/">SSLVPN</a>
-            
               <a href="/tags/cisco/">cisco</a>
+            
+              <a href="/tags/SSLVPN/">SSLVPN</a>
             
           </div>
         
@@ -293,6 +322,7 @@
     
   </nav>
 
+
       </footer>
     
 
@@ -302,6 +332,13 @@
           </div>
           
   <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     
   </div>
 
@@ -323,7 +360,7 @@
     
       
         
-          <a href="https://twitter.com/iam_mansur" class="iconfont icon-twitter" title="twitter"></a>
+          <a href="https://twitter.com/iam__Peter" class="iconfont icon-twitter" title="twitter"></a>
         
       
     
@@ -347,11 +384,12 @@
     
       
     
-    
+
     
       <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
     
   </div>
+
 
 
 <div class="copyright">
@@ -370,7 +408,7 @@
      
       2013 - 
     
-    2018
+    2019
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -388,6 +426,22 @@
 
     
   
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://nbma.info/cisco-asa-ssl-vpn-policy-base-security-group/';
+        this.page.identifier = 'cisco-asa-ssl-vpn-policy-base-security-group/';
+        this.page.title = 'SSLVPN基于角色（OU）的组策略分配';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//nbma.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
   
 
   
@@ -395,12 +449,19 @@
 
 
     
+  
+
+
+
+  
+  
+
 
 
 
 
   
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   
 
   
@@ -408,10 +469,19 @@
   
 
   
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
 
 
-    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
 
   </body>
 </html>

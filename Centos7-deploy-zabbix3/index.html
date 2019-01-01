@@ -38,22 +38,39 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
 
 
 
-<link rel="canonical" href="nbma.info/Centos7-deploy-zabbix3/"/>
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+<link rel="canonical" href="http://nbma.info/Centos7-deploy-zabbix3/"/>
 
 
 
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
 
 
 
   
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126503503-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126503503-1');
+</script>
 
 
   <script id="baidu_push">
@@ -78,6 +95,9 @@
 
 
 
+<script>
+  window.config = {"title":"NBMA","subtitle":"学习 记录 分享","description":"重建了很多次的blog","author":"Mansur","language":"zh-CN","timezone":"Asia/Shanghai","url":"http://nbma.info","root":"/","permalink":":title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":0,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repository":"git@github.com:MansurX/mansurx.github.io.git","branch":"master"},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"jsonContent":{"meta":true,"keywords":false,"dateFormat":"undefined","pages":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false},"posts":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false,"categories":true,"tags":true}},"category_generator":{"per_page":0},"archive_generator":{"per_page":0,"yearly":true,"monthly":true,"daily":false},"feed":{"type":"atom","limit":20,"hub":"","content":true,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"tag_generator":{"per_page":0},"sitemap":{"path":"sitemap.xml"},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2013,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags"},"color":"Mint Green","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.zh\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":true,"qrCode":{"wechat":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg","alipay":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg"}},"social":{"email":"i@nbma.info","stack-overflow":null,"twitter":"https://twitter.com/iam__Peter","facebook":null,"linkedin":null,"google":null,"github":null,"weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-126503503-1","google_verification":null,"disqus_shortname":"nbma","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
 
     <title> CentOS7部署zabbix3.4 - NBMA </title>
   </head>
@@ -123,15 +143,6 @@
         </li>
       </a>
     
-      <a href="/2018-target">
-        <li class="mobile-menu-item">
-          
-          
-            Target
-          
-        </li>
-      </a>
-    
   </ul>
 </nav>
 
@@ -167,15 +178,6 @@
             
             
               标签
-            
-          </a>
-        </li>
-      
-        <li class="menu-item">
-          <a class="menu-item-link" href="/2018-target">
-            
-            
-              Target
             
           </a>
         </li>
@@ -218,9 +220,16 @@
   </div>
 
 
+
     <div class="post-content">
       
         <!--markdown-->早该总结一次了，之前都是自己编译，现在用yum直接装，还快。<br><br><br><a id="more"></a>
+<p>// 2018.12可以先用官网的docker镜像预览下功能<br><a href="/docker-basic/">安装好docker</a>后，直接从docker hub的镜像启动一个容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run --name zabbix-appliance -t \</span><br><span class="line">       -p 10051:10051 \</span><br><span class="line">       -p 80:80 \</span><br><span class="line">       -d zabbix/zabbix-appliance:latest</span><br></pre></td></tr></table></figure>
+<p>使用<code>docker ps</code>查看正在运行的容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7 ~]<span class="comment"># docker ps</span></span><br><span class="line">CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS              PORTS                                                   NAMES</span><br><span class="line">a024336b08db        zabbix/zabbix-appliance:latest   <span class="string">"docker-entrypoint.sh"</span>   7 days ago          Up 3 seconds        0.0.0.0:80-&gt;80/tcp, 0.0.0.0:10051-&gt;10051/tcp, 443/tcp   zabbix-appliance</span><br></pre></td></tr></table></figure>
+<p>下次启动的话，确保docker services是运行的，通过<code>docker ps -a</code>查看stop的容器。然后<code>docker start hash/name</code>启动原来容器。</p>
+<p>下面是原文：</p>
 <p>Zabbix 3.4 支持Centos 7。貌似不支持6.9.</p>
 <p>更多详细内容请参考官方说明文档，详细的安装要求不贴出来了。</p>
 <p><a href="https://www.zabbix.com/documentation/3.4/zh/manual/installation/requirements" target="_blank" rel="noopener">https://www.zabbix.com/documentation/3.4/zh/manual/installation/requirements</a></p>
@@ -232,11 +241,11 @@
 <p>可以从<a href="https://dev.mysql.com/downloads/file/?id=470281" target="_blank" rel="noopener">https://dev.mysql.com/downloads/file/?id=470281</a> 下载</p>
 <p><img src="http://i9ps.qiniudn.com/18-2-24/92166698.jpg" alt=""></p>
 <h2 id="06、安装-Zabbix-所需软件支持包"><a href="#06、安装-Zabbix-所需软件支持包" class="headerlink" title="06、安装 Zabbix 所需软件支持包"></a>06、安装 Zabbix 所需软件支持包</h2><h3 id="先装mysql"><a href="#先装mysql" class="headerlink" title="先装mysql"></a>先装mysql</h3><p><code>sudo yum install mysql-* --skip-broken</code> 有冲突的软件跳过</p>
-<h3 id="安装Apache"><a href="#安装Apache" class="headerlink" title="安装Apache"></a>安装Apache</h3><p><code>sudo yum -y install httpd</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">systemctl start httpd.service #启动</span><br><span class="line"></span><br><span class="line">systemctl stop httpd.service #停止</span><br><span class="line"></span><br><span class="line">systemctl restart httpd.service #重启</span><br><span class="line"></span><br><span class="line">systemctl enable httpd.service #开机启动</span><br><span class="line"></span><br><span class="line">systemctl disable httpd.service #开机不启动</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装Apache"><a href="#安装Apache" class="headerlink" title="安装Apache"></a>安装Apache</h3><p><code>sudo yum -y install httpd</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装</span></span><br><span class="line">sudo yum -y install httpd</span><br><span class="line"><span class="comment">#启动</span></span><br><span class="line">systemctl start httpd.service </span><br><span class="line"><span class="comment">#停止</span></span><br><span class="line">systemctl stop httpd.service </span><br><span class="line"><span class="comment">#重启</span></span><br><span class="line">systemctl restart httpd.service </span><br><span class="line"><span class="comment">#开机启动</span></span><br><span class="line">systemctl <span class="built_in">enable</span> httpd.service </span><br><span class="line"><span class="comment">#开机不启动</span></span><br><span class="line">systemctl <span class="built_in">disable</span> httpd.service</span><br></pre></td></tr></table></figure></p>
 <h3 id="安装php"><a href="#安装php" class="headerlink" title="安装php"></a>安装php</h3><p><code>sudo yum install php</code></p>
-<h3 id="安装php扩展"><a href="#安装php扩展" class="headerlink" title="安装php扩展"></a>安装php扩展</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install php-mysqlnd php-gd libjpeg* php-snmp php-ldap php-odbc php-pear php-xml php-xmlrpc php-mbstring php-bcmath php-mhash php-common php-ctype php-xml php-xmlreader php-xmlwriter php-session php-mbstring php-gettext php-ldap php-mysqli --skip-broken</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install wget telnet net-tools python-paramiko gcc gcc-c++ dejavu-sans-fonts python-setuptools python-devel sendmail mailx net-snmp net-snmp-devel net-snmp-utils freetype-devel libpng-devel perl unbound libtasn1-devel p11-kit-devel OpenIPMI unixODBC</span><br></pre></td></tr></table></figure>
-<h2 id="07、设置-MySQL-参数（8GB-内存为例）"><a href="#07、设置-MySQL-参数（8GB-内存为例）" class="headerlink" title="07、设置 MySQL 参数（8GB 内存为例）"></a>07、设置 MySQL 参数（8GB 内存为例）</h2><p><span style="color: #ff0000;"><strong>如果你不清楚这些参数的含义，请不要修改，保持默认即可。直接跳过这一节</strong></span><br><del><code>sudo vim /etc/my.cnf</code>  不然没权限保存</del><br><del>在文件最后添加以下内容：</del><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">innodb_file_per_table = 1</span><br><span class="line">innodb_status_file = 1</span><br><span class="line">innodb_buffer_pool_size = 6G</span><br><span class="line">innodb_flush_log_at_trx_commit = 2</span><br><span class="line">innodb_log_buffer_size = 16M</span><br><span class="line">innodb_log_file_size = 64M</span><br><span class="line">innodb_support_xa = 0</span><br><span class="line">default-storage-engine = innodb</span><br><span class="line">bulk_insert_buffer_size = 8M</span><br><span class="line">join_buffer_size = 16M</span><br><span class="line">max_heap_table_size = 32M</span><br><span class="line">tmp_table_size = 32M</span><br><span class="line">max_tmp_tables = 48</span><br><span class="line">read_buffer_size = 32M</span><br><span class="line">read_rnd_buffer_size = 16M</span><br><span class="line">key_buffer_size = 32M</span><br><span class="line">thread_cache_size = 32</span><br><span class="line">innodb_thread_concurrency = 8</span><br><span class="line">innodb_flush_method = O_DIRECT</span><br><span class="line">innodb_rollback_on_timeout = 1</span><br><span class="line">query_cache_size = 16M</span><br><span class="line">query_cache_limit = 16M</span><br><span class="line">collation_server = utf8_bin</span><br><span class="line">character_set_server = utf8</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装php扩展"><a href="#安装php扩展" class="headerlink" title="安装php扩展"></a>安装php扩展</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install php-mysqlnd php-gd libjpeg* php-snmp php-ldap php-odbc php-pear php-xml php-xmlrpc php-mbstring php-bcmath php-mhash php-common php-ctype php-xml php-xmlreader php-xmlwriter php-session php-mbstring php-gettext php-ldap php-mysqli --skip-broken</span><br><span class="line"></span><br><span class="line">sudo yum install wget telnet net-tools python-paramiko gcc gcc-c++ dejavu-sans-fonts python-setuptools python-devel sendmail mailx net-snmp net-snmp-devel net-snmp-utils freetype-devel libpng-devel perl unbound libtasn1-devel p11-kit-devel OpenIPMI unixODBC</span><br></pre></td></tr></table></figure>
+<h2 id="07、设置-MySQL-参数（8GB-内存为例）"><a href="#07、设置-MySQL-参数（8GB-内存为例）" class="headerlink" title="07、设置 MySQL 参数（8GB 内存为例）"></a>07、设置 MySQL 参数（8GB 内存为例）</h2><p><span style="color: #ff0000;"><strong>如果你不清楚这些参数的含义，请不要修改，保持默认即可。直接跳过这一节</strong></span><br><del><code>sudo vim /etc/my.cnf</code>  不然没权限保存</del><br><del>在文件最后添加以下内容：</del></p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">innodb_file_per_table = <span class="number">1</span></span><br><span class="line">innodb_status_file = <span class="number">1</span></span><br><span class="line">innodb_buffer_pool_size = 6G</span><br><span class="line">innodb_flush_log_at_trx_commit = <span class="number">2</span></span><br><span class="line">innodb_log_buffer_size = 16M</span><br><span class="line">innodb_log_file_size = 64M</span><br><span class="line">innodb_support_xa = <span class="number">0</span></span><br><span class="line">default-storage-engine = innodb</span><br><span class="line">bulk_insert_buffer_size = 8M</span><br><span class="line">join_buffer_size = 16M</span><br><span class="line">max_heap_table_size = 32M</span><br><span class="line">tmp_table_size = 32M</span><br><span class="line">max_tmp_tables = <span class="number">48</span></span><br><span class="line">read_buffer_size = 32M</span><br><span class="line">read_rnd_buffer_size = 16M</span><br><span class="line">key_buffer_size = 32M</span><br><span class="line">thread_cache_size = <span class="number">32</span></span><br><span class="line">innodb_thread_concurrency = <span class="number">8</span></span><br><span class="line">innodb_flush_method = O_DIRECT</span><br><span class="line">innodb_rollback_on_timeout = <span class="number">1</span></span><br><span class="line">query_cache_size = 16M</span><br><span class="line">query_cache_limit = 16M</span><br><span class="line">collation_server = utf8_bin</span><br><span class="line">character_set_server = utf8</span><br></pre></td></tr></table></figure>
 <p><del>注：原则上 innodb_buffer_pool_size 需要设置为主机内存的 80%，如果主机内存不是 8GB，以上参数可依据相应比例进行调整，例如主机内存为 16GB，则 innodb_buffer_pool_size 建议设置为 12GB，innodb_log_buffer_size 建议设置为 32M，innodb_log_file_size 建议设置为 128M，以此类推。请注意innodb_buffer_pool_size的值必须是整数，例如主机内存是4G，那么innodb_buffer_pool_size可以设置为3G，而不能设置为3.2G</del></p>
 <h2 id="08、启动-MySQL"><a href="#08、启动-MySQL" class="headerlink" title="08、启动 MySQL"></a>08、启动 MySQL</h2><p><code>sudo systemctl enable mysqld &amp;&amp; systemctl start mysqld</code></p>
 <h2 id="09、获取-MySQL-的-root-初始密码"><a href="#09、获取-MySQL-的-root-初始密码" class="headerlink" title="09、获取 MySQL 的 root 初始密码"></a>09、获取 MySQL 的 root 初始密码</h2><p><code>grep &#39;temporary password&#39; /var/log/mysqld.log</code></p>
@@ -245,42 +254,14 @@
 <p><code>mysql_secure_installation</code></p>
 <p><img src="http://i9ps.qiniudn.com/18-2-24/71964789.jpg" alt=""><br>密码改为：<strong>Aa123456,.</strong></p>
 <h2 id="11、重启-MySQL"><a href="#11、重启-MySQL" class="headerlink" title="11、重启 MySQL"></a>11、重启 MySQL</h2><p><code>sudo systemctl restart mysqld</code></p>
-<h2 id="12、配置-MySQL-中-zabbix要的库和账号权限"><a href="#12、配置-MySQL-中-zabbix要的库和账号权限" class="headerlink" title="12、配置 MySQL 中 zabbix要的库和账号权限"></a>12、配置 MySQL 中 zabbix要的库和账号权限</h2><p><code>mysql -u root -p</code>（需要输入第 10步中设置的自定义密码）</p>
-<p>mysql&gt;<code>create database zabbix character set utf8;</code> #创建数据库</p>
-<p>mysql&gt;<code>create user zabbix@&#39;%&#39; identified by &#39;Qingdao@2017&#39;;</code> #创建用户和密码</p>
-<p>mysql&gt;<code>grant all privileges on zabbix.* to zabbix@&#39;%&#39;;</code> #赋权</p>
-<p>mysql&gt;<code>flush privileges;</code></p>
-<p>mysql&gt;<code>exit;</code></p>
+<h2 id="12、配置-MySQL-中-zabbix要的库和账号权限"><a href="#12、配置-MySQL-中-zabbix要的库和账号权限" class="headerlink" title="12、配置 MySQL 中 zabbix要的库和账号权限"></a>12、配置 MySQL 中 zabbix要的库和账号权限</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line"><span class="comment">#需要输入第 10步中设置的自定义密码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#创建数据库</span></span><br><span class="line">mysql&gt;create database zabbix character <span class="built_in">set</span> utf8; </span><br><span class="line"><span class="comment">#创建用户和密码</span></span><br><span class="line">mysql&gt;create user zabbix@<span class="string">'%'</span> identified by <span class="string">'Qingdao@2017'</span>; </span><br><span class="line"><span class="comment">#赋权</span></span><br><span class="line">mysql&gt;grant all privileges on zabbix.* to zabbix@<span class="string">'%'</span>;</span><br><span class="line"><span class="comment">#刷新权限</span></span><br><span class="line">mysql&gt;flush privileges;</span><br><span class="line"></span><br><span class="line">mysql&gt;<span class="built_in">exit</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="13、安装-Zabbix源"><a href="#13、安装-Zabbix源" class="headerlink" title="13、安装 Zabbix源"></a>13、安装 Zabbix源</h2><p><code>sudo rpm -ivh http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm</code><br>3.4最新版看这里：<br><a href="http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/" target="_blank" rel="noopener">http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/</a></p>
 <h2 id="14、安装zabbix"><a href="#14、安装zabbix" class="headerlink" title="14、安装zabbix"></a>14、安装zabbix</h2><p><code>sudo yum -y install zabbix-server-mysql zabbix-web-mysql zabbix-java-gateway zabbix-web</code></p>
 <h2 id="15、导入-zabbix-所需信息"><a href="#15、导入-zabbix-所需信息" class="headerlink" title="15、导入 zabbix 所需信息"></a>15、导入 zabbix 所需信息</h2><p><code>cd /usr/share/doc/zabbix-server-mysql-3.4.7</code>(<strong>注意版本号</strong>)<br><code>zcat create.sql.gz | mysql -uroot zabbix -p</code>（需要输入第 10 步中设置的自定义密码）</p>
 <h2 id="16、配置-zabbix-参数"><a href="#16、配置-zabbix-参数" class="headerlink" title="16、配置 zabbix 参数"></a>16、配置 zabbix 参数</h2><p><code>sudo vim /etc/zabbix/zabbix_server.conf</code> 这个配置要一遍过<br>主要是以下几个选项参数需要设置（8GB 内存为例）：</p>
-<blockquote>
-<p>DBPassword 配置为第 12 步第 3 行中设置的自定义密码</p>
-</blockquote>
-<p><img src="http://i9ps.qiniudn.com/18-2-24/2085951.jpg" alt=""></p>
-<blockquote>
-<p>CacheSize=512M<br>（CacheSize在371行）</p>
-</blockquote>
-<blockquote>
-<p>HistoryCacheSize=128M<br>（HistoryCacheSize在397行）</p>
-</blockquote>
-<blockquote>
-<p>HistoryIndexCacheSize=128M<br>（HistoryIndexCacheSize在405行）</p>
-</blockquote>
-<blockquote>
-<p>TrendCacheSize=128M<br>（TrendCacheSize在414行）</p>
-</blockquote>
-<blockquote>
-<p>ValueCacheSize=256M<br>（ValueCacheSize在425行）</p>
-</blockquote>
-<blockquote>
-<p>Timeout=30<br>（Timeout在432)<br>其它参数保持默认值即可</p>
-</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">DBPassword=xxxxx</span><br><span class="line"><span class="comment">#配置为第 12 步第 3 行中设置的自定义密码</span></span><br><span class="line"></span><br><span class="line">CacheSize=512M</span><br><span class="line"><span class="comment">#（CacheSize在371行）</span></span><br><span class="line"></span><br><span class="line">HistoryCacheSize=128M</span><br><span class="line"><span class="comment">#（HistoryCacheSize在397行）</span></span><br><span class="line"></span><br><span class="line">HistoryIndexCacheSize=128M</span><br><span class="line"><span class="comment">#（HistoryIndexCacheSize在405行）</span></span><br><span class="line"></span><br><span class="line">TrendCacheSize=128M</span><br><span class="line"><span class="comment">#（TrendCacheSize在414行）</span></span><br><span class="line"></span><br><span class="line">ValueCacheSize=256M</span><br><span class="line"><span class="comment">#（ValueCacheSize在425行）</span></span><br><span class="line"></span><br><span class="line">Timeout=30</span><br><span class="line"><span class="comment">#（Timeout在432)</span></span><br><span class="line">其它参数保持默认值即可</span><br></pre></td></tr></table></figure>
 <h2 id="17、配置-Apache-中的-PHP-参数（8GB-内存为例）"><a href="#17、配置-Apache-中的-PHP-参数（8GB-内存为例）" class="headerlink" title="17、配置 Apache 中的 PHP 参数（8GB 内存为例）"></a>17、配置 Apache 中的 PHP 参数（8GB 内存为例）</h2><p><code>sudo vim /etc/httpd/conf.d/zabbix.conf</code></p>
-<blockquote>
-<p>php_value max_execution_time 600<br>php_value memory_limit 256M<br>php_value post_max_size 32M<br>php_value upload_max_filesize 32M<br>php_value max_input_time 600<br>php_value always_populate_raw_post_data -1<br>date.timezone 去掉注释符号#，并将值修改为 <code>Asia/Shanghai</code></p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">php_value max_execution_time 600</span><br><span class="line">php_value memory_limit 256M</span><br><span class="line">php_value post_max_size 32M</span><br><span class="line">php_value upload_max_filesize 32M</span><br><span class="line">php_value max_input_time 600</span><br><span class="line">php_value always_populate_raw_post_data -1</span><br><span class="line">date.timezone 去掉注释符号#，并将值修改为 `Asia/Shanghai`</span><br></pre></td></tr></table></figure>
 <h2 id="18、重启系统"><a href="#18、重启系统" class="headerlink" title="18、重启系统"></a>18、重启系统</h2><p><code>systemctl stop mysqld &amp;&amp; reboot</code></p>
 <h2 id="19、启动zabbix"><a href="#19、启动zabbix" class="headerlink" title="19、启动zabbix"></a>19、启动zabbix</h2><p><code>sudo systemctl start httpd &amp;&amp; systemctl start zabbix-server</code></p>
 <h2 id="20、初始化"><a href="#20、初始化" class="headerlink" title="20、初始化"></a>20、初始化</h2><p>在浏览器中输入 <a href="http://zbx监控服务器的IP地址/zabbix，进行" target="_blank" rel="noopener">http://zbx监控服务器的IP地址/zabbix，进行</a> zabbix 的页面初始化配置</p>
@@ -298,7 +279,7 @@
 <p>并将自己修改好的字体上传到该目录，修复权限<br><code>chmod 777 graphfont.ttf</code></p>
 <p><img src="http://i9ps.qiniudn.com/18-3-21/46333241.jpg" alt=""></p>
 <h2 id="23、zabbix-agent安装及配置"><a href="#23、zabbix-agent安装及配置" class="headerlink" title="23、zabbix-agent安装及配置"></a>23、zabbix-agent安装及配置</h2><h3 id="1、安装zabbix-agent"><a href="#1、安装zabbix-agent" class="headerlink" title="1、安装zabbix-agent"></a>1、安装zabbix-agent</h3><p><code>yum install zabbix-agent -y</code></p>
-<h3 id="2、配置zabbix-agent"><a href="#2、配置zabbix-agent" class="headerlink" title="2、配置zabbix-agent"></a>2、配置zabbix-agent</h3><p><code>grep -n &#39;^&#39;[a-Z] /etc/zabbix/zabbix_agentd.conf</code><br>13:PidFile=/var/run/zabbix/zabbix_agentd.pid<br>32:LogFile=/var/log/zabbix/zabbix_agentd.log<br>43:LogFileSize=0<br>97:Server=172.16.8.254<br>138:ServerActive=172.16.8.254<br>149:Hostname=Zabbix server<br>267:Include=/etc/zabbix/zabbix_agentd.d/*.conf</p>
+<h3 id="2、配置zabbix-agent"><a href="#2、配置zabbix-agent" class="headerlink" title="2、配置zabbix-agent"></a>2、配置zabbix-agent</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#grep -n '^'[a-Z] /etc/zabbix/zabbix_agentd.conf</span></span><br><span class="line">13:PidFile=/var/run/zabbix/zabbix_agentd.pid</span><br><span class="line">32:LogFile=/var/<span class="built_in">log</span>/zabbix/zabbix_agentd.log</span><br><span class="line">43:LogFileSize=0</span><br><span class="line">97:Server=172.16.8.254</span><br><span class="line">138:ServerActive=172.16.8.254</span><br><span class="line">149:Hostname=Zabbix server</span><br><span class="line">267:Include=/etc/zabbix/zabbix_agentd.d/\*.conf</span><br></pre></td></tr></table></figure>
 <h3 id="3、启动zabbix-agent并设置开机启动"><a href="#3、启动zabbix-agent并设置开机启动" class="headerlink" title="3、启动zabbix-agent并设置开机启动"></a>3、启动zabbix-agent并设置开机启动</h3><p><code>systemctl enable zabbix-agent.service</code><br><code>systemctl restart zabbix-agent.service</code></p>
 
       
@@ -311,16 +292,16 @@
   <div class="post-copyright">
     <p class="copyright-item">
       <span>原文作者: </span>
-      <a href="nbma.info">Mansur</a>
+      <a href="http://nbma.info">Mansur</a>
     </p>
     <p class="copyright-item">
       <span>原文链接: </span>
-      <a href="nbma.info/Centos7-deploy-zabbix3/">nbma.info/Centos7-deploy-zabbix3/</a>
+      <a href="http://nbma.info/Centos7-deploy-zabbix3/">http://nbma.info/Centos7-deploy-zabbix3/</a>
     </p>
     <p class="copyright-item">
       <span>许可协议: </span>
       
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
 
@@ -328,6 +309,24 @@
 
       
       
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">赞赏支持</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
     
 
     
@@ -360,6 +359,7 @@
     
   </nav>
 
+
       </footer>
     
 
@@ -369,6 +369,13 @@
           </div>
           
   <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     
   </div>
 
@@ -390,7 +397,7 @@
     
       
         
-          <a href="https://twitter.com/iam_mansur" class="iconfont icon-twitter" title="twitter"></a>
+          <a href="https://twitter.com/iam__Peter" class="iconfont icon-twitter" title="twitter"></a>
         
       
     
@@ -414,11 +421,12 @@
     
       
     
-    
+
     
       <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
     
   </div>
+
 
 
 <div class="copyright">
@@ -437,7 +445,7 @@
      
       2013 - 
     
-    2018
+    2019
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -455,6 +463,22 @@
 
     
   
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://nbma.info/Centos7-deploy-zabbix3/';
+        this.page.identifier = 'Centos7-deploy-zabbix3/';
+        this.page.title = 'CentOS7部署zabbix3.4';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//nbma.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
   
 
   
@@ -462,12 +486,19 @@
 
 
     
+  
+
+
+
+  
+  
+
 
 
 
 
   
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   
 
   
@@ -475,10 +506,19 @@
   
 
   
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
 
 
-    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
 
   </body>
 </html>

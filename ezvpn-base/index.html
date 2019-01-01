@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="ezvpn原理基本介绍"/>
+
+
+
+
+  <meta name="keywords" content="网络, cisco, EZVPN, NBMA" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="NBMA">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
+
+
+
+<link rel="canonical" href="http://nbma.info/ezvpn-base/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
+
+
+
+  
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126503503-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126503503-1');
+</script>
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"title":"NBMA","subtitle":"学习 记录 分享","description":"重建了很多次的blog","author":"Mansur","language":"zh-CN","timezone":"Asia/Shanghai","url":"http://nbma.info","root":"/","permalink":":title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":0,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repository":"git@github.com:MansurX/mansurx.github.io.git","branch":"master"},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"jsonContent":{"meta":true,"keywords":false,"dateFormat":"undefined","pages":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false},"posts":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false,"categories":true,"tags":true}},"category_generator":{"per_page":0},"archive_generator":{"per_page":0,"yearly":true,"monthly":true,"daily":false},"feed":{"type":"atom","limit":20,"hub":"","content":true,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"tag_generator":{"per_page":0},"sitemap":{"path":"sitemap.xml"},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2013,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags"},"color":"Mint Green","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.zh\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":true,"qrCode":{"wechat":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg","alipay":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg"}},"social":{"email":"i@nbma.info","stack-overflow":null,"twitter":"https://twitter.com/iam__Peter","facebook":null,"linkedin":null,"google":null,"github":null,"weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-126503503-1","google_verification":null,"disqus_shortname":"nbma","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
+
+    <title> ezvpn原理基本介绍 - NBMA </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">NBMA</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            首页
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            归档
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            标签
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">NBMA</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              首页
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              归档
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
+            
+            
+              标签
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          ezvpn原理基本介绍
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-05-10
+        </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#协商过程"><span class="toc-text">协商过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第1阶段"><span class="toc-text">第1阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5阶段"><span class="toc-text">1.5阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第2阶段"><span class="toc-text">第2阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第1阶段-1"><span class="toc-text">第1阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5阶段-1"><span class="toc-text">1.5阶段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第2阶段-1"><span class="toc-text">第2阶段</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#isakmp-profile"><span class="toc-text">isakmp profile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ezvpn特性"><span class="toc-text">ezvpn特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#隧道分离"><span class="toc-text">隧道分离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#save-password"><span class="toc-text">save-password</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#backup-gateway"><span class="toc-text">backup-gateway</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#banner"><span class="toc-text">banner</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#硬件客户端"><span class="toc-text">硬件客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#模式"><span class="toc-text">模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DVTI技术"><span class="toc-text">DVTI技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#server配置"><span class="toc-text">server配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端配置"><span class="toc-text">客户端配置</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <h2 id="协商过程"><a href="#协商过程" class="headerlink" title="协商过程"></a>协商过程</h2><h3 id="第1阶段"><a href="#第1阶段" class="headerlink" title="第1阶段"></a>第1阶段</h3><a id="more"></a>
+<p>AM模式，不预选协商DH Group强度，所以必须强制指定group2<br>三个包，因为省略了第一阶段前四个包。<br>第1个包client先发自己支持的策略，组名和预共享密钥<br>第2个包server使用PSK认证client<br>第3个包完成协商</p>
+<h3 id="1-5阶段"><a href="#1-5阶段" class="headerlink" title="1.5阶段"></a>1.5阶段</h3><p>XAUTH：认证用户（用户名密码/AAA）<br>MODE-CFG：推送策略</p>
+<h3 id="第2阶段"><a href="#第2阶段" class="headerlink" title="第2阶段"></a>第2阶段</h3><p>快速模式，三个包</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="第1阶段-1"><a href="#第1阶段-1" class="headerlink" title="第1阶段"></a>第1阶段</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">crypto isakmp policy <span class="number">20</span></span><br><span class="line"> encr 3des</span><br><span class="line"> authentication pre-share</span><br><span class="line"> group <span class="number">2</span></span><br><span class="line"></span><br><span class="line">crypto isakmp client configuration group GROUP</span><br><span class="line"> key NBMAKEY</span><br></pre></td></tr></table></figure>
+<h3 id="1-5阶段-1"><a href="#1-5阶段-1" class="headerlink" title="1.5阶段"></a>1.5阶段</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#配置xauth</span></span><br><span class="line">aaa new-model</span><br><span class="line">aaa authentication login EZ-XAUTH local</span><br><span class="line">aaa authorization network EZ-MODE-CFG local </span><br><span class="line"></span><br><span class="line">username cisco password <span class="number">0</span> cisco</span><br><span class="line"></span><br><span class="line"><span class="comment">#配置策略</span></span><br><span class="line">ip local pool POOL <span class="number">11.11</span><span class="number">.11</span><span class="number">.10</span> <span class="number">11.11</span><span class="number">.11</span><span class="number">.110</span></span><br><span class="line"></span><br><span class="line">crypto isakmp client configuration group EZ-GROUP</span><br><span class="line"> pool POOL</span><br></pre></td></tr></table></figure>
+<p>启用aaa之后建议在设备上开启线下保障策略，确保任何时候都可以使用console口</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">aaa new</span><br><span class="line">aaa authentication login noacs line none</span><br><span class="line">line con <span class="number">0</span></span><br><span class="line"> login authen noacs</span><br><span class="line">line aux <span class="number">0</span></span><br><span class="line"> login authen noacs</span><br></pre></td></tr></table></figure>
+<h3 id="第2阶段-1"><a href="#第2阶段-1" class="headerlink" title="第2阶段"></a>第2阶段</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">crypto ipsec transform-set TRANS esp-3des esp-sha-hmac </span><br><span class="line"> mode tunnel</span><br><span class="line"></span><br><span class="line">crypto dynamic-map DYNAMIC-MAP <span class="number">20</span></span><br><span class="line"> set transform-set TRANS </span><br><span class="line"></span><br><span class="line"><span class="comment">#全局开启Xauth</span></span><br><span class="line">crypto map EZVPN client authentication list EZ-XAUTH</span><br><span class="line">crypto map EZVPN isakmp authorization list EZ-MODE-CFG</span><br><span class="line"></span><br><span class="line"><span class="comment">#启用客户端配置响应</span></span><br><span class="line">crypto map EZVPN client configuration address respond </span><br><span class="line"></span><br><span class="line"><span class="comment">#动态关联静态</span></span><br><span class="line">crypto map EZVPN <span class="number">20</span> ipsec-isakmp dynamic DYNAMIC-MAP</span><br><span class="line"></span><br><span class="line">interface GigabitEthernet0/<span class="number">0</span></span><br><span class="line"> crypto map EZVPN</span><br></pre></td></tr></table></figure>
+<p>当一台设备同时配置EzVPN和L2L VPN时，由于启用了全局的xauth认证，所以正常的L2L将无法进行第二阶段协商。<br>解决办法有两个。一是在配置pre-sharkey的时候，指定使用该key的peer不进行xauth。命令</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crypto isakmp key XXXXX address <span class="number">61.128</span><span class="number">.1</span><span class="number">.1</span> no-xauth</span><br></pre></td></tr></table></figure>
+<p>二是使用isakmp profile。</p>
+<h2 id="isakmp-profile"><a href="#isakmp-profile" class="headerlink" title="isakmp profile"></a>isakmp profile</h2><p>ipsec profile的作用是对tunnel口的流量进行保护。而isakmp profile的作用主要是将一阶段的策略和第二阶段的策略进行绑定。常规配置的ipsec存在多个isakmp policy的时候，一二阶段协商过程是逐个查找从小到大进行匹配，并没有绑定对应的关系。</p>
+<p>isakmp profile通过<code>match identity</code>来匹配远端设备，如EZVPN的<code>group</code>，L2L的peer <code>address</code>等。</p>
+<p>修改上面的配置<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#去掉全局的配置</span></span><br><span class="line">no crypto map EZVPN client authentication list EZ-XAUTH</span><br><span class="line">no crypto map EZVPN isakmp authorization list EZ-MODE-CFG</span><br><span class="line">no crypto map EZVPN client configuration address respond </span><br><span class="line"></span><br><span class="line"><span class="comment">#创建profile，匹配group,加入上面的1.5阶段配置</span></span><br><span class="line">crypto isakmp profile EZVPN-PROF</span><br><span class="line"> match identity group EZ-GROUP</span><br><span class="line"> client authentication list EZ-XAUTH</span><br><span class="line"> isakmp authorization list EZ-MODE-CFG</span><br><span class="line"> client configuration address respond </span><br><span class="line"></span><br><span class="line"><span class="comment">#在dynamic map下调用</span></span><br><span class="line">crypto dynamic-map DYNAMIC-MAP <span class="number">20</span></span><br><span class="line"> set isakmp-profile EZVPN-PROF</span><br></pre></td></tr></table></figure></p>
+<p>L2L IPSec VPN修改：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">crypto keyring L2L-keyring  </span><br><span class="line">  pre-shared-key address <span class="number">61.128</span><span class="number">.1</span><span class="number">.1</span> key NBMA-KEY</span><br><span class="line"></span><br><span class="line">crypto isakmp policy <span class="number">10</span></span><br><span class="line"> encr 3des</span><br><span class="line"> authentication pre-share</span><br><span class="line"> group <span class="number">2</span></span><br><span class="line"></span><br><span class="line">crypto isakmp profile L2L-PROFILE</span><br><span class="line"> keyring L2L-keyring</span><br><span class="line"> match identity address <span class="number">61.128</span><span class="number">.1</span><span class="number">.1</span> <span class="number">255.255</span><span class="number">.255</span><span class="number">.255</span> </span><br><span class="line"></span><br><span class="line">crypto ipsec transform-set L2L-SET esp-des esp-md5-hmac </span><br><span class="line"> mode tunnel</span><br><span class="line"></span><br><span class="line">crypto map DJ-MAP <span class="number">10</span> ipsec-isakmp </span><br><span class="line"> set peer <span class="number">61.128</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line"> set transform-set L2L-SET </span><br><span class="line"> set isakmp-profile L2L-PROFILE</span><br><span class="line"> match address BJZB-YZIDC</span><br></pre></td></tr></table></figure></p>
+<p>关于isakmp profile调用的位置：<strong>和转换集transform-set在一起调用</strong></p>
+<h2 id="ezvpn特性"><a href="#ezvpn特性" class="headerlink" title="ezvpn特性"></a>ezvpn特性</h2><h3 id="隧道分离"><a href="#隧道分离" class="headerlink" title="隧道分离"></a>隧道分离</h3><p>默认EZVPN是tunnel-everything，所有流量包括直连的局域网的流量全都走到远端。<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#源是远端网络，目的是any，到客户端看到的是一条目的路由</span></span><br><span class="line">ip access-list extended tunnel-split</span><br><span class="line"> permit ip <span class="number">10.0</span><span class="number">.0</span><span class="number">.0</span> <span class="number">0.0</span><span class="number">.255</span><span class="number">.255</span> any</span><br><span class="line"></span><br><span class="line">crypto isakmp client configuration group EZ-GROUP</span><br><span class="line"> acl tunnel-split</span><br></pre></td></tr></table></figure></p>
+<h3 id="save-password"><a href="#save-password" class="headerlink" title="save-password"></a>save-password</h3><p>默认不允许客户端保存password，可以通过策略启用<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crypto isakmp client configuration group EZ-GROUP</span><br><span class="line"> save-password</span><br></pre></td></tr></table></figure></p>
+<h3 id="backup-gateway"><a href="#backup-gateway" class="headerlink" title="backup-gateway"></a>backup-gateway</h3><p>备用网关，当EZVPN server不可用时，根据策略配置的backup-gateway发起连接请求<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crypto isakmp client configuration group EZ-GROUP</span><br><span class="line"> backup-gateway second.nbma.info</span><br><span class="line"> backup-gateway <span class="number">61.128</span><span class="number">.1</span><span class="number">.1</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="banner"><a href="#banner" class="headerlink" title="banner"></a>banner</h3><p>连接成功之后弹出banner<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crypto isakmp client configuration group EZ-GROUP</span><br><span class="line"> banner ^welcome to nbma!^</span><br></pre></td></tr></table></figure></p>
+<h2 id="硬件客户端"><a href="#硬件客户端" class="headerlink" title="硬件客户端"></a>硬件客户端</h2><p>使用思科路由器作为客户端,有3中连接模式client/network-extension/network-plus</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">crypto ispec client EZ-CLIENT</span><br><span class="line"> connect [manual/auto]</span><br><span class="line"> group EZ-GROUP key NBMAKEY</span><br><span class="line"> mode [client/network-extension/network-plus]</span><br><span class="line"> peer <span class="number">61.128</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line"> <span class="comment">#若果server启用了save-password:</span></span><br><span class="line"> username cisco password cisco</span><br><span class="line"></span><br><span class="line">interface f1/<span class="number">0</span></span><br><span class="line"> crypto ipsec client ezvpn EZ-CLIENT outside</span><br><span class="line"></span><br><span class="line">interface f1/<span class="number">1</span></span><br><span class="line"> crypto ipsec client ezvpn EZ-CLIENT inside</span><br></pre></td></tr></table></figure>
+<p>手动连接：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#发起连接</span></span><br><span class="line">crypto ipsec client ezvpn connect</span><br><span class="line"><span class="comment">#调出“弹窗”</span></span><br><span class="line">crypto ipsec client ezvpn xauth</span><br><span class="line">输入用户名密码</span><br></pre></td></tr></table></figure></p>
+<h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><p><strong>client模式</strong>：客户端身后网络被转换成客户端获取的IP地址，客户端能访问server身后网络，反过来不行<br><strong>network-extension模式</strong>：不获取地址，两边使用真实地址，可相互访问<br><strong>network-plus模式</strong>：获取一个IP，用户server身后网络来网管客户端设备，其他和extension模式一样</p>
+<h2 id="DVTI技术"><a href="#DVTI技术" class="headerlink" title="DVTI技术"></a>DVTI技术</h2><p>之前的硬件客户端没有生成tunnel口，所以不支持动态路由、组播、QOS、acl、vrf等</p>
+<h3 id="server配置"><a href="#server配置" class="headerlink" title="server配置"></a>server配置</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">crypto isakmp policy <span class="number">20</span></span><br><span class="line"> encr 3des</span><br><span class="line"> authentication pre-share</span><br><span class="line"> group <span class="number">2</span></span><br><span class="line"></span><br><span class="line">crypto isakmp client configuration group EZ-GROUP</span><br><span class="line"> key NBMAKEY</span><br><span class="line"></span><br><span class="line"><span class="comment">#配置xauth</span></span><br><span class="line">aaa new-model</span><br><span class="line">aaa authentication login EZ-XAUTH local</span><br><span class="line">aaa authorization network EZ-MODE-CFG local </span><br><span class="line"></span><br><span class="line">username cisco password <span class="number">0</span> cisco</span><br><span class="line"></span><br><span class="line"><span class="comment">#如果只是DVTI的话，不需要配置pool。配置之后同时支持软件拨入</span></span><br><span class="line"><span class="comment">#ip local pool POOL 11.11.11.10 11.11.11.110</span></span><br><span class="line"><span class="comment">#crypto isakmp client configuration group EZ-GROUP</span></span><br><span class="line"><span class="comment"># pool POOL</span></span><br><span class="line"></span><br><span class="line">ip access-list extended tunnel-split</span><br><span class="line"> permit ip <span class="number">10.0</span><span class="number">.0</span><span class="number">.0</span> <span class="number">0.0</span><span class="number">.255</span><span class="number">.255</span> any</span><br><span class="line"></span><br><span class="line">crypto isakmp client configuration group EZ-GROUP</span><br><span class="line"> acl tunnel-split</span><br><span class="line"></span><br><span class="line">crypto isakmp porfile IKS-PROF</span><br><span class="line"> match identity group EZ-GROUP</span><br><span class="line"> client authentication list EZ-XAUTH</span><br><span class="line"> isakmp authorization list EZ-MODE-CFG</span><br><span class="line"> client configuration address respond</span><br><span class="line"> virtual-template <span class="number">100</span></span><br><span class="line"></span><br><span class="line">crypto ipsec transform-set TRANS esp-3des esp-sha-hmac </span><br><span class="line"> mode tunnel</span><br><span class="line"></span><br><span class="line">crypto ipsec profile IPS-PROF</span><br><span class="line"> set transform-set TRANS</span><br><span class="line"> set isakmp-profile IKS-PROF</span><br><span class="line"></span><br><span class="line">interface Virtual-Template <span class="number">100</span> type tunnel</span><br><span class="line"> <span class="comment">#借一个有ip地址的接口</span></span><br><span class="line"> ip unnumbered f0/<span class="number">0</span></span><br><span class="line"> tunnel <span class="keyword">source</span> f0/<span class="number">0</span></span><br><span class="line"> tunnel mode ipsec ipv4</span><br><span class="line"> tunnel protection ipsec profile IPS-PROF</span><br></pre></td></tr></table></figure>
+<h3 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">interface Virtual-Template <span class="number">56</span> type tunnel</span><br><span class="line"> <span class="comment">#借一个有ip地址的接口</span></span><br><span class="line"> ip unnumbered f0/<span class="number">0</span></span><br><span class="line"></span><br><span class="line">crypto ipsec client ezvpn DVTI-VPN</span><br><span class="line"> connect auto</span><br><span class="line"> group EZ-GROUP key NBMAKEY</span><br><span class="line"> mode network-extension</span><br><span class="line"> peer <span class="number">61.128</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line"> virtual-interface <span class="number">56</span></span><br><span class="line"></span><br><span class="line">interface f1/<span class="number">0</span></span><br><span class="line"> crypto ipsec client ezvpn DVTI-VPN outside</span><br><span class="line"></span><br><span class="line">interface f1/<span class="number">1</span></span><br><span class="line"> crypto ipsec client ezvpn DVTI-VPN inside</span><br></pre></td></tr></table></figure>
+<p>连接：<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#发起连接</span></span><br><span class="line">crypto ipsec client ezvpn connect</span><br><span class="line"><span class="comment">#调出“弹窗”</span></span><br><span class="line">crypto ipsec client ezvpn xauth</span><br><span class="line">输入用户名密码</span><br></pre></td></tr></table></figure></p>
+<p>客户端生成一个隧道分离的静态路由，出接口是virtual access口.<br>服务器自动生成一个客户端inside网段的静态路由，出接口是virtual access口</p>
+<p>跑动态路由的话，只能在接口下配置，不能用network宣告，因为虚模板没地址<br><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#server端</span></span><br><span class="line">interface Virtual-Template <span class="number">100</span> type tunnel</span><br><span class="line"> ip ospf <span class="number">1</span> area <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#client端</span></span><br><span class="line">interface Virtual-Template <span class="number">56</span> type tunnel</span><br><span class="line"> ip ospf <span class="number">1</span> area <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>原文作者: </span>
+      <a href="http://nbma.info">Mansur</a>
+    </p>
+    <p class="copyright-item">
+      <span>原文链接: </span>
+      <a href="http://nbma.info/ezvpn-base/">http://nbma.info/ezvpn-base/</a>
+    </p>
+    <p class="copyright-item">
+      <span>许可协议: </span>
+      
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">赞赏支持</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/网络/">网络</a>
+            
+              <a href="/tags/cisco/">cisco</a>
+            
+              <a href="/tags/EZVPN/">EZVPN</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/asa-vpn-policy-proc/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">ASA对VPN策略的处理过程</span>
+        <span class="prev-text nav-mobile">上一篇</span>
+      </a>
+    
+    
+      <a class="next" href="/getvpn/">
+        <span class="next-text nav-default">GETVPN介绍及配置</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:i@nbma.info" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+        
+          <a href="https://twitter.com/iam__Peter" class="iconfont icon-twitter" title="twitter"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://hexo.io/">Hexo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2013 - 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Mansur</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://nbma.info/ezvpn-base/';
+        this.page.identifier = 'ezvpn-base/';
+        this.page.title = 'ezvpn原理基本介绍';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//nbma.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
+
+  </body>
+</html>

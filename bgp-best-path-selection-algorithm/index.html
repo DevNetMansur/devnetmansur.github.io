@@ -38,22 +38,39 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.6.0" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
 
 
 
-<link rel="canonical" href="nbma.info/bgp-best-path-selection-algorithm/"/>
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.6.0" />
+<link rel="canonical" href="http://nbma.info/bgp-best-path-selection-algorithm/"/>
 
 
 
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
 
 
 
   
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-126503503-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-126503503-1');
+</script>
 
 
   <script id="baidu_push">
@@ -78,6 +95,9 @@
 
 
 
+<script>
+  window.config = {"title":"NBMA","subtitle":"学习 记录 分享","description":"重建了很多次的blog","author":"Mansur","language":"zh-CN","timezone":"Asia/Shanghai","url":"http://nbma.info","root":"/","permalink":":title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":0,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repository":"git@github.com:MansurX/mansurx.github.io.git","branch":"master"},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"jsonContent":{"meta":true,"keywords":false,"dateFormat":"undefined","pages":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false},"posts":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false,"categories":true,"tags":true}},"category_generator":{"per_page":0},"archive_generator":{"per_page":0,"yearly":true,"monthly":true,"daily":false},"feed":{"type":"atom","limit":20,"hub":"","content":true,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"tag_generator":{"per_page":0},"sitemap":{"path":"sitemap.xml"},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2013,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags"},"color":"Mint Green","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.zh\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":true,"qrCode":{"wechat":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg","alipay":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg"}},"social":{"email":"i@nbma.info","stack-overflow":null,"twitter":"https://twitter.com/iam__Peter","facebook":null,"linkedin":null,"google":null,"github":null,"weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-126503503-1","google_verification":null,"disqus_shortname":"nbma","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
+</script>
 
     <title> BGP选路原则验证及分析 - NBMA </title>
   </head>
@@ -123,15 +143,6 @@
         </li>
       </a>
     
-      <a href="/2018-target">
-        <li class="mobile-menu-item">
-          
-          
-            Target
-          
-        </li>
-      </a>
-    
   </ul>
 </nav>
 
@@ -171,15 +182,6 @@
           </a>
         </li>
       
-        <li class="menu-item">
-          <a class="menu-item-link" href="/2018-target">
-            
-            
-              Target
-            
-          </a>
-        </li>
-      
     </ul>
   
 </nav>
@@ -211,49 +213,50 @@
     
     
 
+
     <div class="post-content">
       
         <p>最近重新验证一下bgp协议在思科设备上选路原则问题，并且分析了每一条的属性在配置过程中的注意事项，顺便整理一下文章：<br><a id="more"></a></p>
 <p>思科官方的定义：</p>
 <p><a href="http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-25.html" target="_blank" rel="noopener">http://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-25.html</a></p>
-<p>使用的网络拓扑如下：<br><img src="http://i9ps.qiniudn.com/bgp/BGP2.jpg" alt="http://i.nbma.info"><br>基本配置：每个路由器上配置一个环回口loopback0:xx.1.1.1/32；R4是RR。<br><strong>1. weight</strong></p>
+<p>使用的网络拓扑如下：<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvslkr6rij20q80emadg.jpg" alt="http://nbma.info"><br>基本配置：每个路由器上配置一个环回口loopback0:xx.1.1.1/32；R4是RR。<br><strong>1. weight</strong></p>
 <p>只在本地有效。</p>
-<p>a针对邻居修改：<br>原来的bgp路由情况<br><img src="http://i9ps.qiniudn.com/bgp/bgp-1.1.png" alt="http://i.nbma.info"></p>
-<p>直接针对邻居修改权重：<br>R3(config-router)#nei 23.1.1.2 weight 1<br>从该邻居得到的条目权重被修改：<br><img src="http://i9ps.qiniudn.com/bgp/bgp-1.2.png" alt="http://i.nbma.info"></p>
-<p>b.针对特定路由条目通过route-map修改<br>access-list 1 permit 5.5.5.5 //匹配需要修改的BGP路由<br>route-map WE permit 10 //使用route-map修改权重值<br>match ip address 1<br>set weight 2<br>route-map WE permit 20<br>router bgp 200<br>neighbor 13.1.1.1 route-map WE in //在bgp邻居下调用<br>修改后的结果：<br><img src="http://i9ps.qiniudn.com/bgp/bgp-1.3.png" alt="http://i.nbma.info"></p>
+<p>a针对邻居修改：<br>原来的bgp路由情况<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvslu066bj20sz0730t0.jpg" alt="http://nbma.info"></p>
+<p>直接针对邻居修改权重：<br>R3(config-router)#nei 23.1.1.2 weight 1<br>从该邻居得到的条目权重被修改：<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsm46i8yj20sr06wq3e.jpg" alt="http://nbma.info"></p>
+<p>b.针对特定路由条目通过route-map修改<br>access-list 1 permit 5.5.5.5 //匹配需要修改的BGP路由<br>route-map WE permit 10 //使用route-map修改权重值<br>match ip address 1<br>set weight 2<br>route-map WE permit 20<br>router bgp 200<br>neighbor 13.1.1.1 route-map WE in //在bgp邻居下调用<br>修改后的结果：<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsmbizocj20ss06vq3a.jpg" alt="http://nbma.info"></p>
 <p><strong>2. 本地优先级local preference</strong></p>
 <p>通常用于离开本AS的选路 默认为100，<br>ibgp邻居之间会更新本地优先级属性，不会更新给real EBGP 邻居(联邦会更新本地优先级属性)</p>
 <p>针对EBGP设置 in方向（常用，选择ASBR） IBGP 设置in 或者out都可以<br>a.全局配置 —-把EBGP 邻居学习到的路由都修改<br>bgp default local-preference 102<br>b. 匹配某条路由，针对邻居设置本地优先级。</p>
-<p>修改前：<br><img src="http://i9ps.qiniudn.com/bgp/bgp-2.1.png" alt="http://i.nbma.info"></p>
-<p>使用route-map修改本地优先级来影响R1选路：<br>R1(config)#access-list 1 permit 33.1.1.1 /32<br>R1(config)#route-map LO permit 10<br>R1(config-route-map)#match ip address 1<br>R1(config-route-map)#set local-preference 200<br>R1(config)#route-map LO permit 20<br>R1(config)#router bgp 100<br>R1(config-router)#nei 22.1.1.1 route-map LO in<br><img src="http://i9ps.qiniudn.com/bgp/bgp-2.2.png" alt="http://i.nbma.info"></p>
+<p>修改前：<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsmk6364j20sl0h1gmg.jpg" alt="http://nbma.info"></p>
+<p>使用route-map修改本地优先级来影响R1选路：<br>R1(config)#access-list 1 permit 33.1.1.1 /32<br>R1(config)#route-map LO permit 10<br>R1(config-route-map)#match ip address 1<br>R1(config-route-map)#set local-preference 200<br>R1(config)#route-map LO permit 20<br>R1(config)#router bgp 100<br>R1(config-router)#nei 22.1.1.1 route-map LO in<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsmtgqesj20sm0gnt9k.jpg" alt="http://nbma.info"></p>
 <p><strong>3. origin 本地起源</strong><br>一般看到 next-hop 为0.0.0.0 都是本地注入的<br>本地注入路由 三种方法： network 重分布 aggregate</p>
-<p>在R2上新开启一个环回口122.1.1.1/32，宣告进BGP，设置weight为0；同时在R1上配置该环回口的静态路由，重分布进BGP。此时R2优选本地产生的路由。<br>R2(config)#access-list 1 per 122.1.1.1 /32<br>R2(config)#route-map OR permit 10<br>R2(config-route-map)#match ip address 1<br>R2(config-route-map)#set weight 0<br>R2(config)#router bgp 100<br>R2(config-router)#network 122.1.1.1 mask 255.255.255.255 route-map OR<br>R1(config)#ip route 122.1.1.1 255.255.255.255 10.1.1.2<br>R1(config)#router bgp 100<br>R1(config-router)#redistribute static<br><img src="http://i9ps.qiniudn.com/bgp/bgp-3.1.png" alt="http://i.nbma.info"></p>
+<p>在R2上新开启一个环回口122.1.1.1/32，宣告进BGP，设置weight为0；同时在R1上配置该环回口的静态路由，重分布进BGP。此时R2优选本地产生的路由。<br>R2(config)#access-list 1 per 122.1.1.1 /32<br>R2(config)#route-map OR permit 10<br>R2(config-route-map)#match ip address 1<br>R2(config-route-map)#set weight 0<br>R2(config)#router bgp 100<br>R2(config-router)#network 122.1.1.1 mask 255.255.255.255 route-map OR<br>R1(config)#ip route 122.1.1.1 255.255.255.255 10.1.1.2<br>R1(config)#router bgp 100<br>R1(config-router)#redistribute static<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsn6ov89j20pn08l3yq.jpg" alt="http://nbma.info"></p>
 <p><strong>4. as-path 越短越优先</strong></p>
 <p>bgp  bestpath as-path ignore//隐含命令，忽略as-path作为选路原则</p>
-<p>宣告R3的环回口，R1分别从R2R3学习到该路由，由于ebgp优于ibgp，R1会优选从EBGP（R3）学到的路由<br><img src="http://i9ps.qiniudn.com/bgp/bgp-4.1.png" alt="http://i.nbma.info"></p>
-<p>在R1上通过route-map增加从R3得到的路由的as-path，使其优选R2：<br>R1(config)#access-list 1 permit 33.1.1.1 /32<br>R1(config)#route-map AS per 10<br>R1(config-route-map)#matc ip add 1<br>R1(config-route-map)#set as-path <strong>prepend</strong> 200 200 200 200<br>R1(config)#router bgp 100<br>R1(config-router)#neighbor 13.1.1.3 route-map AS in<br>R1(config-router)#exit<br><img src="http://i9ps.qiniudn.com/bgp/bgp-4.2.png" alt="http://i.nbma.info"></p>
+<p>宣告R3的环回口，R1分别从R2R3学习到该路由，由于ebgp优于ibgp，R1会优选从EBGP（R3）学到的路由<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsnnrb0bj20sm07h3ys.jpg" alt="http://nbma.info"></p>
+<p>在R1上通过route-map增加从R3得到的路由的as-path，使其优选R2：<br>R1(config)#access-list 1 permit 33.1.1.1 /32<br>R1(config)#route-map AS per 10<br>R1(config-route-map)#matc ip add 1<br>R1(config-route-map)#set as-path <strong>prepend</strong> 200 200 200 200<br>R1(config)#router bgp 100<br>R1(config-router)#neighbor 13.1.1.3 route-map AS in<br>R1(config-router)#exit<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsnwdcwhj20uw07f74k.jpg" alt="http://nbma.info"></p>
 <p><strong>5.起源代码origin code</strong><br>i代表的是network、aggregate引入<br>？代表是重分布引入的路由<br>e代表ebgp引入（已经不用了）<br>IGP&gt;egp&gt;?</p>
-<p>删掉上一个route-map，改回之前的状态<br><img src="http://i9ps.qiniudn.com/bgp/bgp-5.1.png" alt="http://i.nbma.info"></p>
-<p>在R1通过route-map强制修改从R3得到的路由的起源代码<br>R1(config)#access-list 1 permit 33.1.1.1 /32<br>R1(config)#route-map OR permit 10<br>R1(config-route-map)#match ip address 1<br>R1(config-route-map)#set origin incomplete<br>R1(config-route-map)#router bgp 100<br>R1(config-router)#neighbor 13.1.1.3 route-map OR in<br><img src="http://i9ps.qiniudn.com/bgp/bgp-5.2.png" alt="http://i.nbma.info"></p>
+<p>删掉上一个route-map，改回之前的状态<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvso9ljdtj20sp07gt9a.jpg" alt="http://nbma.info"></p>
+<p>在R1通过route-map强制修改从R3得到的路由的起源代码<br>R1(config)#access-list 1 permit 33.1.1.1 /32<br>R1(config)#route-map OR permit 10<br>R1(config-route-map)#match ip address 1<br>R1(config-route-map)#set origin incomplete<br>R1(config-route-map)#router bgp 100<br>R1(config-router)#neighbor 13.1.1.3 route-map OR in<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsoh6plvj20tc07dq38.jpg" alt="http://nbma.info"></p>
 <p><strong>6. MED多出口分离器，越小越优先</strong><br>被称为BGP的Metric，如果BGP通告的从IGP得到的路由，则MED值将继承自IGP的metric<br>通常用于告知ebgp邻居如何进入到本AS</p>
-<p>在R3上分别针对R1R2设置一个metric值，当路由更新到R1时，通过前5条无法选出最优路由，此时R1会比较两条bgp路由的MED值，得到最优<br><img src="http://i9ps.qiniudn.com/bgp/bgp-6.1.png" alt="http://i.nbma.info"></p>
-<p>R3(config)#route-map R1<br>R3(config-route-map)#set metric 13<br>R3(config-route-map)#exit<br>R3(config)#route-map R2<br>R3(config-route-map)#set metric 12<br>R3(config)#router bgp 200<br>R3(config-router)#neighbor 13.1.1.1 route-map R1 out<br>R3(config-router)#neighbor 23.1.1.2 route-map R2 Out<br><img src="http://i9ps.qiniudn.com/bgp/bgp-6.2.png" alt="http://i.nbma.info"></p>
+<p>在R3上分别针对R1R2设置一个metric值，当路由更新到R1时，通过前5条无法选出最优路由，此时R1会比较两条bgp路由的MED值，得到最优<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsool472j20qe06zaaa.jpg" alt="http://nbma.info"></p>
+<p>R3(config)#route-map R1<br>R3(config-route-map)#set metric 13<br>R3(config-route-map)#exit<br>R3(config)#route-map R2<br>R3(config-route-map)#set metric 12<br>R3(config)#router bgp 200<br>R3(config-router)#neighbor 13.1.1.1 route-map R1 out<br>R3(config-router)#neighbor 23.1.1.2 route-map R2 Out<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsoyie6bj20qi071dg2.jpg" alt="http://nbma.info"></p>
 <p><strong>7.EBGP优于ibgp</strong><br>与管理距离无关。</p>
-<p>默认情况下R1和R2从R3和对方同时得到33.1.1.1/32的路由，但都是优选从R3的得到的<br><img src="http://i9ps.qiniudn.com/bgp/bgp-7.1.png" alt="http://i.nbma.info"></p>
-<p><strong>8. metric，到达bgp下一跳的IGP的metric</strong><br>默认情况，宣告R3环回口，在R4上看到，他应该是根据route-id选择R1作为最优吓一跳，因为此时在IGP路由表中，R4到达11.1.1.1和22.1.1.1的metric相同，通过前面的选路原则没有选出最优<br><img src="http://i9ps.qiniudn.com/bgp/bgp-8.1.png" alt="http://i.nbma.info"></p>
-<p>此时，可以通过更改去往11.1.1.1的metric来干预选路，在R1的lo 0修改cost:<br>R1(config-if)# int lo 0<br>R1(config-if)#ip ospf cost 1000<br>此时R4的igp路由表：<br><img src="http://i9ps.qiniudn.com/bgp/bgp-8.2.png" alt="http://i.nbma.info"></p>
-<p>R4的bgp选录已经被影响：<br><img src="http://i9ps.qiniudn.com/bgp/bgp-8.3.png" alt="http://i.nbma.info"></p>
-<p><strong>9. load balance负载均衡</strong><br>开启ibgp多路径maximum-paths ibgp 4<br>对于ebgp，直接在bgp中开启maximum-paths 4或者maximun-paths eibgp 4<br>对于ibgp负载均衡：<br>还原上一步的操作，还是在r4上 ，bgp路由33.1.1.1下一跳11.1.1.1和22.1.1.1的metric相同，直接在bgp进程下开启：<br>R4(config)#router bgp 100<br>R4(config-router)#maximum-paths ibgp 2<br>结果如下：<br><img src="http://i9ps.qiniudn.com/bgp/bgp-9.1.png" alt="http://i.nbma.info"></p>
-<p>对于ebgp负载均衡<br>默认情况下，R3上5.5.5.5的bgp路由优选ebgp邻居建立时间最久的下一跳，<br><img src="http://i9ps.qiniudn.com/bgp/bgp-9.2.png" alt="http://i.nbma.info"></p>
-<p>在bgp开启负载均衡：<br>R3(config)#router bgp 200<br>R3(config-router)#maximum-paths 2<br><img src="http://i9ps.qiniudn.com/bgp/bgp-9.3.png" alt="http://i.nbma.info"></p>
-<p><strong>10.O older 建立邻居更久的</strong></p>
+<p>默认情况下R1和R2从R3和对方同时得到33.1.1.1/32的路由，但都是优选从R3的得到的<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsp6sde8j20mr08q0t6.jpg" alt="http://nbma.info"></p>
+<p><strong>8. metric，到达bgp下一跳的IGP的metric</strong><br>默认情况，宣告R3环回口，在R4上看到，他应该是根据route-id选择R1作为最优吓一跳，因为此时在IGP路由表中，R4到达11.1.1.1和22.1.1.1的metric相同，通过前面的选路原则没有选出最优<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsper2m0j20qq0lrq4a.jpg" alt="http://nbma.info"></p>
+<p>此时，可以通过更改去往11.1.1.1的metric来干预选路，在R1的lo 0修改cost:<br>R1(config-if)# int lo 0<br>R1(config-if)#ip ospf cost 1000<br>此时R4的igp路由表：<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvspt0gosj20qr0edaau.jpg" alt="http://nbma.info"></p>
+<p>R4的bgp选录已经被影响：<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsq7vnlnj20qb0f3751.jpg" alt="http://nbma.info"></p>
+<p><strong>9. load balance负载均衡</strong><br>开启ibgp多路径maximum-paths ibgp 4<br>对于ebgp，直接在bgp中开启maximum-paths 4或者maximun-paths eibgp 4<br>对于ibgp负载均衡：<br>还原上一步的操作，还是在r4上 ，bgp路由33.1.1.1下一跳11.1.1.1和22.1.1.1的metric相同，直接在bgp进程下开启：<br>R4(config)#router bgp 100<br>R4(config-router)#maximum-paths ibgp 2<br>结果如下：<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsqflcluj20qp07hwes.jpg" alt="http://nbma.info"></p>
+<p>对于ebgp负载均衡<br>默认情况下，R3上5.5.5.5的bgp路由优选ebgp邻居建立时间最久的下一跳，<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsqqwqfmj20qe0713yq.jpg" alt="http://nbma.info"></p>
+<p>在bgp开启负载均衡：<br>R3(config)#router bgp 200<br>R3(config-router)#maximum-paths 2<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsqyv67oj20qd07emxe.jpg" alt="http://nbma.info"></p>
+<p><strong>10.older 建立邻居更久的</strong></p>
 <p>使用bgp  bestpath compare-routerid，可以跳过这条</p>
-<p><img src="http://i9ps.qiniudn.com/bgp/bgp-10.1.png" alt="http://i.nbma.info"></p>
+<p><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsr9d9e2j20vm0gi75e.jpg" alt="http://nbma.info"></p>
 <p>对于R3,，分别与R1R2建立邻居关系：通过重新建立邻居来重置ebgp邻居<br>R3(config)#router bgp 200<br>R3(config-router)#nei 23.1.1.2 shut<br>R3(config-router)#nei 23.1.1.2 shut<br><em>Oct 29 19:40:10.994: %BGP-5-NBR_RESET: Neighbor 23.1.1.2 reset (Admin. shutdown)
-</em>Oct 29 19:40:10.999: %BGP-5-ADJCHANGE: neighbor 23.1.1.2 Down Admin. shutdown<br>*Oct 29 19:40:10.999: %BGP_SESSION-5-ADJCHANGE: neighbor 23.1.1.2 IPv4 Unicast topology base removed from session Admin. shutdown<br>R3(config-router)#no nei 23.1.1.2 shut<br><img src="http://i9ps.qiniudn.com/bgp/bgp-10.2.png" alt="http://i.nbma.info"></p>
-<p><strong>11.R route-id</strong><br>如果是从RR得到的路由，那么这条路由的router-id会被Originator-id替换，也就说会拿Originator-id和其他路由的router-id作比较。<br>前面说过，在默认情况下， R4上33.1.1.1的最优根据R1，R2的之中较小的route-id选择了11.1.1.1。通过修改R1的bgp router-id来影响选路：<br>修改前：<br><img src="http://i9ps.qiniudn.com/bgp/bgp-11.1.png" alt="http://i.nbma.info"></p>
-<p>修改后：<br><img src="http://i9ps.qiniudn.com/bgp/bgp-11.2.png" alt="http://i.nbma.info"></p>
-<p><strong>12.C cluster list 簇list长度</strong><br>将R4设置为RR，R1、R5、R6为客户端；R6设置为RR，R5为客户端。这样R5分别从R4和R6学习到33.1.1.1的路由，并且前十条选录原则无法选出最优路由，第十一条router-id由于RR原因被originator id覆盖。此时会根据cluster list长度进行选路：<br><img src="http://i9ps.qiniudn.com/bgp/bgp-12.1.png" alt="http://i.nbma.info"></p>
+</em>Oct 29 19:40:10.999: %BGP-5-ADJCHANGE: neighbor 23.1.1.2 Down Admin. shutdown<br>*Oct 29 19:40:10.999: %BGP_SESSION-5-ADJCHANGE: neighbor 23.1.1.2 IPv4 Unicast topology base removed from session Admin. shutdown<br>R3(config-router)#no nei 23.1.1.2 shut<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsrhs25rj20vl0gmmy9.jpg" alt="http://nbma.info"></p>
+<p><strong>11.route-id</strong><br>如果是从RR得到的路由，那么这条路由的router-id会被Originator-id替换，也就说会拿Originator-id和其他路由的router-id作比较。<br>前面说过，在默认情况下， R4上33.1.1.1的最优根据R1，R2的之中较小的route-id选择了11.1.1.1。通过修改R1的bgp router-id来影响选路：<br>修改前：<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvsrqugnvj20mo08haaa.jpg" alt="http://nbma.info"></p>
+<p>修改后：<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvss41egdj20ma08gdg2.jpg" alt="http://nbma.info"></p>
+<p><strong>12.cluster list 簇list长度</strong><br>将R4设置为RR，R1、R5、R6为客户端；R6设置为RR，R5为客户端。这样R5分别从R4和R6学习到33.1.1.1的路由，并且前十条选录原则无法选出最优路由，第十一条router-id由于RR原因被originator id覆盖。此时会根据cluster list长度进行选路：<br><img src="https://ws1.sinaimg.cn/large/68e0aeafly1frvssa5mukj20qp0g6wfc.jpg" alt="http://nbma.info"></p>
 <p>可以看到，从44.1.1.1得到的路由cluster长度为1，从66.1.1.1得到的路由cluster长度为2，优选44.1.1.1<br><strong>13.最小的neighbor 地址</strong></p>
 
       
@@ -266,16 +269,16 @@
   <div class="post-copyright">
     <p class="copyright-item">
       <span>原文作者: </span>
-      <a href="nbma.info">Mansur</a>
+      <a href="http://nbma.info">Mansur</a>
     </p>
     <p class="copyright-item">
       <span>原文链接: </span>
-      <a href="nbma.info/bgp-best-path-selection-algorithm/">nbma.info/bgp-best-path-selection-algorithm/</a>
+      <a href="http://nbma.info/bgp-best-path-selection-algorithm/">http://nbma.info/bgp-best-path-selection-algorithm/</a>
     </p>
     <p class="copyright-item">
       <span>许可协议: </span>
       
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
 
@@ -283,6 +286,24 @@
 
       
       
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">赞赏支持</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg" title="wechat">
+        </label>
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg" title="alipay">
+        </label>
+      
+    </div>
+  </div>
+
     
 
     
@@ -315,6 +336,7 @@
     
   </nav>
 
+
       </footer>
     
 
@@ -324,6 +346,13 @@
           </div>
           
   <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     
   </div>
 
@@ -345,7 +374,7 @@
     
       
         
-          <a href="https://twitter.com/iam_mansur" class="iconfont icon-twitter" title="twitter"></a>
+          <a href="https://twitter.com/iam__Peter" class="iconfont icon-twitter" title="twitter"></a>
         
       
     
@@ -369,11 +398,12 @@
     
       
     
-    
+
     
       <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
     
   </div>
+
 
 
 <div class="copyright">
@@ -392,7 +422,7 @@
      
       2013 - 
     
-    2018
+    2019
 
     <span class="heart">
       <i class="iconfont icon-heart"></i>
@@ -410,6 +440,22 @@
 
     
   
+  <script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://nbma.info/bgp-best-path-selection-algorithm/';
+        this.page.identifier = 'bgp-best-path-selection-algorithm/';
+        this.page.title = 'BGP选路原则验证及分析';
+    };
+    (function() {
+    var d = document, s = d.createElement('script');
+
+    s.src = '//nbma.disqus.com/embed.js';
+
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();  
+  </script>
+
   
 
   
@@ -417,12 +463,19 @@
 
 
     
+  
+
+
+
+  
+  
+
 
 
 
 
   
-    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
   
 
   
@@ -430,10 +483,19 @@
   
 
   
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
 
 
-    <script type="text/javascript" src="/js/src/even.js?v=2.6.0"></script>
-<script type="text/javascript" src="/js/src/bootstrap.js?v=2.6.0"></script>
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
 
   </body>
 </html>

@@ -30,14 +30,14 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/packet-tracer-acl/</loc>
+    <loc>http://nbma.info/oxidized-update/</loc>
     
     <lastmod>2022-12-23</lastmod>
     
   </url>
   
   <url>
-    <loc>http://nbma.info/oxidized-update/</loc>
+    <loc>http://nbma.info/packet-tracer-acl/</loc>
     
     <lastmod>2022-12-23</lastmod>
     
@@ -114,14 +114,14 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/asa-tcp-traffic-back/</loc>
+    <loc>http://nbma.info/ansible-manage-router/</loc>
     
     <lastmod>2022-12-23</lastmod>
     
   </url>
   
   <url>
-    <loc>http://nbma.info/ansible-manage-router/</loc>
+    <loc>http://nbma.info/asa-tcp-traffic-back/</loc>
     
     <lastmod>2022-12-23</lastmod>
     
@@ -219,14 +219,14 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/packet-tracer-hsrp/</loc>
+    <loc>http://nbma.info/ping-switch-svi-delay/</loc>
     
     <lastmod>2019-01-12</lastmod>
     
   </url>
   
   <url>
-    <loc>http://nbma.info/ping-switch-svi-delay/</loc>
+    <loc>http://nbma.info/packet-tracer-hsrp/</loc>
     
     <lastmod>2019-01-12</lastmod>
     
@@ -296,14 +296,14 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/getvpn/</loc>
+    <loc>http://nbma.info/ezvpn-base/</loc>
     
     <lastmod>2019-01-12</lastmod>
     
   </url>
   
   <url>
-    <loc>http://nbma.info/ezvpn-base/</loc>
+    <loc>http://nbma.info/getvpn/</loc>
     
     <lastmod>2019-01-12</lastmod>
     
@@ -366,14 +366,14 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/centos-mount-nfs/</loc>
+    <loc>http://nbma.info/centos-dns-unresolution/</loc>
     
     <lastmod>2019-01-12</lastmod>
     
   </url>
   
   <url>
-    <loc>http://nbma.info/centos-dns-unresolution/</loc>
+    <loc>http://nbma.info/centos-mount-nfs/</loc>
     
     <lastmod>2019-01-12</lastmod>
     
@@ -452,14 +452,14 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/tags/monitor/</loc>
+    <loc>http://nbma.info/tags/ansible/</loc>
     <lastmod>2023-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://nbma.info/tags/zabbix/</loc>
+    <loc>http://nbma.info/tags/monitor/</loc>
     <lastmod>2023-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -473,7 +473,7 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/tags/bgp/</loc>
+    <loc>http://nbma.info/tags/zabbix/</loc>
     <lastmod>2023-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -501,7 +501,7 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/tags/ansible/</loc>
+    <loc>http://nbma.info/tags/bgp/</loc>
     <lastmod>2023-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -529,13 +529,6 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/tags/docker/</loc>
-    <lastmod>2023-01-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://nbma.info/tags/GETVPN/</loc>
     <lastmod>2023-01-03</lastmod>
     <changefreq>daily</changefreq>
@@ -543,7 +536,7 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/tags/https/</loc>
+    <loc>http://nbma.info/tags/docker/</loc>
     <lastmod>2023-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -557,7 +550,21 @@
   </url>
   
   <url>
+    <loc>http://nbma.info/tags/https/</loc>
+    <lastmod>2023-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://nbma.info/tags/SLA/</loc>
+    <lastmod>2023-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nbma.info/tags/nginx/</loc>
     <lastmod>2023-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -571,7 +578,7 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/tags/nginx/</loc>
+    <loc>http://nbma.info/tags/mysql/</loc>
     <lastmod>2023-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -592,13 +599,6 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/tags/mysql/</loc>
-    <lastmod>2023-01-03</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://nbma.info/tags/cisco/</loc>
     <lastmod>2023-01-03</lastmod>
     <changefreq>daily</changefreq>
@@ -606,14 +606,14 @@
   </url>
   
   <url>
-    <loc>http://nbma.info/tags/snmp/</loc>
+    <loc>http://nbma.info/tags/QoS/</loc>
     <lastmod>2023-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://nbma.info/tags/QoS/</loc>
+    <loc>http://nbma.info/tags/snmp/</loc>
     <lastmod>2023-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

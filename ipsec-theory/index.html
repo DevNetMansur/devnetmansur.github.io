@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,52 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="ipsec协商过程分析"/>
-
-
-
-
-  <meta name="keywords" content="网络, cisco, ipsec, NBMA" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="NBMA">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
-
-
-
+<meta name="description" content="ipsec协商过程分析"/><meta name="keywords" content="network, ipsec, NBMA" /><link rel="alternate" href="/atom.xml" title="NBMA" type="application/atom+xml"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.1" />
 <link rel="canonical" href="http://nbma.info/ipsec-theory/"/>
 
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
-
-
-
-  
-
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.1" />
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126503503-1"></script>
@@ -70,37 +27,12 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-126503503-1');
+</script><script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
-
-  <script id="baidu_push">
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-
-
-
-
-
-
-<script>
-  window.config = {"title":"NBMA","subtitle":"学习 记录 分享","description":"重建了很多次的blog","author":"Mansur","language":"zh-CN","timezone":"Asia/Shanghai","url":"http://nbma.info","root":"/","permalink":":title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":0,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repository":"git@github.com:MansurX/mansurx.github.io.git","branch":"master"},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"jsonContent":{"meta":true,"keywords":false,"dateFormat":"undefined","pages":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false},"posts":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false,"categories":true,"tags":true}},"archive_generator":{"per_page":0,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":0},"feed":{"type":"atom","limit":20,"hub":"","content":true,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"sitemap":{"path":"sitemap.xml"},"tag_generator":{"per_page":0},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2013,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags"},"color":"Mint Green","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.zh\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":true,"qrCode":{"wechat":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg","alipay":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg"}},"social":{"email":"i@nbma.info","stack-overflow":null,"twitter":"https://twitter.com/iam__Peter","facebook":null,"linkedin":null,"google":null,"github":null,"weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-126503503-1","google_verification":null,"disqus_shortname":"nbma","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
-</script>
-
-    <title> ipsec协商过程分析 - NBMA </title>
-  </head>
+    <title>ipsec协商过程分析 - NBMA</title>
+  <meta name="generator" content="Hexo 5.4.0"></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
@@ -114,123 +46,79 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            Home
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            Archives
-          
-        </li>
-      </a>
-    
-      <a href="/tags">
-        <li class="mobile-menu-item">
-          
-          
-            Tags
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
 </nav>
-
-    <div class="container" id="mobile-panel">
+<div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">NBMA</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              Home
-            
-          </a>
+            首页
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              Archives
-            
-          </a>
+            归档
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags">
-            
-            
-              Tags
-            
-          </a>
+            标签
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
-
-      </header>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          ipsec协商过程分析
-        
-      </h1>
+      <h1 class="post-title">ipsec协商过程分析
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2018-04-21
-        </span>
-        
-        
-      </div>
+        </span><span class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/">技术笔记</a>
+            </span>
+        </div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ikev1协商过程"><span class="toc-text">ikev1协商过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一阶段第1-2包"><span class="toc-text">第一阶段第1-2包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第一阶段第3-4包"><span class="toc-text">第一阶段第3-4包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第一阶段第5-6包"><span class="toc-text">第一阶段第5-6包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二阶段第1-2包"><span class="toc-text">第二阶段第1-2包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二阶段第3个包"><span class="toc-text">第二阶段第3个包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ikev2协商过程"><span class="toc-text">ikev2协商过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一阶段第1-2包-1"><span class="toc-text">第一阶段第1-2包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二阶段第3-4包"><span class="toc-text">第二阶段第3-4包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ikev1的esp数据包结构"><span class="toc-text">ikev1的esp数据包结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#esp的加密位置"><span class="toc-text">esp的加密位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GRE头部的位置"><span class="toc-text">GRE头部的位置</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ikev1%E5%8D%8F%E5%95%86%E8%BF%87%E7%A8%8B"><span class="toc-text">ikev1协商过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%E7%AC%AC1-2%E5%8C%85"><span class="toc-text">第一阶段第1-2包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%E7%AC%AC3-4%E5%8C%85"><span class="toc-text">第一阶段第3-4包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%E7%AC%AC5-6%E5%8C%85"><span class="toc-text">第一阶段第5-6包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%E7%AC%AC1-2%E5%8C%85"><span class="toc-text">第二阶段第1-2包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%E7%AC%AC3%E4%B8%AA%E5%8C%85"><span class="toc-text">第二阶段第3个包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ikev2%E5%8D%8F%E5%95%86%E8%BF%87%E7%A8%8B"><span class="toc-text">ikev2协商过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%E7%AC%AC1-2%E5%8C%85-1"><span class="toc-text">第一阶段第1-2包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%E7%AC%AC3-4%E5%8C%85"><span class="toc-text">第二阶段第3-4包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ikev1%E7%9A%84esp%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84"><span class="toc-text">ikev1的esp数据包结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#esp%E7%9A%84%E5%8A%A0%E5%AF%86%E4%BD%8D%E7%BD%AE"><span class="toc-text">esp的加密位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GRE%E5%A4%B4%E9%83%A8%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="toc-text">GRE头部的位置</span></a></li></ol></li></ol>
     </div>
-  </div>
+  </div><div class="post-content"><p>ipsec vpn，刚学完的时候以为自己掌握的还挺好的，各种排错无压力。去年到电信面试，连基本过程都说不清楚了，就记得是非对称加密协商对称加密的算法和密钥。说了一句跟HTTPS原理差不多……欸。趁着周末闲了赶紧再补补。</p>
+<span id="more"></span>
 
-
-
-    <div class="post-content">
-      
-        <p>ipsec vpn，刚学完的时候以为自己掌握的还挺好的，各种排错无压力。去年到电信面试，连基本过程都说不清楚了，就记得是非对称加密协商对称加密的算法和密钥。说了一句跟HTTPS原理差不多……欸。趁着周末闲了赶紧再补补。<br><a id="more"></a></p>
 <p>重新梳理了以前掌握的不清楚的几个概念，新学习了ikev2的原理和原理，放一起对比下<br>常说的ipsec第一阶段协商的6个包或者总共9个包指的是ikev1的主模式。<br><strong>ikev1</strong>（即isakmp）<br>第一阶段： isakmp sa<br>主动模式：使用预共享密钥的远程拨号VPN（即思科私有的EZVPN），第一阶段只有3个包<br>主模式：第一阶段6个包<br>第二阶段： ipsec sa<br>快速模式：3个包</p>
 <p>ikev1的ipsec协商总共9个包，在没有nat穿越的情况下，这9个包的源目端口都是<code>UDP 500</code>，使用<code>isakmp</code>封装。<br>9个包之后加密<code>ESP</code>封装。</p>
 <p><strong>ikev2</strong><br>第一阶段：ike_sa_init（2个包）<br>第二阶段：ike_auth（2个包）</p>
 <p>同样，这4个包的源目端口都是<code>UDP 500</code>，使用<code>isakmp</code>封装。<br>4个包之后加密<code>ESP</code>封装。</p>
 <p><strong>SA和SPI</strong>：安全关联，分为ike sa和ipsec sa，包含封装方式，验证算法，加密算法，预共享密钥等<br>IKE sa:双向的，一致，默认有效期一天<br>IPSec sa:单向的，A-&gt;B，B-&gt;A，默认有效期一小时<br>SPI: 一串hash值，32bit，唯一标识一组sa，通常写作8位16进制</p>
 <p><strong>PFS</strong>: 完美向前保密，思科默认情况下面没有启用，ipsec sa的一个过期之后，重新生成的新KEY是有上一个key演算得到，开启PFS后，将重新交换DH协商新的密钥</p>
-<h2 id="ikev1协商过程"><a href="#ikev1协商过程" class="headerlink" title="ikev1协商过程"></a>ikev1协商过程</h2><p><img src="https://ww1.sinaimg.cn/large/68e0aeafly1fqkfo6qgkej20o90bg0t8.jpg" alt=""></p>
+<h2 id="ikev1协商过程"><a href="#ikev1协商过程" class="headerlink" title="ikev1协商过程"></a>ikev1协商过程</h2><p><img src="/img/68e0aeafly1fqkfo6qgkej20o90bg0t8.jpg"></p>
 <h3 id="第一阶段第1-2包"><a href="#第一阶段第1-2包" class="headerlink" title="第一阶段第1-2包"></a>第一阶段第1-2包</h3><p>协商对ike过程的加密策略，发起方A发送自己的支持ike policy，B选择一组自己支持的policy发送给A</p>
 <h3 id="第一阶段第3-4包"><a href="#第一阶段第3-4包" class="headerlink" title="第一阶段第3-4包"></a>第一阶段第3-4包</h3><p>使用1-2的DH强度，交互DH。这个阶段用于生成非对称加密算法（由1-2阶段协商）的三对密钥</p>
 <h3 id="第一阶段第5-6包"><a href="#第一阶段第5-6包" class="headerlink" title="第一阶段第5-6包"></a>第一阶段第5-6包</h3><p>认证，使用3-4形成的第一把密钥，加密内容是预共享密钥，用于验证双方身份，使用第二把密钥做完整性校验，形成IKE SA</p>
@@ -239,203 +127,93 @@
 <blockquote>
 <p>A出方向的SPI=B入方向的SPI，A入方向的SPI=B出方向的SPI</p>
 </blockquote>
-<p><img src="https://ww1.sinaimg.cn/large/68e0aeafly1fqkmt3p5n0j20g306qdgj.jpg" alt=""><br>最终，对感兴趣流<br>使用第三把密钥对数据进行加密，使用第二阶段1-2协商的加密策略 </p>
+<p><img src="/img/68e0aeafly1fqkmt3p5n0j20g306qdgj.jpg"><br>最终，对感兴趣流<br>使用第三把密钥对数据进行加密，使用第二阶段1-2协商的加密策略 </p>
 <h2 id="ikev2协商过程"><a href="#ikev2协商过程" class="headerlink" title="ikev2协商过程"></a>ikev2协商过程</h2><h3 id="第一阶段第1-2包-1"><a href="#第一阶段第1-2包-1" class="headerlink" title="第一阶段第1-2包"></a>第一阶段第1-2包</h3><p>相当于ikev1第一阶段的1-4</p>
-<h3 id="第二阶段第3-4包"><a href="#第二阶段第3-4包" class="headerlink" title="第二阶段第3-4包"></a>第二阶段第3-4包</h3><p>相当于ikev1第一阶段的5-6和第二阶段的1-3<br><img src="https://ws1.sinaimg.cn/mw690/68e0aeafly1fqx6dtazw6j213a0s2dqn.jpg" alt=""><br><em>图中cisco FlexVPN即思科的ikev2 vpn</em></p>
+<h3 id="第二阶段第3-4包"><a href="#第二阶段第3-4包" class="headerlink" title="第二阶段第3-4包"></a>第二阶段第3-4包</h3><p>相当于ikev1第一阶段的5-6和第二阶段的1-3<br><img src="/img/68e0aeafly1fqx6dtazw6j213a0s2dqn.jpg"><br><em>图中cisco FlexVPN即思科的ikev2 vpn</em></p>
 <h2 id="ikev1的esp数据包结构"><a href="#ikev1的esp数据包结构" class="headerlink" title="ikev1的esp数据包结构"></a>ikev1的esp数据包结构</h2><h3 id="esp的加密位置"><a href="#esp的加密位置" class="headerlink" title="esp的加密位置"></a>esp的加密位置</h3><p>1、<strong>传输模式</strong>：通讯点和加密点一致<br>这种模式下ESP报头在ip 头部之内，对四层以内的报头和数据进行加密<br>2、<strong>隧道模式</strong>：通讯点和加密点不一致<br>ESP直接将原来三层以内的报文全部加密，重新生成新的ip头部</p>
 <p>这两种模式相比，transform模式数据比原数据包只多了一个esp头部，包长度有优势，传输效率高；tunnel模式在处理数据的时候不要拆开IP头部，直接加密，更快。</p>
 <p>这部分由于ESP之后的部分全是加密的，所以只能通过数据包大小来对比.需要真机实现，等有机会了再做，<del>模拟器只能为transport，设置tunnel无效</del></p>
-<h3 id="GRE头部的位置"><a href="#GRE头部的位置" class="headerlink" title="GRE头部的位置"></a>GRE头部的位置</h3><p>我是按照这个拓扑做的测试对比，主要看包接口和后续ESP数据包的大小<br><img src="https://ww1.sinaimg.cn/large/68e0aeafly1fqlbwebtrgj20mq04tt93.jpg" alt=""><br>从思科设备发起的ping默认大小是14+28+72=<code>114</code>Bytes.<br>GRE头部大小是<code>24</code>Bytes</p>
-<p><strong>基于感兴趣流的IPSEC</strong><br><img src="https://ww1.sinaimg.cn/large/68e0aeafly1fqlc2kpwkjj20my09ggm5.jpg" alt=""></p>
-<p><strong>GRE over IPSec</strong><br><img src="https://ww1.sinaimg.cn/large/68e0aeafly1fqlc30h42pj20mq09cmxp.jpg" alt=""></p>
-<p><strong>思科的IPSec over GRE</strong><br>至于为什么会有这个，我看能百度搜到的华为设备全是按照这种方式配置的，蛋疼。<br><img src="https://ww1.sinaimg.cn/large/68e0aeafly1fqlc37bsqcj20mo0afmxr.jpg" alt=""></p>
-<p><strong>思科的SVTI技术</strong><br>tunnel模式设置为<code>tunnel mode ipsec ipv4</code>，其他配置和GRE over IPSec完全一样<br><img src="https://ww1.sinaimg.cn/large/68e0aeafly1fqlc2rs3fsj20mp09ejrx.jpg" alt=""></p>
+<h3 id="GRE头部的位置"><a href="#GRE头部的位置" class="headerlink" title="GRE头部的位置"></a>GRE头部的位置</h3><p>我是按照这个拓扑做的测试对比，主要看包接口和后续ESP数据包的大小<br><img src="/img/68e0aeafly1fqlbwebtrgj20mq04tt93.jpg"><br>从思科设备发起的ping默认大小是14+28+72=<code>114</code>Bytes.<br>GRE头部大小是<code>24</code>Bytes</p>
+<p><strong>基于感兴趣流的IPSEC</strong><br><img src="/img/68e0aeafly1fqlc2kpwkjj20my09ggm5.jpg"></p>
+<p><strong>GRE over IPSec</strong><br><img src="/img/68e0aeafly1fqlc30h42pj20mq09cmxp.jpg"></p>
+<p><strong>思科的IPSec over GRE</strong><br>至于为什么会有这个，我看能百度搜到的华为设备全是按照这种方式配置的，蛋疼。<br><img src="/img/68e0aeafly1fqlc37bsqcj20mo0afmxr.jpg"></p>
+<p><strong>思科的SVTI技术</strong><br>tunnel模式设置为<code>tunnel mode ipsec ipv4</code>，其他配置和GRE over IPSec完全一样<br><img src="/img/68e0aeafly1fqlc2rs3fsj20mp09ejrx.jpg"></p>
 <p>思科的SVTI技术确实厉害~</p>
 
-      
-    </div>
-
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
-      <span>Author: </span>
+      <span>原文作者: </span>
       <a href="http://nbma.info">Mansur</a>
     </p>
     <p class="copyright-item">
-      <span>Link: </span>
+      <span>原文链接: </span>
       <a href="http://nbma.info/ipsec-theory/">http://nbma.info/ipsec-theory/</a>
     </p>
     <p class="copyright-item">
-      <span>License: </span>
-      
-      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>许可协议: </span>除特别声明外，本站文章均采用<a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">CC BY-NC 4.0</a>许可协议，转载请注明出处。
     </p>
   </div>
-
-
-
-      
-      
-  <div class="post-reward">
+      <div class="post-reward">
     <input type="checkbox" name="reward" id="reward" hidden />
-    <label class="reward-button" for="reward">Reward</label>
-    <div class="qr-code">
-      
-      
-        <label class="qr-code-image" for="reward">
-          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg" title="wechat">
+    <label class="reward-button" for="reward">赞赏支持</label>
+    <div class="qr-code"><label class="qr-code-image" for="reward">
+          <img class="image" src="/img/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg" title="wechat">
         </label>
-      
-      
-        <label class="qr-code-image" for="reward">
-          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg" title="alipay">
+      <label class="qr-code-image" for="reward">
+          <img class="image" src="/img/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg" title="alipay">
         </label>
-      
-    </div>
-  </div>
-
-    
-
-    
-      <footer class="post-footer">
+      </div>
+  </div><footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/network/">network</a>
+            <a href="/tags/ipsec/">ipsec</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/网络/">网络</a>
-            
-              <a href="/tags/cisco/">cisco</a>
-            
-              <a href="/tags/ipsec/">ipsec</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/ipsec-ikev2-config/">
+        <nav class="post-nav"><a class="prev" href="/ipsec-ikev2-config/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">使用ikev2配置IPSecVPN(思科IOS/ASA)</span>
-        <span class="prev-text nav-mobile">Prev</span>
+        <span class="prev-text nav-mobile">上一篇</span>
       </a>
-    
-    
-      <a class="next" href="/nginx-deploy-https/">
+    <a class="next" href="/nginx-deploy-https/">
         <span class="next-text nav-default">在nginx部署https</span>
-        <span class="prev-text nav-mobile">Next</span>
+        <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+          <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
         </noscript>
       </div>
-    
-  </div>
-
-
-        </div>
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
-    
-      
-        
-          <a href="mailto:i@nbma.info" class="iconfont icon-email" title="email"></a>
-        
-      
-    
-      
-    
-      
-        
-          <a href="https://twitter.com/iam__Peter" class="iconfont icon-twitter" title="twitter"></a>
-        
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:i@nbma.info" class="iconfont icon-email" title="email"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    由 <a class="hexo-link" target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> 强力驱动
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    主题 - 
+    <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/ahonn/hexo-theme-even">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2013 - 
-    
-    2019
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2013 - 2023<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Mansur</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div>
-
-    
-  
-  <script type="text/javascript">
+    </div><script type="text/javascript">
     var disqus_config = function () {
         this.page.url = 'http://nbma.info/ipsec-theory/';
         this.page.identifier = 'ipsec-theory/';
@@ -449,48 +227,9 @@
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
     })();  
-  </script>
-
-  
-
-  
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
-
-  </body>
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.1"></script>
+<!-- hexo injector body_end start --><script src="/js/post_date.js"></script><!-- hexo injector body_end end --></body>
 </html>

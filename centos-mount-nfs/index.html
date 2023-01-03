@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,52 +13,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="在CentOS7上开启和挂载NFS共享"/>
-
-
-
-
-  <meta name="keywords" content="centos, 系统, NBMA" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="NBMA">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.1" />
-
-
-
+<meta name="description" content="在CentOS7上开启和挂载NFS共享"/><meta name="keywords" content="centos, nfs, NBMA" /><link rel="alternate" href="/atom.xml" title="NBMA" type="application/atom+xml"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.11.1" />
 <link rel="canonical" href="http://nbma.info/centos-mount-nfs/"/>
 
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.1" />
-
-
-
-  
-
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.1" />
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126503503-1"></script>
@@ -70,37 +27,12 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-126503503-1');
+</script><script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
-
-  <script id="baidu_push">
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
-
-
-
-
-
-
-
-<script>
-  window.config = {"title":"NBMA","subtitle":"学习 记录 分享","description":"重建了很多次的blog","author":"Mansur","language":"zh-CN","timezone":"Asia/Shanghai","url":"http://nbma.info","root":"/","permalink":":title/","permalink_defaults":null,"source_dir":"source","public_dir":"public","tag_dir":"tags","archive_dir":"archives","category_dir":"categories","code_dir":"downloads/code","i18n_dir":":lang","skip_render":null,"new_post_name":":title.md","default_layout":"post","titlecase":false,"external_link":true,"filename_case":0,"render_drafts":false,"post_asset_folder":false,"relative_link":false,"future":true,"highlight":{"enable":true,"auto_detect":false,"line_number":true,"tab_replace":null,"first_line_number":"always1"},"default_category":"uncategorized","category_map":null,"tag_map":null,"date_format":"YYYY-MM-DD","time_format":"HH:mm:ss","per_page":0,"pagination_dir":"page","theme":"even","deploy":{"type":"git","repository":"git@github.com:MansurX/mansurx.github.io.git","branch":"master"},"ignore":[],"index_generator":{"per_page":10,"order_by":"-date","path":""},"jsonContent":{"meta":true,"keywords":false,"dateFormat":"undefined","pages":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false},"posts":{"title":true,"slug":true,"date":true,"updated":true,"comments":true,"path":true,"link":true,"permalink":true,"excerpt":true,"keywords":true,"text":true,"raw":false,"content":false,"categories":true,"tags":true}},"archive_generator":{"per_page":0,"yearly":true,"monthly":true,"daily":false},"category_generator":{"per_page":0},"feed":{"type":"atom","limit":20,"hub":"","content":true,"content_limit":140,"content_limit_delim":"","path":"atom.xml"},"sitemap":{"path":"sitemap.xml"},"tag_generator":{"per_page":0},"marked":{"gfm":true,"pedantic":false,"sanitize":false,"tables":true,"breaks":true,"smartLists":true,"smartypants":true,"modifyAnchors":"","autolink":true},"server":{"port":4000,"log":false,"ip":"0.0.0.0","compress":false,"header":true},"since":2013,"favicon":"/favicon.ico","rss":"default","menu":{"Home":"/","Archives":"/archives/","Tags":"/tags"},"color":"Mint Green","mode":"default","toc":true,"fancybox":true,"pjax":true,"copyright":{"enable":true,"license":"<a rel=\"license\" href=\"https://creativecommons.org/licenses/by-nc/4.0/deed.zh\" target=\"_blank\">知识共享署名-非商业性使用 4.0 国际许可协议</a>"},"reward":{"enable":true,"qrCode":{"wechat":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg","alipay":"https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg"}},"social":{"email":"i@nbma.info","stack-overflow":null,"twitter":"https://twitter.com/iam__Peter","facebook":null,"linkedin":null,"google":null,"github":null,"weibo":null,"zhihu":null,"douban":null,"pocket":null,"tumblr":null,"instagram":null},"leancloud":{"app_id":null,"app_key":null},"baidu_analytics":null,"baidu_verification":null,"google_analytics":"UA-126503503-1","google_verification":null,"disqus_shortname":"nbma","changyan":{"appid":null,"appkey":null},"livere_datauid":null,"version":"2.10.1"};
-</script>
-
-    <title> 在CentOS7上开启和挂载NFS共享 - NBMA </title>
-  </head>
+    <title>在CentOS7上开启和挂载NFS共享 - NBMA</title>
+  <meta name="generator" content="Hexo 5.4.0"></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
@@ -114,308 +46,161 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            Home
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            Archives
-          
-        </li>
-      </a>
-    
-      <a href="/tags">
-        <li class="mobile-menu-item">
-          
-          
-            Tags
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">首页
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">归档
+          </li>
+      </a><a href="/tags">
+        <li class="mobile-menu-item">标签
+          </li>
+      </a><a href="/about">
+        <li class="mobile-menu-item">关于
+          </li>
+      </a></ul>
 </nav>
-
-    <div class="container" id="mobile-panel">
+<div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">NBMA</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              Home
-            
-          </a>
+            首页
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              Archives
-            
-          </a>
+            归档
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags">
-            
-            
-              Tags
-            
-          </a>
+            标签
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
-
-      </header>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about">
+            关于
+            </a>
+        </li>
+      </ul></nav>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          在CentOS7上开启和挂载NFS共享
-        
-      </h1>
+      <h1 class="post-title">在CentOS7上开启和挂载NFS共享
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2018-06-26
-        </span>
-        
-        
-      </div>
+        </span><span class="post-category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/">技术笔记</a>
+            </span>
+        </div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
-    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#服务端"><span class="toc-text">服务端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端"><span class="toc-text">客户端</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-text">服务端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">客户端</span></a></li></ol>
     </div>
-  </div>
-
-
-
-    <div class="post-content">
-      
-        <p>在CentOS7上开启和挂载NFS共享</p>
-<p>NFS：Network File System 网络文件系统，可以让电脑在本地直接管理远端的硬盘。依赖RPC.<br>RPC：Remote Procedure Call 远程过程调用，计算机通信协议。该协议允许运行于一台计算机的程序调用另一台计算机的子程序，而程序员无需额外地为这个交互作用编程。<br><a id="more"></a></p>
+  </div><div class="post-content"><p>在CentOS7上开启和挂载NFS共享</p>
+<p>NFS：Network File System 网络文件系统，可以让电脑在本地直接管理远端的硬盘。依赖RPC.<br>RPC：Remote Procedure Call 远程过程调用，计算机通信协议。该协议允许运行于一台计算机的程序调用另一台计算机的子程序，而程序员无需额外地为这个交互作用编程。</p>
+<span id="more"></span>
 <h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><p>关闭防火墙和selinux</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装nfs和rpc</span></span><br><span class="line">yum install -y rpc-bind nfs-utils</span><br><span class="line"></span><br><span class="line"><span class="comment">#配置要共享的目录</span></span><br><span class="line">cat /etc/exports</span><br><span class="line">/share (rw,no_root_squash)</span><br><span class="line"></span><br><span class="line"><span class="comment">#启动nfs和rpcbind</span></span><br><span class="line">systemctl start nfs</span><br><span class="line">systemctl start rpcbind</span><br></pre></td></tr></table></figure>
-<p><code>exports</code>的文件格式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;输出目录&gt; 客户端（选项:访问权限,用户映射,其他]</span><br><span class="line"> </span><br><span class="line">输出目录是指NFS系统中所定义的共享给客户端使用的文件系统</span><br><span class="line"></span><br><span class="line">客户端是定义网络中可以访问这个NFS共享目录的IP地址或网段或域名等</span><br><span class="line">	客户端常用的指定方式</span><br><span class="line">       指定ip地址的主机：192.168.100.1</span><br><span class="line">       指定一个子网：192.168.100.0/24 也可以写成:192.168.100.0/255.255.255.0</span><br><span class="line">       指定域名的主机：david.bsmart.cn</span><br><span class="line">       指定域中的所有主机：*.bsmart.cn</span><br><span class="line">       所有主机：*</span><br><span class="line"></span><br><span class="line">选项用来设置输出目录的访问权限、用户映射等。</span><br><span class="line">    NFS主要有3类选项：</span><br><span class="line">        设置输出目录只读：ro</span><br><span class="line">        设置输出目录读写：rw</span><br><span class="line">    用户映射选项</span><br><span class="line">        all_squash：将远程访问的所有普通用户及所属组都映射为匿名用户或用户组（nfsnobody）；</span><br><span class="line">		no_all_squash：与all_squash取反（默认设置）；</span><br><span class="line">		root_squash：将root用户及所属组都映射为匿名用户或用户组（默认设置）；</span><br><span class="line">		no_root_squash：与rootsquash取反；</span><br><span class="line">		anonuid=xxx：将远程访问的所有用户都映射为匿名用户，并指定该用户为本地用户（UID=xxx）；</span><br><span class="line">		anongid=xxx：将远程访问的所有用户组都映射为匿名用户组账户，并指定该匿名用户组账户为本地用户组账户（GID=xxx）；</span><br><span class="line">    其它选项</span><br><span class="line">        secure：限制客户端只能从小于1024的tcp/ip端口连接nfs服务器（默认设置）；</span><br><span class="line">		insecure：允许客户端从大于1024的tcp/ip端口连接服务器；</span><br><span class="line">		sync：将数据同步写入内存缓冲区与磁盘中，效率低，但可以保证数据的一致性；</span><br><span class="line">		async：将数据先保存在内存缓冲区中，必要时才写入磁盘；</span><br><span class="line">		wdelay：检查是否有相关的写操作，如果有则将这些写操作一起执行，这样可以提高效率（默认设置）；</span><br><span class="line">		no_wdelay：若有写操作则立即执行，应与sync配合使用；</span><br><span class="line">		subtree：若输出目录是一个子目录，则nfs服务器将检查其父目录的权限(默认设置)；</span><br><span class="line">		no_subtree：即使输出目录是一个子目录，nfs服务器也不检查其父目录的权限，这样可以提高效率；</span><br></pre></td></tr></table></figure></p>
+
+<p><code>exports</code>的文件格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;输出目录&gt; 客户端（选项:访问权限,用户映射,其他]</span><br><span class="line"> </span><br><span class="line">输出目录是指NFS系统中所定义的共享给客户端使用的文件系统</span><br><span class="line"></span><br><span class="line">客户端是定义网络中可以访问这个NFS共享目录的IP地址或网段或域名等</span><br><span class="line">	客户端常用的指定方式</span><br><span class="line">       指定ip地址的主机：192.168.100.1</span><br><span class="line">       指定一个子网：192.168.100.0&#x2F;24 也可以写成:192.168.100.0&#x2F;255.255.255.0</span><br><span class="line">       指定域名的主机：david.bsmart.cn</span><br><span class="line">       指定域中的所有主机：*.bsmart.cn</span><br><span class="line">       所有主机：*</span><br><span class="line"></span><br><span class="line">选项用来设置输出目录的访问权限、用户映射等。</span><br><span class="line">    NFS主要有3类选项：</span><br><span class="line">        设置输出目录只读：ro</span><br><span class="line">        设置输出目录读写：rw</span><br><span class="line">    用户映射选项</span><br><span class="line">        all_squash：将远程访问的所有普通用户及所属组都映射为匿名用户或用户组（nfsnobody）；</span><br><span class="line">		no_all_squash：与all_squash取反（默认设置）；</span><br><span class="line">		root_squash：将root用户及所属组都映射为匿名用户或用户组（默认设置）；</span><br><span class="line">		no_root_squash：与rootsquash取反；</span><br><span class="line">		anonuid&#x3D;xxx：将远程访问的所有用户都映射为匿名用户，并指定该用户为本地用户（UID&#x3D;xxx）；</span><br><span class="line">		anongid&#x3D;xxx：将远程访问的所有用户组都映射为匿名用户组账户，并指定该匿名用户组账户为本地用户组账户（GID&#x3D;xxx）；</span><br><span class="line">    其它选项</span><br><span class="line">        secure：限制客户端只能从小于1024的tcp&#x2F;ip端口连接nfs服务器（默认设置）；</span><br><span class="line">		insecure：允许客户端从大于1024的tcp&#x2F;ip端口连接服务器；</span><br><span class="line">		sync：将数据同步写入内存缓冲区与磁盘中，效率低，但可以保证数据的一致性；</span><br><span class="line">		async：将数据先保存在内存缓冲区中，必要时才写入磁盘；</span><br><span class="line">		wdelay：检查是否有相关的写操作，如果有则将这些写操作一起执行，这样可以提高效率（默认设置）；</span><br><span class="line">		no_wdelay：若有写操作则立即执行，应与sync配合使用；</span><br><span class="line">		subtree：若输出目录是一个子目录，则nfs服务器将检查其父目录的权限(默认设置)；</span><br><span class="line">		no_subtree：即使输出目录是一个子目录，nfs服务器也不检查其父目录的权限，这样可以提高效率；</span><br></pre></td></tr></table></figure>
+
 <h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>客户端如果不按照nfs的话默认是识别不了nfs的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7-copy ~]# mount 10.211.55.21:/share /home/media/</span><br><span class="line">mount: 文件系统类型错误、选项错误、10.211.55.21:/share 上有坏超级块、</span><br><span class="line">       缺少代码页或助手程序，或其他错误</span><br><span class="line">       (对某些文件系统(如 nfs、cifs) 您可能需要</span><br><span class="line">       一款 /sbin/mount.&lt;类型&gt; 助手程序)</span><br><span class="line"></span><br><span class="line">       有些情况下在 syslog 中可以找到一些有用信息- 请尝试</span><br><span class="line">       dmesg | tail  这样的命令看看。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7-copy ~]# mount 10.211.55.21:&#x2F;share &#x2F;home&#x2F;media&#x2F;</span><br><span class="line">mount: 文件系统类型错误、选项错误、10.211.55.21:&#x2F;share 上有坏超级块、</span><br><span class="line">       缺少代码页或助手程序，或其他错误</span><br><span class="line">       (对某些文件系统(如 nfs、cifs) 您可能需要</span><br><span class="line">       一款 &#x2F;sbin&#x2F;mount.&lt;类型&gt; 助手程序)</span><br><span class="line"></span><br><span class="line">       有些情况下在 syslog 中可以找到一些有用信息- 请尝试</span><br><span class="line">       dmesg | tail  这样的命令看看。</span><br></pre></td></tr></table></figure>
+
 <p>所以需要先安装<code>yum -y install nfs-utils</code><br>经过测试，并不需要启动服务，装上就行</p>
-<p>挂载测试<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7-copy ~]# mount 10.211.55.21:/share /home/media/</span><br><span class="line">[root@CentOS7-copy ~]# dd if=/dev/zero of=/home/media/file2 bs=1M count=10</span><br><span class="line">记录了10+0 的读入</span><br><span class="line">记录了10+0 的写出</span><br><span class="line">10485760字节(10 MB)已复制，0.0422486 秒，248 MB/秒</span><br><span class="line">[root@CentOS7-copy ~]# ll /home/media/</span><br><span class="line">总用量 20484</span><br><span class="line">-rw-r--r-- 1 root root 10485760 6月  26 14:35 file1</span><br><span class="line">-rw-r--r-- 1 root root 10485760 6月  26 14:42 file2</span><br><span class="line">drwxr-xr-x 2 root root     4096 6月  26 14:33 sixsixsix</span><br></pre></td></tr></table></figure></p>
-<p>参考：<br><a href="https://my.oschina.net/renpingsheng/blog/913643" target="_blank" rel="noopener">在CentOS7上实现NFS共享</a></p>
+<p>挂载测试</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@CentOS7-copy ~]# mount 10.211.55.21:&#x2F;share &#x2F;home&#x2F;media&#x2F;</span><br><span class="line">[root@CentOS7-copy ~]# dd if&#x3D;&#x2F;dev&#x2F;zero of&#x3D;&#x2F;home&#x2F;media&#x2F;file2 bs&#x3D;1M count&#x3D;10</span><br><span class="line">记录了10+0 的读入</span><br><span class="line">记录了10+0 的写出</span><br><span class="line">10485760字节(10 MB)已复制，0.0422486 秒，248 MB&#x2F;秒</span><br><span class="line">[root@CentOS7-copy ~]# ll &#x2F;home&#x2F;media&#x2F;</span><br><span class="line">总用量 20484</span><br><span class="line">-rw-r--r-- 1 root root 10485760 6月  26 14:35 file1</span><br><span class="line">-rw-r--r-- 1 root root 10485760 6月  26 14:42 file2</span><br><span class="line">drwxr-xr-x 2 root root     4096 6月  26 14:33 sixsixsix</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://my.oschina.net/renpingsheng/blog/913643">在CentOS7上实现NFS共享</a></p>
 
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
-      <span>Author: </span>
+      <span>原文作者: </span>
       <a href="http://nbma.info">Mansur</a>
     </p>
     <p class="copyright-item">
-      <span>Link: </span>
+      <span>原文链接: </span>
       <a href="http://nbma.info/centos-mount-nfs/">http://nbma.info/centos-mount-nfs/</a>
     </p>
     <p class="copyright-item">
-      <span>License: </span>
-      
-      <a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>许可协议: </span>除特别声明外，本站文章均采用<a rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh" target="_blank">CC BY-NC 4.0</a>许可协议，转载请注明出处。
     </p>
   </div>
-
-
-
-      
-      
-  <div class="post-reward">
+      <div class="post-reward">
     <input type="checkbox" name="reward" id="reward" hidden />
-    <label class="reward-button" for="reward">Reward</label>
-    <div class="qr-code">
-      
-      
-        <label class="qr-code-image" for="reward">
-          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg" title="wechat">
+    <label class="reward-button" for="reward">赞赏支持</label>
+    <div class="qr-code"><label class="qr-code-image" for="reward">
+          <img class="image" src="/img/68e0aeafly1frp3nwyrulj20jq0jqwh1.jpg" title="wechat">
         </label>
-      
-      
-        <label class="qr-code-image" for="reward">
-          <img class="image" src="https://ws1.sinaimg.cn/large/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg" title="alipay">
+      <label class="qr-code-image" for="reward">
+          <img class="image" src="/img/68e0aeafly1frp3nsphm6j20jq0jqacp.jpg" title="alipay">
         </label>
-      
-    </div>
-  </div>
-
-    
-
-    
-      <footer class="post-footer">
+      </div>
+  </div><footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/centos/">centos</a>
+            <a href="/tags/nfs/">nfs</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/centos/">centos</a>
-            
-              <a href="/tags/系统/">系统</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/mysql-xtrabackup/">
+        <nav class="post-nav"><a class="prev" href="/mysql-xtrabackup/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">使用xtrabackup备份还原mysql</span>
-        <span class="prev-text nav-mobile">Prev</span>
+        <span class="prev-text nav-mobile">上一篇</span>
       </a>
-    
-    
-      <a class="next" href="/asa-vpn-policy-proc/">
+    <a class="next" href="/asa-vpn-policy-proc/">
         <span class="next-text nav-default">ASA对VPN策略的处理过程</span>
-        <span class="prev-text nav-mobile">Next</span>
+        <span class="prev-text nav-mobile">下一篇</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="disqus_thread">
         <noscript>
           Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+          <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
         </noscript>
       </div>
-    
-  </div>
-
-
-        </div>
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
-    
-      
-        
-          <a href="mailto:i@nbma.info" class="iconfont icon-email" title="email"></a>
-        
-      
-    
-      
-    
-      
-        
-          <a href="https://twitter.com/iam__Peter" class="iconfont icon-twitter" title="twitter"></a>
-        
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:i@nbma.info" class="iconfont icon-email" title="email"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    由 <a class="hexo-link" target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> 强力驱动
   </span>
   <span class="division">|</span>
   <span class="theme-info">
-    Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    主题 - 
+    <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/ahonn/hexo-theme-even">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2013 - 
-    
-    2019
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2013 - 2023<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">Mansur</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
-    </div>
-
-    
-  
-  <script type="text/javascript">
+    </div><script type="text/javascript">
     var disqus_config = function () {
         this.page.url = 'http://nbma.info/centos-mount-nfs/';
         this.page.identifier = 'centos-mount-nfs/';
@@ -429,48 +214,9 @@
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
     })();  
-  </script>
-
-  
-
-  
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.1"></script>
-
-  </body>
+  </script><script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.1"></script>
+<!-- hexo injector body_end start --><script src="/js/post_date.js"></script><!-- hexo injector body_end end --></body>
 </html>
